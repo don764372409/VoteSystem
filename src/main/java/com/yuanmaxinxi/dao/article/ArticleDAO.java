@@ -1,14 +1,11 @@
-package com.yuanmaxinxi.dao;
-
+package com.yuanmaxinxi.dao.article;
+import com.yuanmaxinxi.domain.article.Article;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-
-import com.yuanmaxinxi.domain.Article;
-
 import java.util.List;
 @Mapper
 @Repository
-public interface ArticleMapper{
+public interface ArticleDAO{
 	int insert(Article obj);
 
 	int update(Article obj);
