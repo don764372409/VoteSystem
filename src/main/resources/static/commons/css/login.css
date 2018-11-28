@@ -1,0 +1,29 @@
+.box{
+	width: 400px;
+	background: white;
+	margin: 260px auto 0;
+	padding: 30px 0;
+	border-radius: 5px;
+}
+
+.box .group{
+	margin: 0 auto;
+	width: 300px;
+}
+.box .group input{
+	width: 300px;
+	margin-top: 10px;
+}
+.box .group .code-box{
+	position: relative;
+}
+.box .group .code-box img{
+	width: 100px;	
+	height:39px;
+	position: absolute;
+	right: 0;
+	top:10px;
+	border: 1px solid #dedede;
+	cursor: pointer;
+	border-radius: 0 5px 5px 0;
+}
