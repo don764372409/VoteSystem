@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.domain;
+package com.yuanmaxinxi.domain.articletype;
 public class ArticleType{
 	private Long atid;
 	private String atname;

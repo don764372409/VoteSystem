@@ -1,6 +1,7 @@
-package com.yuanmaxinxi.service;
-import com.yuanmaxinxi.domain.Cvrelation;
-import com.yuanmaxinxi.dao.CvrelationMapper;
+package com.yuanmaxinxi.service.cvrelation;
+import com.yuanmaxinxi.dao.cvrelation.CvrelationDAO;
+import com.yuanmaxinxi.domain.cvrelation.Cvrelation;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +9,7 @@ import java.util.List;
 @Service
 public class CvrelationService{
 	@Autowired
-	private CvrelationMapper cvrelationDAO;
+	private CvrelationDAO cvrelationDAO;
 	@Transactional
 	public int insert(Cvrelation obj){
 		return cvrelationDAO.insert(obj);

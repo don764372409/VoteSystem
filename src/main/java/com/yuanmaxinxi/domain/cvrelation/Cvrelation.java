@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.domain;
+package com.yuanmaxinxi.domain.cvrelation;
 public class Cvrelation{
 	private Long id;
 	private Long vid;

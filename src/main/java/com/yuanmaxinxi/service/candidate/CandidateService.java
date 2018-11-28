@@ -1,6 +1,7 @@
-package com.yuanmaxinxi.service;
-import com.yuanmaxinxi.domain.Candidate;
-import com.yuanmaxinxi.dao.CandidateMapper;
+package com.yuanmaxinxi.service.candidate;
+import com.yuanmaxinxi.dao.candidate.CandidateDAO;
+import com.yuanmaxinxi.domain.candidate.Candidate;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +9,7 @@ import java.util.List;
 @Service
 public class CandidateService{
 	@Autowired
-	private CandidateMapper candidateDAO;
+	private CandidateDAO candidateDAO;
 	@Transactional
 	public int insert(Candidate obj){
 		return candidateDAO.insert(obj);

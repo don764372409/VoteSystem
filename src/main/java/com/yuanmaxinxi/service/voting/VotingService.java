@@ -1,6 +1,7 @@
-package com.yuanmaxinxi.service;
-import com.yuanmaxinxi.domain.Voting;
-import com.yuanmaxinxi.dao.VotingMapper;
+package com.yuanmaxinxi.service.voting;
+import com.yuanmaxinxi.dao.voting.VotingDAO;
+import com.yuanmaxinxi.domain.voting.Voting;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +9,7 @@ import java.util.List;
 @Service
 public class VotingService{
 	@Autowired
-	private VotingMapper votingDAO;
+	private VotingDAO votingDAO;
 	@Transactional
 	public int insert(Voting obj){
 		return votingDAO.insert(obj);

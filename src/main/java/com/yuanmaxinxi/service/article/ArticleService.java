@@ -1,41 +1,39 @@
-package com.yuanmaxinxi.service;
+package com.yuanmaxinxi.service.article;
+import com.yuanmaxinxi.domain.article.Article;
+import com.yuanmaxinxi.dao.article.ArticleDAO;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.yuanmaxinxi.dao.ArticleMapper;
-import com.yuanmaxinxi.domain.Article;
-
 import java.util.List;
 @Service
 public class ArticleService{
 	@Autowired
-	private ArticleMapper articleMapper;
+	private ArticleDAO articleDAO;
 	@Transactional
 	public int insert(Article obj){
-		return articleMapper.insert(obj);
+		return articleDAO.insert(obj);
 	}
 
 
 	@Transactional
 	public int update(Article obj){
-		return articleMapper.update(obj);
+		return articleDAO.update(obj);
 	}
 
 
 	@Transactional
 	public int delete(Long id){
-		return articleMapper.delete(id);
+		return articleDAO.delete(id);
 	}
 
 
 	public Article selectOneById(Long id){
-		return articleMapper.selectOneById(id);
+		return articleDAO.selectOneById(id);
 	}
 
 
 	public List<Article> selectAll(){
-		return articleMapper.selectAll();
+		return articleDAO.selectAll();
 	}
 
 }

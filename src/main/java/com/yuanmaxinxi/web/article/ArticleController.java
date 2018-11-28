@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.web;
+package com.yuanmaxinxi.web.article;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yuanmaxinxi.domain.Article;
-import com.yuanmaxinxi.service.ArticleService;
+import com.yuanmaxinxi.domain.article.Article;
+import com.yuanmaxinxi.service.article.ArticleService;
+
 
 
 @RestController
