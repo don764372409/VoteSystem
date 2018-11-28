@@ -44,13 +44,13 @@
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="username" type="text" placeholder="账户" class="input-text size-L">
+          <input id="" name="username" type="text" value="admin" placeholder="账户" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
+          <input id="" name="password" type="password" value="admin" placeholder="密码" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
@@ -69,6 +69,7 @@
 </div>
 <script type="text/javascript" src="/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="/H-ui/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="/H-ui/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript">
 		if(window.top.location!=location){
 			window.top.location = location;

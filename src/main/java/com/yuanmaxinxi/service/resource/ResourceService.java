@@ -36,4 +36,14 @@ public class ResourceService{
 		return resourceDAO.selectAll();
 	}
 
+	/**
+	 * 获取当前ID对应的具有父子结构的菜单 不要按钮
+	 * @param id
+	 * @return
+	 */
+	public List<Resource> selectAllResourceByType(Long id) {
+		
+		return null;
+	}
+
 }

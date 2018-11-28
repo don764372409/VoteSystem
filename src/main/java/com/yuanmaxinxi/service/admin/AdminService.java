@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yuanmaxinxi.dao.admin.AdminDAO;
 import com.yuanmaxinxi.domain.admin.Admin;
+import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.util.MD5Util;
 @Service
 public class AdminService{
