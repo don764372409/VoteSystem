@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuanmaxinxi.dao.article.articleDAO">
+<mapper namespace="com.yuanmaxinxi.dao.article.ArticleDAO">
 	<resultMap type="article" id="articleResultMap">
 		<id column="atpid" property="atpid"/>
 		<result column="atcontent" property="atcontent"/>
