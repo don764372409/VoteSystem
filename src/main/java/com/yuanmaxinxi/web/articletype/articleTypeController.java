@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.web;
+package com.yuanmaxinxi.web.articletype;
 
 public class articleTypeController {
 

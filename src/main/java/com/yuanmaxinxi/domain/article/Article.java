@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.domain;
+package com.yuanmaxinxi.domain.article;
 import java.util.Date;
 public class Article{
 	private Long atpid;
