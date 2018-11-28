@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanmaxinxi.dao.articletype.articleTypeDAO">
+	<resultMap type="articleType" id="articleTypeResultMap">
+		<id column="atid" property="atid"/>
+		<result column="atname" property="atname"/>
+		<result column="pid" property="pid"/>
+	</resultMap>
+	<insert id="insert" parameterType="articleType">
+		insert into t_articletype(atname,pid) values(#{atname},#{pid})
+	</insert>
+	<update id="update" parameterType="articleType">
+		update t_articletype set atname=#{atname},pid=#{pid} where atid=#{atid}
+	</update>
+	<delete id="delete" parameterType="Long">
+		delete from t_articletype where atid=#{atid}
+	</delete>
+	<select id="selectOneById" parameterType="Long" resultMap="articleTypeResultMap">
+		select * from t_articletype where atid=#{atid}
+	</select>
+	<select id="selectAll" resultMap="articleTypeResultMap">
+		select * from t_articletype
+	</select>
+</mapper>

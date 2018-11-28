@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanmaxinxi.dao.article.articleDAO">
+	<resultMap type="article" id="articleResultMap">
+		<id column="atpid" property="atpid"/>
+		<result column="atcontent" property="atcontent"/>
+		<result column="atid" property="atid"/>
+		<result column="addtime" property="addtime"/>
+		<result column="admin_id" property="admin_id"/>
+	</resultMap>
+	<insert id="insert" parameterType="article">
+		insert into t_article(atcontent,atid,addtime,admin_id) values(#{atcontent},#{atid},#{addtime},#{admin_id})
+	</insert>
+	<update id="update" parameterType="article">
+		update t_article set atcontent=#{atcontent},atid=#{atid},addtime=#{addtime},admin_id=#{admin_id} where atpid=#{atpid}
+	</update>
+	<delete id="delete" parameterType="Long">
+		delete from t_article where atpid=#{atpid}
+	</delete>
+	<select id="selectOneById" parameterType="Long" resultMap="articleResultMap">
+		select * from t_article where atpid=#{atpid}
+	</select>
+	<select id="selectAll" resultMap="articleResultMap">
+		select * from t_article
+	</select>
+</mapper>
