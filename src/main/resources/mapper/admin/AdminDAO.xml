@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanmaxinxi.dao.admin.AdminDAO">
+	<resultMap type="Admin" id="AdminResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="username" property="username"/>
+		<result column="passwrod" property="passwrod"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	<insert id="insert" parameterType="Admin">
+		insert into t_admin(name,username,passwrod,status) values(#{name},#{username},#{passwrod},#{status})
+	</insert>
+	<update id="update" parameterType="Admin">
+		update t_admin set name=#{name},username=#{username},passwrod=#{passwrod},status=#{status} where id=#{id}
+	</update>
+	<delete id="delete" parameterType="Long">
+		delete from t_admin where id=#{id}
+	</delete>
+	<select id="selectOneById" parameterType="Long" resultMap="AdminResultMap">
+		select * from t_admin where id=#{id}
+	</select>
+	<select id="selectAll" resultMap="AdminResultMap">
+		select * from t_admin
+	</select>
+</mapper>
