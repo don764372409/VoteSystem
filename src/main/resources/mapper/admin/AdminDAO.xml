@@ -21,6 +21,9 @@
 	<select id="selectOneById" parameterType="Long" resultMap="AdminResultMap">
 		select * from t_admin where id=#{id}
 	</select>
+	<select id="selectOneByUsername" parameterType="String" resultMap="AdminResultMap">
+		select * from t_admin where username=#{username}
+	</select>
 	<select id="selectAll" resultMap="AdminResultMap">
 		select * from t_admin
 	</select>
