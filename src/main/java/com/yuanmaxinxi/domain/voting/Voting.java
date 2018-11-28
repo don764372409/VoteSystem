@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.domain;
+package com.yuanmaxinxi.domain.voting;
 import java.util.Date;
 public class Voting{
 	private Long id;

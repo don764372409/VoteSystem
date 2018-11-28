@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.domain;
+package com.yuanmaxinxi.domain.candidate;
 public class Candidate{
 	private Long id;
 	private String name;

@@ -1,4 +1,4 @@
-package com.yuanmaxinxi.web;
+package com.yuanmaxinxi.web.voting;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

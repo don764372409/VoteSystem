@@ -1,11 +1,13 @@
-package com.yuanmaxinxi.dao;
-import com.yuanmaxinxi.domain.Voting;
+package com.yuanmaxinxi.dao.voting;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import com.yuanmaxinxi.domain.voting.Voting;
+
 import java.util.List;
 @Mapper
 @Repository
-public interface VotingMapper{
+public interface VotingDAO{
 	int insert(Voting obj);
 
 	int update(Voting obj);

@@ -1,6 +1,6 @@
-package com.yuanmaxinxi.service;
+package com.yuanmaxinxi.service.candidate;
 import com.yuanmaxinxi.dao.candidate.CandidateDAO;
-import com.yuanmaxinxi.domain.Candidate;
+import com.yuanmaxinxi.domain.candidate.Candidate;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
