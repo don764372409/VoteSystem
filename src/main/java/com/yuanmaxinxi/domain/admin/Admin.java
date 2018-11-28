@@ -3,7 +3,7 @@ public class Admin{
 	private Long id;
 	private String name;
 	private String username;
-	private String passwrod;
+	private String password;
 	private int status;
 	public Long getId(){
 		return this.id;
@@ -23,11 +23,11 @@ public class Admin{
 	public void setUsername(String username){
 		this.username=username;
 	}
-	public String getPasswrod(){
-		return this.passwrod;
+	public String getPassword() {
+		return password;
 	}
-	public void setPasswrod(String passwrod){
-		this.passwrod=passwrod;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public int getStatus(){
 		return this.status;
