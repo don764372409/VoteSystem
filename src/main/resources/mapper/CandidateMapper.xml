@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanmaxinxi.dao.CandidateMapper">
+	<resultMap type="Candidate" id="CandidateResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="img" property="img"/>
+		<result column="organize" property="organize"/>
+		<result column="describe" property="describe"/>
+		<result column="state" property="state"/>
+	</resultMap>
+	<insert id="insert" parameterType="Candidate">
+		insert into t_candidate(name,img,organize,describe,state) values(#{name},#{img},#{organize},#{describe},#{state})
+	</insert>
+	<update id="update" parameterType="Candidate">
+		update t_candidate set name=#{name},img=#{img},organize=#{organize},describe=#{describe},state=#{state} where id=#{id}
+	</update>
+	<delete id="delete" parameterType="Long">
+		delete from t_candidate where id=#{id}
+	</delete>
+	<select id="selectOneById" parameterType="Long" resultMap="CandidateResultMap">
+		select * from t_candidate where id=#{id}
+	</select>
+	<select id="selectAll" resultMap="CandidateResultMap">
+		select * from t_candidate
+	</select>
+</mapper>
