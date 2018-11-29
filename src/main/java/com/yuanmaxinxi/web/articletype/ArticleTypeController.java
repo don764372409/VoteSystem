@@ -1,5 +1,5 @@
 package com.yuanmaxinxi.web.articletype;
 
-public class articleTypeController {
+public class ArticleTypeController {
 
 }
