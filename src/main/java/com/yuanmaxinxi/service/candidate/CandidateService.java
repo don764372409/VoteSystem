@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Map;
 @Service
 public class CandidateService{
 	@Autowired
@@ -33,8 +34,12 @@ public class CandidateService{
 	}
 
 
-	public List<Candidate> selectAll(){
-		return candidateDAO.selectAll();
+	public List<Candidate> selectAll(Map map){
+		return candidateDAO.selectAll(map);
+	}
+	
+	public int countall(Map map) {
+		return candidateDAO.countall(map);
 	}
 
 }

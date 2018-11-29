@@ -22,7 +22,11 @@
 	<select id="selectOneById" parameterType="Long" resultMap="CandidateResultMap">
 		select * from t_candidate where id=#{id}
 	</select>
-	<select id="selectAll" resultMap="CandidateResultMap">
+	<select id="selectAll" parameterType="Map" resultMap="CandidateResultMap">
 		select * from t_candidate
 	</select>
+	<select id="countall" parameterType="Map" resultType="int">
+	 	SELECT COUNT(*) FROM t_candidate
+	</select>
+	
 </mapper>

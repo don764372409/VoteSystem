@@ -13,7 +13,7 @@ import com.yuanmaxinxi.service.voting.VotingService;
 * @ClassName: VoteController
 * @Description: TODO(投票相关)
 * @author Liudan
-* @date 2018年11月28日
+* @date 2018年11月29日
 *
  */
 @RestController

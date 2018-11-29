@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.yuanmaxinxi.domain.candidate.Candidate;
 
 import java.util.List;
+import java.util.Map;
 @Mapper
 @Repository
 public interface CandidateDAO{
@@ -16,6 +17,8 @@ public interface CandidateDAO{
 
 	Candidate selectOneById(Long id);
 
-	List<Candidate> selectAll();
+	List<Candidate> selectAll(Map map);
+
+	int countall(Map map);
 
 }
