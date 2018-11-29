@@ -1,10 +1,28 @@
 package com.yuanmaxinxi.domain.admin;
+
+import com.yuanmaxinxi.domain.dept.Dept;
+
 public class Admin{
 	private Long id;
 	private String name;
 	private String username;
 	private String password;
 	private int status;
+	private Long deptId;
+	private Dept dept;
+	
+	public Dept getDept() {
+		return dept;
+	}
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+	public Long getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
 	public Long getId(){
 		return this.id;
 	}

@@ -23,6 +23,7 @@ public class IndexController {
 		Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
 		//获取登录者菜单  不要按钮
 		List<Resource> list = (List<Resource>)resourceService.selectAllResourceByType(loginAdmin.getId());
+		model.addAttribute("list", list);
 		return "index";
 	}
 }

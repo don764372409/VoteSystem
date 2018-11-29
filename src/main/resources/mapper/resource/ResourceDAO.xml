@@ -22,6 +22,20 @@
 	<select id="selectOneById" parameterType="Long" resultMap="ResourceResultMap">
 		select * from t_resource where id=#{id}
 	</select>
+	<select id="selectAllParentsByAdminId" parameterType="Long" resultMap="ResourceResultMap">
+		select * from t_resource where id in(
+			select resourceId from t_role_resource where roleId in (
+				select roleId from t_admin_role where adminId = #{id}
+			)
+		) and pId is null and type = 0
+	</select>
+	<select id="selectChildrenByParentIdAndAdminId" parameterType="Long" resultMap="ResourceResultMap">
+		select * from t_resource where id in(
+			select resourceId from t_role_resource where roleId in (
+				select roleId from t_admin_role where adminId = #{adminId}
+			)
+		) and pId = #{pId} and type = 0
+	</select>
 	<select id="selectAll" resultMap="ResourceResultMap">
 		select * from t_resource
 	</select>

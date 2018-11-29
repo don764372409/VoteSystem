@@ -1,4 +1,8 @@
 package com.yuanmaxinxi.domain.resource;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Resource{
 	private Long id;
 	private String name;
@@ -6,6 +10,20 @@ public class Resource{
 	private String icon;
 	private int type;
 	private String url;
+	private List<Resource> children = new ArrayList<>();
+	
+	public String getpId() {
+		return pId;
+	}
+	public void setpId(String pId) {
+		this.pId = pId;
+	}
+	public List<Resource> getChildren() {
+		return children;
+	}
+	public void setChildren(List<Resource> children) {
+		this.children = children;
+	}
 	public Long getId(){
 		return this.id;
 	}

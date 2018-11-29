@@ -19,10 +19,10 @@
 <script type="text/javascript" src="/H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>用户管理</title>
+<title>管理员管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 短信用户管理 <span class="c-gray en">&gt;</span> 短信用户 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 管理员管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 <!--   <div class="text-c"> 短信发送时间： -->
 <!--     <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;"> -->
@@ -40,12 +40,11 @@
   <table class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
       <tr class="text-c">
-        <th width="80">ID</th>
+        <th width="40">ID</th>
         <th width="100">姓名</th>
-        <th width="90">手机</th>
-        <th width="130">借款时间</th>
-        <th width="130">还款结束时间</th>
-        <th width="100">操作</th>
+        <th width="90">所属部门</th>
+        <th width="130">状态</th>
+        <th width="60">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -53,13 +52,11 @@
       <tr class="text-c">
         <td>${obj.id}</td>
         <td>${obj.name}</td>
-        <td>${obj.phone}</td>
-        <td>${obj.loanTime?string("yyyy-MM-dd")}</td>
-        <td>${obj.repaymentTime?string("yyyy-MM-dd")}</td>
+        <td>${obj.dept.name}</td>
+        <td>${obj.status}</td>
         <td class="f-14 user-manage">
         	<a title="编辑" href="javascript:;" onclick="edit('添加短信用户','/borrower/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
         	<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.name}','/borrower/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
-        	<a title="送短信" href="javascript:;" onclick="sendMessage('发送短信','/borrower/showSendMessage',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe68a;</i></a>
        	</td>
       </tr>
      </#list>

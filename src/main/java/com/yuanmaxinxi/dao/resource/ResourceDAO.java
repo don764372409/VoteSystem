@@ -3,6 +3,7 @@ import com.yuanmaxinxi.domain.resource.Resource;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Map;
 @Mapper
 @Repository
 public interface ResourceDAO{
@@ -15,5 +16,17 @@ public interface ResourceDAO{
 	Resource selectOneById(Long id);
 
 	List<Resource> selectAll();
+	/**
+	 * 根据id得到权限  3级子查询
+	 * @param id
+	 * @return
+	 */
+	List<Resource> selectAllParentsByAdminId(Long id);
+	/**
+	 * 根据父级ID和管理员id得到自己资源
+	 * @param map
+	 * @return
+	 */
+	List<Resource> selectChildrenByParentIdAndAdminId(Map<String, Long> map);
 
 }

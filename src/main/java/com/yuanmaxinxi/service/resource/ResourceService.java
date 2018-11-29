@@ -1,10 +1,14 @@
 package com.yuanmaxinxi.service.resource;
-import com.yuanmaxinxi.domain.resource.Resource;
-import com.yuanmaxinxi.dao.resource.ResourceDAO;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.yuanmaxinxi.dao.resource.ResourceDAO;
+import com.yuanmaxinxi.domain.resource.Resource;
 @Service
 public class ResourceService{
 	@Autowired
@@ -42,8 +46,16 @@ public class ResourceService{
 	 * @return
 	 */
 	public List<Resource> selectAllResourceByType(Long id) {
-		
-		return null;
+		//获取当前用户的所有角色
+		List<Resource> parents = resourceDAO.selectAllParentsByAdminId(id);
+		for (Resource res : parents) {
+			Map<String,Long> map  = new HashMap<>();
+			map.put("adminId", id);
+			map.put("pId",res.getId());
+			List<Resource> children = resourceDAO.selectChildrenByParentIdAndAdminId(map);
+			res.setChildren(children);
+		}
+		return parents;
 	}
 
 }

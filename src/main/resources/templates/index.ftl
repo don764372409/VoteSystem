@@ -83,23 +83,18 @@
 </header>
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
-		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 短信模板管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="/content/list" data-title="短信模板" href="javascript:void(0)">短信模板</a></li>
-			</ul>
-		</dd>
-	</dl>
-	</dl>
-		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 短信用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="/borrower/list" data-title="短信用户" href="javascript:void(0)">短信用户</a></li>
-			</ul>
-		</dd>
-	</dl>
+		<#list list as obj>
+			<dl id="menu-article">
+				<dt><i class="Hui-iconfont">&#xe616;</i> ${obj.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<dd>
+					<ul>
+						<#list obj.children as o>
+							<li><a data-href="${o.url?if_exists}" data-title="${o.name}" href="javascript:void(0)">${o.name}</a></li>
+						</#list>
+					</ul>
+				</dd>
+			</dl>
+		</#list>
 </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

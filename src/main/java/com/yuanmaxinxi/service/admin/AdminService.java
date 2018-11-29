@@ -1,18 +1,23 @@
 package com.yuanmaxinxi.service.admin;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yuanmaxinxi.dao.admin.AdminDAO;
+import com.yuanmaxinxi.dao.dept.DeptDAO;
 import com.yuanmaxinxi.domain.admin.Admin;
-import com.yuanmaxinxi.domain.resource.Resource;
+import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.util.MD5Util;
 @Service
 public class AdminService{
 	@Autowired
 	private AdminDAO adminDAO;
+	@Autowired
+	private DeptDAO deptDAO;
 	@Transactional
 	public int insert(Admin obj){
 		return adminDAO.insert(obj);
@@ -37,7 +42,18 @@ public class AdminService{
 
 
 	public List<Admin> selectAll(){
-		return adminDAO.selectAll();
+		List<Admin> list = adminDAO.selectAll();
+		Map<Long,Dept> cash = new HashMap<>();
+		for (Admin admin : list) {
+			Long deptId = admin.getDeptId();
+			Dept dept = cash.get(deptId);
+			if (dept == null) {
+				dept = deptDAO.selectOneById(deptId);
+				cash.put(deptId, dept);
+			}
+			admin.setDept(dept);
+		}
+		return list;
 	}
 	/**
 	 * 登录业务
