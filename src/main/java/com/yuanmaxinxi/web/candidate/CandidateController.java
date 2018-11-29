@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.yuanmaxinxi.domain.candidate.Candidate;
 import com.yuanmaxinxi.service.candidate.CandidateService;
-import com.yuanmaxinxi.util.Page;
 
 /**
  * 
@@ -29,17 +28,15 @@ public class CandidateController {
 	CandidateService candidateservice;
 	
 	@GetMapping("/list")
-	public ModelAndView candidatelist(ModelAndView modelView,Page page) {
+	public ModelAndView candidatelist(ModelAndView modelView) {
 		Map<String,Object> map=new HashMap<String,Object>();
-//		map.put("startRecord", page.getStartRecord());
-//		map.put("pageSize", page.getPageSize());
 //		map.put("name", name);
 		List<Candidate> candidatelist=candidateservice.selectAll(map);
-		page.setTotal(candidateservice.countall(map));
-		modelView.addObject("pager", page);
 		modelView.addObject("candidatelist", candidatelist);	
 		modelView.setViewName("/candidate/list");
 		return modelView;
 	}
+	
+	
 	
 }
