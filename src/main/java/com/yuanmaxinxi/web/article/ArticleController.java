@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.service.article.ArticleService;
@@ -46,10 +47,17 @@ public class ArticleController {
 		return articleService.insert(obj);
 		}
 	
-	@RequestMapping("/selectAll")
-	@ResponseBody
-	public List<Article> selectAll(){
-		return articleService.selectAll();
+	@RequestMapping(value = "/getAll")
+	public ModelAndView getAllRuntype() {
+		ModelAndView modelAndView = new ModelAndView();
+		List<Article> articles = articleService.selectAll();
+		for (Article article : articles) {
+			System.out.println(article.getAtcontent());
+		}
+		modelAndView.addObject("article", articles);
+		modelAndView.setViewName("/article/list");
+
+		return modelAndView;
 	}
  
 	@RequestMapping("/selectOneById")
