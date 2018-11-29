@@ -26,8 +26,10 @@
 <div class="page-container">
 	<div class="text-c">
 	<div class="text-c">
-    <input type="text" class="input-text" style="width:250px" placeholder="输入预选人名字" id="" name="">
-    <button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜索</button>
+	<form action="">
+    <input type="text" class="input-text" style="width:250px" placeholder="输入预选人名字" id="name" name="name">
+    <button type="submit" class="btn btn-success" ><i class="icon-search"></i> 搜索</button>
+  	</form>
   </div>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加资讯" data-href="article-add.html" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加预选人</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
@@ -48,11 +50,11 @@
 			 <#list candidatelist as candidate>
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
-					<td>${candidate.id}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${candidate.name}</u></td>
+					<td>${candidate.id?if_exists}</td>
+					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${candidate.name?if_exists}</u></td>
 					<td><img src="${candidate.img}" style="width: 80px;height: 80px;"></td>
-					<td>${candidate.describe} </td>
-					<td>${candidate.state}</td>
+					<td>${candidate.describe?if_exists} </td>
+					<td>${candidate.state?if_exists}</td>
 					<td class="f-14 td-manage"><a style="text-decoration:none" onClick="article_stop(this,'10001')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a> <a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="article_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
