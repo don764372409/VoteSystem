@@ -60,7 +60,7 @@
 					<td>${artt.pid?if_exists}</td>
 					<td class="f-14 td-manage">
 					<a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,'${artt.atid}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,${artt.atid})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
 			</tbody>
@@ -84,7 +84,7 @@ $('.table-sort').dataTable({
 	"pading":false,
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,8]}// 不参与排序的列
+	  {"orderable":false,"aTargets":[0,4]}// 不参与排序的列
 	]
 });
 /*资讯-添加*/
@@ -110,8 +110,8 @@ function article_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '/article/delete',
-			data:{"atpid":id},
+			url: '/articletype/delete',
+			data:{"atid":id},
 			dataType: 'json',
 			success: function(data){
 				layer.msg('已删除!',{icon:1,time:1000});

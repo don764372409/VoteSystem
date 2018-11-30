@@ -118,7 +118,7 @@ function article_del(obj,id){
 			data:{"atpid":id},
 			dataType: 'json',
 			success: function(data){
-				layer.msg('已删除!',{icon:1,time:1000});
+				layer.msg('已删除!',{icon:1,time:5000});
 				location.reload(true);
 				if(data.result){
 					$(obj).parents("tr").remove();
