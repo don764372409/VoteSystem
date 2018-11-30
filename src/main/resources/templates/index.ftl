@@ -84,10 +84,29 @@
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 短信模板管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe616;</i> 一部一品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/content/list" data-title="短信模板" href="javascript:void(0)">短信模板</a></li>
+					<li><a data-href="http://localhost:8888/articletype/getAll" data-title="一部一品类别管理" href="javascript:void(0)">一部一品类别创建</a></li>
+					<li><a data-href="http://localhost:8888/article/getAll" data-title="文章管理" href="javascript:void(0)">文章管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 党员积分管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="http://localhost:8888/articletype/getAll" data-title="党员积分类别管理" href="javascript:void(0)">一部一品类别创建</a></li>
+					<li><a data-href="http://localhost:8888/article/getAll" data-title="文章管理" href="javascript:void(0)">文章管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 党建学习动态管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="http://localhost:8888/articletype/getAll" data-title="党建学习动态类别管理" href="javascript:void(0)">一部一品类别创建</a></li>
+					<li><a data-href="http://localhost:8888/article/getAll" data-title="文章管理" href="javascript:void(0)">文章管理</a></li>
 			</ul>
 		</dd>
 	</dl>

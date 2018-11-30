@@ -3,6 +3,7 @@ package com.yuanmaxinxi.web.article;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,15 +21,12 @@ public class ArticleController {
 
     @Autowired
     ArticleService articleService;
-
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete(String id) {
-		int result = articleService.delete(Long.parseLong(id));
-		if (result >= 1) {
-			return "删除成功";
-		} else {
-			return "删除失败";
-		}
+    @ResponseBody
+	public int delete(Long atpid) {
+		int result = articleService.delete(atpid);
+			return result;
+		
 	}
  
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
