@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,15 +60,32 @@ public class CandidateController {
 	* @return String    返回类型
 	* @throws
 	 */
-	@RequestMapping(value = "/add")
+	@RequestMapping(value = "/update")
 	@ResponseBody
 	@Transactional(rollbackFor = Exception.class)
 	public ModelAndView candidateadd(ModelAndView model) {
 //		candidateservice.insert(obj);
-		model.setViewName("/candidate/add");
+		model.setViewName("/candidate/update");
 		return model;
 	}
 	
-	
+/**
+ * 
+* @Title: delete
+* @Description: TODO(删除一条预选人)
+* @param  id
+* @return boolean    返回类型
+* @throws
+ */
+	@RequestMapping(value = "/delete")
+	@ResponseBody
+    public boolean delete( Long id){
+		int del=candidateservice.delete(id);
+		if(del>0) {
+			return true;
+		}else {
+			return false;
+		}
+    }
 	
 }
