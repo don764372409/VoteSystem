@@ -55,7 +55,7 @@ public class CandidateController {
 	/**
 	 * 
 	* @Title: candidateadd
-	* @Description: TODO 添加预选人
+	* @Description: TODO 添加、修改预选人
 	* @param @return    参数
 	* @return String    返回类型
 	* @throws
