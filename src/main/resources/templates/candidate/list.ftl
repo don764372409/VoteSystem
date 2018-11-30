@@ -32,7 +32,9 @@
   	</form>
   </div>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加参选人" data-href="/candidate/add" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加预选人</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/update','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> 
+	 <span class="r">共有数据：<strong>54</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -47,6 +49,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			<#if candidatelist?exists>
 			 <#list candidatelist as candidate>
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
@@ -58,6 +61,7 @@
 					<td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${candidate.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
+				</#if>
 			</tbody>
 		</table>
 	</div>
@@ -82,15 +86,12 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
 	]
 });
-/*资讯-添加*/
-function article_add(title,url,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
+
+/*用户-添加*/
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
 }
+
 /*资讯-编辑*/
 function article_edit(title,url,id,w,h){
 	var index = layer.open({
@@ -113,7 +114,7 @@ function candidate_del(obj,id){
 				$(obj).parents("tr").remove();
 			},
 			error:function(data) {
-				layer.msg('删除失败!请稍后重试！',{icon:1,time:1000});
+				$.Huimodalalert(data.msg,2000);
 			},
 		});		
 	});

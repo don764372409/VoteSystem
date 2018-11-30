@@ -199,28 +199,14 @@ $(function(){
 	var ue = UE.getEditor('editor');
 	
 });
-
 function submitForm(){
-            var form = new FormData(document.getElementById("form-article-add"));
-            $.ajax({
-                url:"/candidate/update",
-                type:"post",
-                data:form,
-                processData:false,
-                contentType:false,
-                success:function(data){
-					$.Huimodalalert(data.msg,2000);
-					window.opener.location.href = window.opener.location.href;
-					window.close();  
-                },
-                error:function(e){
-                   $.Huimodalalert(data.msg,2000);
-				   window.opener.location.href = window.opener.location.href;
-				window.close();  
-                }
-            });        
-            get();//此处为上传文件的进度条
-        }
+			var name = $("input[name=name]").val().trim();
+			if(name==""||name==null){
+			$.Huimodalalert("请填写姓名！",2000);
+			}else{
+			$("#form-article-add").submit();
+				 }
+		}
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
