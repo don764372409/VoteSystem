@@ -32,7 +32,7 @@ public class ArticleTypeService{
 	}
 
 
-	public List<ArticleType> selectAll(){
+	public List<ArticleType> selectAll(Long atid){
 		return articleTypeDAO.selectAll();
 	}
 

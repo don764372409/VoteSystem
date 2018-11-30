@@ -45,13 +45,10 @@ public class ArticleController {
 		return articleService.insert(obj);
 		}
 	
-	@RequestMapping(value = "/getAll")
-	public ModelAndView getAllRuntype() {
+	@RequestMapping(value = "/list")
+	public ModelAndView getAllRuntype(Long pid) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Article> articles = articleService.selectAll();
-		for (Article article : articles) {
-			System.out.println(article.getAtcontent());
-		}
 		modelAndView.addObject("article", articles);
 		modelAndView.setViewName("/article/list");
 
