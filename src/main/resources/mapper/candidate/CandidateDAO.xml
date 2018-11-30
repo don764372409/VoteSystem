@@ -11,7 +11,41 @@
 		<result column="state" property="state"/>
 	</resultMap>
 	<insert id="insert" parameterType="Candidate">
-		insert into t_candidate(name,img,organize,describe,state) values(#{name},#{img},#{organize},#{describe},#{state})
+		insert into t_candidate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="img != null">
+				img,
+			</if>
+			<if test="organize != null">
+				organize,
+			</if>
+			<if test="describe != null">
+				describe,
+			</if>
+			<if test="state != null and state!=''">
+                state,
+            </if>
+			</trim>
+			<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="img != null">
+				#{img},
+			</if>
+			<if test="organize != null">
+				#{organize},
+			</if>
+			<if test="describe != null">
+				#{describe},
+			</if>
+			<if test="state != null and state!=''">
+				#{state},
+			</if>
+			</trim>
 	</insert>
 	<update id="update" parameterType="Candidate">
 		update t_candidate set name=#{name},img=#{img},organize=#{organize},describe=#{describe},state=#{state} where id=#{id}
