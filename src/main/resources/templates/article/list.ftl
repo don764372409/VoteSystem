@@ -62,7 +62,10 @@
 					<td>${art.atid}</td>
 					<td>${art.addtime?string("yyyy-MM-dd")!} </td>
 					<td>${art.admin_id}</td>
-					<td class="f-14 td-manage"><a style="text-decoration:none" onClick="article_stop(this,'10001')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a> <a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="article_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="f-14 td-manage">
+					<a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,${art.atpid})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					</td>
 				</tr>
 				</#list>
 			</tbody>
@@ -86,7 +89,7 @@ $('.table-sort').dataTable({
 	"pading":false,
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,8]}// 不参与排序的列
+	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
 	]
 });
 /*资讯-添加*/
@@ -107,24 +110,26 @@ function article_edit(title,url,id,w,h){
 	});
 	layer.full(index);
 }
-/*资讯-删除*/
 function article_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
+			url: '/article/delete',
+			data:{"atpid":id},
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
+				layer.msg('已删除!',{icon:1,time:5000});
+				location.reload(true);
+				if(data.result){
+					$(obj).parents("tr").remove();
+				}
 			},
 			error:function(data) {
-				console.log(data.msg);
+				layer.msg("网络异常,请稍后再试.",{icon:1,time:1000});
 			},
 		});		
 	});
 }
-
 /*资讯-审核*/
 function article_shenhe(obj,id){
 	layer.confirm('审核文章？', {

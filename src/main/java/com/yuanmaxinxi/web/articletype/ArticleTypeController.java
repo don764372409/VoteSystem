@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.servlet.ModelAndView;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 	@RestController
@@ -18,13 +18,11 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 	    ArticleTypeService articTypeleService;
 
 	    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-		public String delete(String id) {
-			int result = articTypeleService.delete(Long.parseLong(id));
-			if (result >= 1) {
-				return "删除成功";
-			} else {
-				return "删除失败";
-			}
+	    @ResponseBody
+		public int delete(Long atid) {
+			int result = articTypeleService.delete(atid);
+				return result;
+			
 		}
 	 
 		@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -43,11 +41,18 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 			return articTypeleService.insert(obj);
 			}
 		
-		@ResponseBody
-	    @RequestMapping("/selectAll")
-	    public List<ArticleType> selectAll(){
-	        return articTypeleService.selectAll();
-	    }
+		@RequestMapping(value = "/getAll")
+		public ModelAndView getAllRuntype() {
+			ModelAndView modelAndView = new ModelAndView();
+			List<ArticleType> articletypes = articTypeleService.selectAll();
+			for (ArticleType articletype : articletypes) {
+				System.out.println(articletype.getAtname());
+			}
+			modelAndView.addObject("articletype", articletypes);
+			modelAndView.setViewName("/articletype/list");
+
+			return modelAndView;
+		}
 	 
 		@RequestMapping("/selectOneById")
 		@ResponseBody

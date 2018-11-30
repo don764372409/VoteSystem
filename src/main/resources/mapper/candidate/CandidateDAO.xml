@@ -24,6 +24,9 @@
 	</select>
 	<select id="selectAll" parameterType="Map" resultMap="CandidateResultMap">
 		select * from t_candidate
+		<if test="name != null and name !=''">
+		where name like concat(concat('%',#{name}),'%')
+		</if>
 	</select>
 	<select id="countall" parameterType="Map" resultType="int">
 	 	SELECT COUNT(*) FROM t_candidate

@@ -22,8 +22,8 @@ public class ArticleService{
 
 
 	@Transactional
-	public int delete(Long id){
-		return articleDAO.delete(id);
+	public int delete(Long atpid){
+		return articleDAO.delete(atpid);
 	}
 
 
@@ -35,5 +35,7 @@ public class ArticleService{
 	public List<Article> selectAll(){
 		return articleDAO.selectAll();
 	}
+
+
 
 }

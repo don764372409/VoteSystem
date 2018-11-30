@@ -24,5 +24,8 @@
 	</select>
 	<select id="selectAll" resultMap="VotingResultMap">
 		select * from t_voting
+		<if test="name != null and name !=''">
+		where title like concat(concat('%',#{name}),'%')
+		</if>
 	</select>
 </mapper>

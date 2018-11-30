@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.yuanmaxinxi.domain.voting.Voting;
 
 import java.util.List;
+import java.util.Map;
 @Mapper
 @Repository
 public interface VotingDAO{
@@ -16,6 +17,6 @@ public interface VotingDAO{
 
 	Voting selectOneById(Long id);
 
-	List<Voting> selectAll();
+	List<Voting> selectAll(Map map);
 
 }

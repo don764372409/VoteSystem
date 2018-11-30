@@ -10,7 +10,7 @@ public interface ArticleTypeDAO{
 
 	int update(ArticleType obj);
 
-	int delete(Long id);
+	int delete(Long atid);
 
 	ArticleType selectOneById(Long id);
 

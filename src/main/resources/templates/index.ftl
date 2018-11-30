@@ -83,18 +83,42 @@
 </header>
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
-		<#list list as obj>
-			<dl id="menu-article">
-				<dt><i class="Hui-iconfont">&#xe616;</i> ${obj.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-				<dd>
-					<ul>
-						<#list obj.children as o>
-							<li><a data-href="${o.url?if_exists}" data-title="${o.name}" href="javascript:void(0)">${o.name}</a></li>
-						</#list>
-					</ul>
-				</dd>
-			</dl>
-		</#list>
+		<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 一部一品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="http://localhost:8888/articletype/getAll" data-title="一部一品类别管理" href="javascript:void(0)">一部一品类别创建</a></li>
+					<li><a data-href="http://localhost:8888/article/getAll" data-title="文章管理" href="javascript:void(0)">文章管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 党员积分管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="http://localhost:8888/articletype/getAll" data-title="党员积分类别管理" href="javascript:void(0)">一部一品类别创建</a></li>
+					<li><a data-href="http://localhost:8888/article/getAll" data-title="文章管理" href="javascript:void(0)">文章管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i> 党建学习动态管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="http://localhost:8888/articletype/getAll" data-title="党建学习动态类别管理" href="javascript:void(0)">一部一品类别创建</a></li>
+					<li><a data-href="http://localhost:8888/article/getAll" data-title="文章管理" href="javascript:void(0)">文章管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	</dl>
+		<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 短信用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/borrower/list" data-title="短信用户" href="javascript:void(0)">短信用户</a></li>
+			</ul>
+		</dd>
+	</dl>
 </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

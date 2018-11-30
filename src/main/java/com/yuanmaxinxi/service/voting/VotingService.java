@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Map;
 @Service
 public class VotingService{
 	@Autowired
@@ -33,8 +34,8 @@ public class VotingService{
 	}
 
 
-	public List<Voting> selectAll(){
-		return votingDAO.selectAll();
+	public List<Voting> selectAll(Map map){
+		return votingDAO.selectAll(map);
 	}
 
 }
