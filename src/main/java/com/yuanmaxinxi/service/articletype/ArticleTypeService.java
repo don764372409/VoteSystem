@@ -22,8 +22,8 @@ public class ArticleTypeService{
 
 
 	@Transactional
-	public int delete(Long id){
-		return articleTypeDAO.delete(id);
+	public int delete(Long atid){
+		return articleTypeDAO.delete(atid);
 	}
 
 

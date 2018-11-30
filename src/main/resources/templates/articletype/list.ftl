@@ -45,27 +45,22 @@
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">文章编号</th>
-					<th width="80">文章内容</th>
-					<th width="80">文章类别编号</th>
-					<th width="120">发布时间</th>
-					<th width="75">发布人</th>
+					<th width="80">内别编号</th>
+					<th width="80">类别名称</th>
+					<th width="80">pid</th>
 					<th width="120">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-			 <#list article as art>
+			 <#list articletype as artt>
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
-					<td>${art.atpid}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${art.atcontent}</u></td>
-					<td>${art.atid}</td>
-					<td>${art.addtime?string("yyyy-MM-dd")!} </td>
-					<td>${art.admin_id}</td>
+					<td>${artt.atid}</td>
+					<td>${artt.atname}</td>
+					<td>${artt.pid?if_exists}</td>
 					<td class="f-14 td-manage">
-					<a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,${art.atpid})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-					</td>
+					<a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,'${artt.atid}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
 			</tbody>
@@ -89,7 +84,7 @@ $('.table-sort').dataTable({
 	"pading":false,
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
+	  {"orderable":false,"aTargets":[0,8]}// 不参与排序的列
 	]
 });
 /*资讯-添加*/
@@ -110,6 +105,7 @@ function article_edit(title,url,id,w,h){
 	});
 	layer.full(index);
 }
+/*资讯-删除*/
 function article_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
@@ -130,6 +126,7 @@ function article_del(obj,id){
 		});		
 	});
 }
+
 /*资讯-审核*/
 function article_shenhe(obj,id){
 	layer.confirm('审核文章？', {
