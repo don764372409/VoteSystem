@@ -15,5 +15,5 @@ public interface AdminDAO{
 	Admin selectOneById(Long id);
 
 	List<Admin> selectAll();
-	Admin selectOneByUsername(String username);
+	Admin selectOneByName(String name);
 }

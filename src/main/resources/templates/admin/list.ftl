@@ -33,7 +33,7 @@
 <!--   </div> -->
   <div class="cl pd-5 bg-1 bk-gray mt-20">
 <!--     <span class="l"><a href="javascript:;" onclick="deleteObj()" class="btn btn-danger radius"><i class="icon-trash"></i> 删除用户</a> -->
-    <a href="javascript:;" onclick="addObj('添加短信用户','/borrower/showAdd')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加用户</a></span>
+    <a href="javascript:;" onclick="addObj('添加管理员','/borrower/showAdd')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加管理员</a></span>
     <span class="r">共有数据：<strong>${list?size}</strong> 条</span>
   </div>
   <div class="mt-20"></div>
@@ -42,6 +42,7 @@
       <tr class="text-c">
         <th width="40">ID</th>
         <th width="100">姓名</th>
+        <th width="100">电话</th>
         <th width="90">所属部门</th>
         <th width="130">状态</th>
         <th width="60">操作</th>
@@ -51,8 +52,9 @@
     <#list list as obj>
       <tr class="text-c">
         <td>${obj.id}</td>
-        <td>${obj.name}</td>
-        <td>${obj.dept.name}</td>
+        <td>${obj.name!}</td>
+        <td>${obj.phone!}</td>
+        <td>${obj.dept.name!}</td>
         <td>${obj.status}</td>
         <td class="f-14 user-manage">
         	<a title="编辑" href="javascript:;" onclick="edit('添加短信用户','/borrower/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
@@ -104,7 +106,7 @@ function addObj(title,url){
 		content: url
 	});
 	//打开全屏
-	layer.full(index);
+// 	layer.full(index);
 }
 function edit(title,url,id){
 	var index = layer.open({

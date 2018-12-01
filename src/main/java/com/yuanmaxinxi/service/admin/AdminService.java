@@ -60,7 +60,7 @@ public class AdminService{
 	 * @param Admin
 	 */
 	public Admin login(Admin admin) {
-		Admin sysAdmin = adminDAO.selectOneByUsername(admin.getUsername());
+		Admin sysAdmin = adminDAO.selectOneByName(admin.getName());
 		if (sysAdmin==null) {
 			throw new RuntimeException("账号不存在.");
 		}

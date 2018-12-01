@@ -5,7 +5,7 @@ import com.yuanmaxinxi.domain.dept.Dept;
 public class Admin{
 	private Long id;
 	private String name;
-	private String username;
+	private String phone;
 	private String password;
 	private int status;
 	private Long deptId;
@@ -35,11 +35,12 @@ public class Admin{
 	public void setName(String name){
 		this.name=name;
 	}
-	public String getUsername(){
-		return this.username;
+	
+	public String getPhone() {
+		return phone;
 	}
-	public void setUsername(String username){
-		this.username=username;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getPassword() {
 		return password;
