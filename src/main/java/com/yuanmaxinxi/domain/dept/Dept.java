@@ -1,8 +1,19 @@
 package com.yuanmaxinxi.domain.dept;
+
+import com.yuanmaxinxi.domain.organize.Organize;
+
 public class Dept{
 	private Long id;
 	private String name;
-	private Long pId;
+	private Long organizeId;
+	private Organize organize;
+	
+	public Organize getOrganize() {
+		return organize;
+	}
+	public void setOrganize(Organize organize) {
+		this.organize = organize;
+	}
 	public Long getId(){
 		return this.id;
 	}
@@ -15,10 +26,10 @@ public class Dept{
 	public void setName(String name){
 		this.name=name;
 	}
-	public Long getPId(){
-		return this.pId;
+	public Long getOrganizeId() {
+		return organizeId;
 	}
-	public void setPId(Long pId){
-		this.pId=pId;
+	public void setOrganizeId(Long organizeId) {
+		this.organizeId = organizeId;
 	}
 }

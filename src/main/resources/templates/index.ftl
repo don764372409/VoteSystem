@@ -127,31 +127,6 @@
 <script type="text/javascript" src="/H-ui/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 <script type="text/javascript">
-<!--请在下方写此页面业务相关的脚本-->
-function borrower_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-function content_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-function editUser(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
 $(function(){
 	if($("body").width()<767){
 		$(".dropDown_A").click(function(){
