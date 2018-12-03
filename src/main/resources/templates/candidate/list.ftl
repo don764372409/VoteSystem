@@ -33,8 +33,8 @@
   </div>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/update','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> 
-	 <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/showadd','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> 
+	 <span class="r">共有数据：<strong>${candidatelist?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -54,11 +54,13 @@
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
 					<td>${candidate.id?if_exists}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${candidate.name?if_exists}</u></td>
+					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','/candidate/showEdit',${candidate.id})" title="查看">${candidate.name?if_exists}</u></td>
 					<td><img src="${candidate.img?if_exists}" style="width: 80px;height: 80px;"></td>
-					<td>${candidate.describe?if_exists} </td>
+					<td>${candidate.remark?if_exists} </td>
 					<td>${candidate.state?if_exists}</td>
-					<td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${candidate.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="f-14 td-manage">
+					<a style="text-decoration:none" class="ml-5" onClick="article_edit('预选人编辑','/candidate/showEdit',${candidate.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${candidate.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
 				</#if>
@@ -93,13 +95,8 @@ function member_add(title,url,w,h){
 }
 
 /*资讯-编辑*/
-function article_edit(title,url,id,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
+function article_edit(title,url,id){
+	layer_show(title,url+"?id="+id,"",550);
 }
 /*资讯-删除*/
 function candidate_del(obj,id){

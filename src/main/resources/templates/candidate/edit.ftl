@@ -28,23 +28,26 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add">
-	<input type="hidden" name="add" value="addok">
-	<input type="hidden" name="id" value="">
+	<form class="form form-horizontal" id="form-member-add">
+	<input name="id" type="hidden" value="${obj.id}">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="name">
+				<input type="text" class="input-text" value="${obj.name}" placeholder="" id="username" name="name">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所属机构：</label>
+			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="organize">
-					<option value="" selected>请选择机构</option>
-					<option value="1">北京</option>
-					<option value="2">上海</option>
-					<option value="3">广州</option>
+					<option value="" selected>请选择</option>
+					<#list list as org>
+						<#if (obj.deptId??) && (org.id == obj.deptId)>
+							<option value="${org.id}" selected="selected">${org.name}</option>
+							<#else>
+							<option value="${org.id}">${org.name}</option>
+						</#if>
+					</#list>
 				</select>
 				</span> </div>
 		</div>
@@ -66,9 +69,9 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="submitForm();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-				<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
-				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<button class="btn btn-primary radius" type="submit" ><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+				<button class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
+				<button class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</form>
@@ -199,28 +202,35 @@ $(function(){
 	var ue = UE.getEditor('editor');
 	
 });
-
-function submitForm(){
-            var form = new FormData(document.getElementById("form-article-add"));
-            $.ajax({
-                url:"/candidate/update",
-                type:"post",
-                data:form,
-                processData:false,
-                contentType:false,
-                success:function(data){
-					$.Huimodalalert(data.msg,2000);
-					window.opener.location.href = window.opener.location.href;
-					window.close();  
-                },
-                error:function(e){
-                   $.Huimodalalert(data.msg,2000);
-				   window.opener.location.href = window.opener.location.href;
-				window.close();  
-                }
-            });        
-            get();//此处为上传文件的进度条
-        }
+$(function(){
+	$("#form-member-add").validate({
+		rules:{
+			name:{
+				required:true
+			},
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "/candidate/edit" ,
+				success: function(data){
+					layer.msg(data.msg,{icon:1,time:1000});
+					if(data.result){
+						parent.$('.btn-refresh').click();
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					}
+				},
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+					layer.msg('网络异常,请刷新重试!',{icon:2,time:1000});
+				}
+			});
+		}
+	});
+});
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

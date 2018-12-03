@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuanmaxinxi.dao.candidate.CandidateDAO">
-	<resultMap type="Candidate" id="CandidateResultMap">
+<mapper namespace="com.yuanmaxinxi.dao.electionman.ElectionmanDAO">
+	<resultMap type="Electionman" id="ElectionmanResultMap">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="img" property="img"/>
-		<result column="organize" property="organize"/>
-		<result column="describe" property="describe"/>
+		<result column="number" property="number"/>
+		<result column="remark" property="remark"/>
+		<result column="deptId" property="deptId"/>
+		<result column="fail" property="fail"/>
 		<result column="state" property="state"/>
 	</resultMap>
-	<insert id="insert" parameterType="Candidate">
-		insert into t_candidate
+	<insert id="insert" parameterType="Electionman">
+		insert into t_electionman
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="name != null">
 				name,
@@ -19,11 +21,17 @@
 			<if test="img != null">
 				img,
 			</if>
-			<if test="organize != null">
-				organize,
+			<if test="number != null">
+				number,
 			</if>
-			<if test="describe != null">
-				describe,
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="deptId != null">
+				deptId,
+			</if>
+			<if test="fail != null">
+				fail,
 			</if>
 			<if test="state != null and state!=''">
                 state,
@@ -36,34 +44,40 @@
 			<if test="img != null">
 				#{img},
 			</if>
-			<if test="organize != null">
-				#{organize},
+			<if test="number != null">
+				#{number},
 			</if>
-			<if test="describe != null">
-				#{describe},
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="deptId != null">
+				#{deptId},
+			</if>
+			<if test="fail != null">
+				#{fail},
 			</if>
 			<if test="state != null and state!=''">
-				#{state},
-			</if>
+                #{state},
+            </if>
 			</trim>
 	</insert>
-	<update id="update" parameterType="Candidate">
-		update t_candidate set name=#{name},img=#{img},organize=#{organize},describe=#{describe},state=#{state} where id=#{id}
+	<update id="update" parameterType="Electionman">
+		update t_electionman set name=#{name},img=#{img},number=#{number},remark=#{remark},deptId=#{deptId},fail=#{fail},state=#{state} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
-		delete from t_candidate where id=#{id}
+		delete from t_electionman where id=#{id}
 	</delete>
-	<select id="selectOneById" parameterType="Long" resultMap="CandidateResultMap">
-		select * from t_candidate where id=#{id}
+	<select id="selectOneById" parameterType="Long" resultMap="ElectionmanResultMap">
+		select * from t_electionman where id=#{id}
 	</select>
-	<select id="selectAll" parameterType="Map" resultMap="CandidateResultMap">
-		select * from t_candidate
+	<select id="selectAll" parameterType="Map" resultMap="ElectionmanResultMap">
+		select * from t_electionman
 		<if test="name != null and name !=''">
 		where name like concat(concat('%',#{name}),'%')
 		</if>
 	</select>
 	<select id="countall" parameterType="Map" resultType="int">
-	 	SELECT COUNT(*) FROM t_candidate
+	 	SELECT COUNT(*) FROM t_electionman
 	</select>
 	
 </mapper>

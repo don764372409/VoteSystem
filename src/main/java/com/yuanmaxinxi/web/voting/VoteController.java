@@ -5,15 +5,13 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.yuanmaxinxi.domain.candidate.Candidate;
 import com.yuanmaxinxi.domain.voting.Voting;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.voting.VotingService;
@@ -26,7 +24,7 @@ import com.yuanmaxinxi.service.voting.VotingService;
 * @date 2018年11月29日
 *
  */
-@RestController
+@Controller
 @RequestMapping("/vote")
 public class VoteController {
 	@Autowired
@@ -63,55 +61,69 @@ public class VoteController {
 		@ResponseBody
 		 public ResultDTO delete( Long id){
 			ResultDTO dto;
-			int del=votingservice.delete(id);
-			if(del>0) {
-				dto = ResultDTO.getIntance(true,"删除成功");
-			}else {
-				dto = ResultDTO.getIntance(false,"删除失败");
+			try {
+				votingservice.delete(id);
+				dto = ResultDTO.getIntance(true, "删除成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
 			}
 			return dto;
 	    }
 
+		@RequestMapping("/showadd")
+		public String showAdd(Model model) {
+			Map<String,Object> map=new HashMap<String,Object>();
+			List<Voting> list = votingservice.selectAll(map);
+			model.addAttribute("list", list);
+			return "vote/add";
+		}
 		/**
 		 * 
-		* @Title: voteupdate
-		* @Description: TODO(添加、修改投票活动)
-		* @param  model
-		* @param  request
-		* @param  id
-		* @return ModelAndView    返回类型
+		* @Title: votingadd
+		* @Description: TODO 添加投票活动
 		* @throws
 		 */
-		@RequestMapping(value = "/update")
+		@RequestMapping(value = "/add")
 		@ResponseBody
 		@Transactional(rollbackFor = Exception.class)
-		public ModelAndView voteupdate(ModelAndView model, HttpServletRequest request,
-			@RequestParam(value = "id",required = false) Long id) {
+		public ResultDTO votingadd(Voting obj) {
 			ResultDTO dto;
-			if(request.getParameter("add") !=null &&request.getParameter("add").equals("addok")){
-				Voting vt=new Voting();
-				String title=request.getParameter("title");
-				vt.setTitle(title);
-				if(id!=null&&id>0) {//判断是修改还是添加
-					int c=votingservice.update(vt);
-					if(c>0) {
-					dto = ResultDTO.getIntance(true,"修改成功");
-					model.setViewName("/vote/update");
-					}else {
-						dto = ResultDTO.getIntance(false,"修改失败");
-					}
-				}else {
-					int c=votingservice.insert(vt);
-					if(c>0) {
-						dto = ResultDTO.getIntance(true,"添加成功");
-						model.setViewName("/vote/list");
-					}else {
-						dto = ResultDTO.getIntance(false,"添加失败");
-					}
-				}
+			try {
+				votingservice.insert(obj);
+				dto = ResultDTO.getIntance(true, "投票活动添加成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
 			}
-			return model;
+			return dto;
 		}
-		
+		@RequestMapping("/showEdit")
+		public String showEdit(Long id,Model model) {
+			Voting obj = votingservice.selectOneById(id);
+			model.addAttribute("obj", obj);
+			return "vote/edit";
+		}
+
+		/**
+		 * 
+		* @Title: voting
+		* @Description: TODO 修改投票活动
+		* @throws
+		 */
+		@RequestMapping(value = "/edit")
+		@ResponseBody
+		@Transactional(rollbackFor = Exception.class)
+		public ResultDTO votingedit(Voting obj) {
+			ResultDTO dto;
+			try {
+				votingservice.update(obj);
+				dto = ResultDTO.getIntance(true, "投票活动修改成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
+			}
+			return dto;
+		}
 
 }

@@ -33,8 +33,8 @@
   </div>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-	<a class="btn btn-primary radius" data-title="添加投票活动" onclick="voting_add('添加投票活动','/vote/update','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加投票活动</a></span>
-	<span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<a class="btn btn-primary radius" data-title="添加投票活动" onclick="voting_add('添加投票活动','/vote/showadd','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加投票活动</a></span>
+	<span class="r">共有数据：<strong>${voting?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -54,13 +54,16 @@
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
 					<td>${voting.id?if_exists}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${voting.title?if_exists}</u></td>
+					<td class="text-l">
+					<u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','/vote/showEdit',${voting.id})" title="查看">${voting.title?if_exists}</u></td>
 					<td>${voting.rule?if_exists}</td>
 					<td>
 					<#if voting.starttime?exists>${voting.starttime?string("yyyy-MM-dd")!}</#if>
 					</td>
 					<td><#if voting.starttime?exists>${voting.endtime?string("yyyy-MM-dd")!}</#if></td>
-					<td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${voting.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="f-14 td-manage">
+					<a style="text-decoration:none" class="ml-5" onClick="article_edit('活动编辑','/vote/showEdit',${voting.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${voting.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
 				</#if>
@@ -90,21 +93,11 @@ $('.table-sort').dataTable({
 });
 /*活动-添加*/
 function voting_add(title,url,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
+	layer_show(title,url,w,h);
 }
 /*资讯-编辑*/
-function article_edit(title,url,id,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
+function article_edit(title,url,id){
+	layer_show(title,url+"?id="+id,"",550);
 }
 /*资讯-删除*/
 function candidate_del(obj,id){

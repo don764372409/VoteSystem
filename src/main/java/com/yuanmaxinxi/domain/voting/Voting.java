@@ -4,7 +4,7 @@ public class Voting{
 	private Long id;
 	private String title;
 	private String rule;
-	private int state;
+	private int status;
 	private Date starttime;
 	private Date endtime;
 	public Long getId(){
@@ -25,11 +25,11 @@ public class Voting{
 	public void setRule(String rule){
 		this.rule=rule;
 	}
-	public int getState(){
-		return this.state;
+	public int getStatus(){
+		return this.status;
 	}
-	public void setState(int state){
-		this.state=state;
+	public void setStatus(int status){
+		this.status=status;
 	}
 	public Date getStarttime(){
 		return this.starttime;
