@@ -21,6 +21,7 @@
 		select * from t_articletype where id=#{id}
 	</select>
 	<select id="selectAll" resultMap="ArticleTypeResultMap">
-		select * from t_articletype where id=#{id}
+		select * from t_articletype where pId=#{pId}
 	</select>
+	
 </mapper>

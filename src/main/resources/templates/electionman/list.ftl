@@ -22,19 +22,19 @@
 <title>参选人列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 参选管理 <span class="c-gray en">&gt;</span> 参选人列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 参选管理 <span class="c-gray en">&gt;</span> 参选人列表 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
 	<div class="text-c">
-	<form action="">
-    <input type="text" class="input-text" style="width:250px" placeholder="输入参选人名字" id="name" name="name">
-    <button type="submit" class="btn btn-success" ><i class="icon-search"></i> 搜索</button>
-  	</form>
+<!-- 	<form action=""> -->
+<!--     <input type="text" class="input-text" style="width:250px" placeholder="输入参选人名字" id="name" name="name"> -->
+<!--     <button type="submit" class="btn btn-success" ><i class="icon-search"></i> 搜索</button> -->
+<!--   	</form> -->
   </div>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/showadd','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> 
-	 <span class="r">共有数据：<strong>${candidatelist?size}</strong> 条</span> </div>
+	 <a href="javascript:;" onclick="member_add('添加参选人','/electionman/showadd')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> 
+	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -49,18 +49,18 @@
 				</tr>
 			</thead>
 			<tbody>
-			<#if candidatelist?exists>
-			 <#list candidatelist as candidate>
+			<#if list?exists>
+			 <#list list as obj>
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
-					<td>${candidate.id?if_exists}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','/candidate/showEdit',${candidate.id})" title="查看">${candidate.name?if_exists}</u></td>
-					<td><img src="${candidate.img?if_exists}" style="width: 80px;height: 80px;"></td>
-					<td>${candidate.remark?if_exists} </td>
-					<td>${candidate.state?if_exists}</td>
+					<td>${obj.id?if_exists}</td>
+					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','/electionman/showEdit',${obj.id})" title="查看">${obj.name?if_exists}</u></td>
+					<td><img src="${obj.img?if_exists}" style="width: 80px;height: 80px;"></td>
+					<td>${obj.remark?if_exists} </td>
+					<td>${obj.state?if_exists}</td>
 					<td class="f-14 td-manage">
-					<a style="text-decoration:none" class="ml-5" onClick="article_edit('预选人编辑','/candidate/showEdit',${candidate.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${candidate.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<a style="text-decoration:none" class="ml-5" onClick="article_edit('预选人编辑','/electionman/showEdit',${obj.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a style="text-decoration:none" class="ml-5" onClick="electionman_del(this,${obj.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
 				</#if>
@@ -90,8 +90,14 @@ $('.table-sort').dataTable({
 });
 
 /*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
+function member_add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+// 	打开全屏
+	layer.full(index);
 }
 
 /*资讯-编辑*/
@@ -99,12 +105,12 @@ function article_edit(title,url,id){
 	layer_show(title,url+"?id="+id,"",550);
 }
 /*资讯-删除*/
-function candidate_del(obj,id){
+function electionman_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'post',
 			data:{"id":id},
-			url: "/candidate/delete",
+			url: "/electionman/delete",
 			dataType: 'json',
 			success: function(data){
 				layer.msg('已删除!',{icon:1,time:1000});

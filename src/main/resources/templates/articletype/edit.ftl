@@ -3,52 +3,100 @@
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
 <!--[if lt IE 9]>
-<script type="text/javascript" src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
-<script type="text/javascript" src="http://libs.useso.com/js/respond.js/1.4.2/respond.min.js"></script>
-<script type="text/javascript" src="http://cdn.bootcss.com/css3pie/2.0beta1/PIE_IE678.js"></script>
+<script type="text/javascript" src="/H-ui/lib/html5shiv.js"></script>
+<script type="text/javascript" src="/H-ui/lib/respond.min.js"></script>
 <![endif]-->
-<link type="text/css" rel="stylesheet" href="css/H-ui.css"/>
-<link type="text/css" rel="stylesheet" href="css/H-ui.admin.css"/>
-<link type="text/css" rel="stylesheet" href="font/font-awesome.min.css"/>
-<!--[if IE 7]>
-<link href="http://www.bootcss.com/p/font-awesome/assets/css/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/H-ui/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="/H-ui/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="/H-ui/static/h-ui.admin/css/style.css" />
+
+<script type="text/javascript" src="/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/H-ui/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/H-ui/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer ä½œä¸ºå…¬å…±æ¨¡ç‰ˆåˆ†ç¦»å‡ºå»-->
+
+<script type="text/javascript" src="/H-ui/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/H-ui/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="/H-ui/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="/H-ui/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<!--[if IE 6]>
+<script type="text/javascript" src="/H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>·ÖÀà±à¼­</title>
+<!--/meta ä½œä¸ºå…¬å…±æ¨¡ç‰ˆåˆ†ç¦»å‡ºå»-->
+<title>ä¿®æ”¹ç±»åˆ«</title>
 </head>
 <body>
-<div class="pd-20">
-  <form class="Huiform" action="/" method="post">
-    ÉÏ¼¶À¸Ä¿£º
-    <select class="select" id="sel_Sub" name="sel_Sub" onchange="SetSubID(this);">
-      <option value="0">¶¥¼¶·ÖÀà</option>
-      <option value="100">·ÖÀàÒ»¼¶</option>
-      <option value="101">&nbsp;&nbsp;©À ·ÖÀà¶ş¼¶</option>
-      <option value="102">&nbsp;&nbsp;©À ·ÖÀà¶ş¼¶</option>
-      <option value="201">·ÖÀàÒ»¼¶</option>
-      <option value="101">&nbsp;&nbsp;©À ·ÖÀà¶ş¼¶</option>
+<article class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+		<input name="id" type="hidden" value="${obj.id}">
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>ç±»åˆ«åç§°ï¼š</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${obj.name}" placeholder="è¯·è¾“å…¥ç±»åˆ«åç§°" name="name">
+			</div>
+		</div>
+		 <div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>çˆ¶çº§ç±»åˆ«ï¼š</label>
+    <select class="formControls col-xs-8 col-sm-9" id="pId" name="pId" onchange="SetSubID(this);">
+      <option value="1">ä¸€å“ä¸€ç±»</option>
+      <option value="2">å…šå‘˜ç§¯åˆ†</option>
+      <option value="3">å…šå»ºåŠ¨æ€</option>
     </select>
-    <input type="hidden" id="hid_ccid" value="">ÅÅĞò£º<input class="input-text text-c" style="width:50px" type="text" value="3" placeholder="ÅÅĞò" name="class-rank" id="class-rank">
-    ·ÖÀàÃû£º<input class="input-text" style="width:170px" type="text" value="¶ş¼¶·ÖÀà" placeholder="ÊäÈë·ÖÀà" name="class-val" id="class-val">
-    <div class="text-c mt-20"><button type="button" class="btn btn-success" id="" name="" onClick="class_save(this,'2');"><i class="icon-save"></i> ±£´æ</button></div>
-  </form>
-</div>
-<script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="js/H-ui.js"></script> 
-<script type="text/javascript" src="js/H-ui.admin.js"></script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
-</script>
+    </div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>å¤‡æ³¨ï¼š</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${obj.remark}" placeholder="è¯·è¾“å…¥å¤‡æ³¨ä¿¡æ¯" name="remark">
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;æäº¤&nbsp;&nbsp;">
+			</div>
+		</div>
+		
+	</form>
+</article>
+<script type="text/javascript">
+$(function(){
+	$("#form-member-add").validate({
+		rules:{
+			name:{
+				required:true
+			},
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit({
+				type: 'post',
+				url: "/articletype/edit" ,
+				success: function(data){
+					layer.msg(data.msg,{icon:1,time:1000});
+					if(data.result){
+						parent.$('.btn-refresh').click();
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					}
+				},
+                error: function(XmlHttpRequest, textStatus, errorThrown){
+					layer.msg('ç½‘ç»œå¼‚å¸¸,è¯·åˆ·æ–°é‡è¯•!',{icon:2,time:1000});
+				}
+			});
+		}
+	});
+});
+</script> 
+<!--/è¯·åœ¨ä¸Šæ–¹å†™æ­¤é¡µé¢ä¸šåŠ¡ç›¸å…³çš„è„šæœ¬-->
 </body>
 </html>

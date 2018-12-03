@@ -9,11 +9,8 @@ public interface ArticleTypeDAO{
 	int insert(ArticleType obj);
 
 	int update(ArticleType obj);
-
 	int delete(Long id);
-
 	ArticleType selectOneById(Long id);
-
-	List<ArticleType> selectAll(Long id);
+	List<ArticleType> selectAll(Long pid);
 
 }

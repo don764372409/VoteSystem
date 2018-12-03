@@ -46,10 +46,11 @@
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="80">文章编号</th>
+					<th width="80">文章主题</th>
 					<th width="80">文章内容</th>
-					<th width="80">文章类别编号</th>
 					<th width="120">发布时间</th>
 					<th width="75">发布人</th>
+					<th width="80">状态提示</th>
 					<th width="120">操作</th>
 				</tr>
 			</thead>
@@ -57,14 +58,16 @@
 			 <#list article as art>
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
-					<td>${art.atpid}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${art.atcontent}</u></td>
-					<td>${art.atid}</td>
-					<td>${art.addtime?string("yyyy-MM-dd")!} </td>
-					<td>${art.admin_id}</td>
+					<td>${art.id}</td>
+					<td>${art. title}</td>
+					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${art.content}</u></td>
+					<td>${art.time?string("yyyy-MM-dd")!} </td>
+					<td>${art.fail}</td>
 					<td class="f-14 td-manage">
+					<td class="f-14 td-manage">
+					<a style="text-decoration:none" onClick="article_shenhe(this,${art.state})" href="javascript:;" title="审核">审核</a>
 					<a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,${art.atpid})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,${art.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 					</td>
 				</tr>
 				</#list>
@@ -115,7 +118,7 @@ function article_del(obj,id){
 		$.ajax({
 			type: 'POST',
 			url: '/article/delete',
-			data:{"atpid":id},
+			data:{"id":id},
 			dataType: 'json',
 			success: function(data){
 				layer.msg('已删除!',{icon:1,time:5000});
