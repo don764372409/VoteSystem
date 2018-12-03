@@ -78,4 +78,13 @@ public class ResourceService{
 		return parents;
 	}
 
+	/**
+	 * 获取角色的菜单和按钮 资源对象 ID
+	 * @param roleId
+	 * @return
+	 */
+	public List<Long> getAllResourceByRole(Long roleId) {
+		return resourceDAO.getAllResourceByRole(roleId);
+	}
+
 }

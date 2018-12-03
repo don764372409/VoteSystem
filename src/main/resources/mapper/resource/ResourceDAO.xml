@@ -20,7 +20,7 @@
 		delete from t_resource where id=#{id}
 	</delete>
 	<select id="selectOneById" parameterType="Long" resultMap="ResourceResultMap">
-		select * from t_resource where id=#{id}
+		select * from t_role_resource where roleId=#{roleId}
 	</select>
 	<select id="selectAllParentsByAdminId" parameterType="Long" resultMap="ResourceResultMap">
 		select * from t_resource where id in(
@@ -38,6 +38,9 @@
 	</select>
 	<select id="selectAll" resultMap="ResourceResultMap">
 		select * from t_resource
+	</select>
+	<select id="getAllResourceByRole" resultType="Long">
+		select resourceId from t_role_resource where roleId = #{roleId}
 	</select>
 	<select id="selectAllParents" resultMap="ResourceResultMap">
 		select * from t_resource where pId is null

@@ -111,13 +111,20 @@ function addObj(title,url){
 	layer.full(index);
 }
 function edit(title,url,id){
-	layer_show(title,url+"?id="+id,550,300);
+// 	layer_show(title,url+"?id="+id,550,300);
 // 	var index = layer.open({
 // 		type: 2,
 // 		title: title,
 // 		content: url+"?id="+id
 // 	});
 // 	layer.full(index);
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url+"?id="+id
+	});
+// 	打开全屏
+	layer.full(index);
 }
 
 function deleteObj(obj,o,u,id){

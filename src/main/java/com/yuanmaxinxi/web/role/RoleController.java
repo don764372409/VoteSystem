@@ -54,10 +54,10 @@ public class RoleController {
 		return "role/edit";
 	}
 	@RequestMapping("/edit")
-	public @ResponseBody ResultDTO edit(Role obj) {
+	public @ResponseBody ResultDTO edit(Role obj,@RequestParam(value="ids[]")Long[] ids) {
 		ResultDTO dto;
 		try {
-			roleService.update(obj);
+			roleService.update(obj,ids);
 			dto = ResultDTO.getIntance(true, "机构修改成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,6 +80,10 @@ public class RoleController {
 	@RequestMapping("/getAllResource")
 	public @ResponseBody List<Resource> getAllResources() {
 		return resourceService.getAllResources();
+	}
+	@RequestMapping("/getAllResourceByRole")
+	public @ResponseBody List<Long> getAllResourceByRole(Long roleId) {
+		return resourceService.getAllResourceByRole(roleId);
 	}
 	
 }

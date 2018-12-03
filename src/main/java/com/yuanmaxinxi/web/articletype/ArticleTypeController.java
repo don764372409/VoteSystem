@@ -2,13 +2,18 @@ package com.yuanmaxinxi.web.articletype;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
+import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 	@RestController
 	@RequestMapping(value ="/articletype",method = { RequestMethod.GET, RequestMethod.POST })
@@ -24,36 +29,19 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 				return result;
 			
 		}
-	 
-		@RequestMapping(value = "/update", method = RequestMethod.POST)
-		public String update(ArticleType obj) {
-			int result = articTypeleService.update(obj);
-			if (result >= 1) {
-				return "修改成功";
-			} else {
-				return "修改失败";
-			}
-	 
+		@RequestMapping("/dd")
+		public String showAdd() {
+			return "admin/add";
 		}
-		
-		@RequestMapping(value = "/insert", method = RequestMethod.POST)
-		public int insert(ArticleType obj) {
-			return articTypeleService.insert(obj);
-			}
-		
-		@RequestMapping(value = "/getAll")
-		public ModelAndView getAllRuntype() {
+	    @RequestMapping(value = "/list")
+		public ModelAndView List(Long id) {
 			ModelAndView modelAndView = new ModelAndView();
-			List<ArticleType> articletypes = articTypeleService.selectAll();
-			for (ArticleType articletype : articletypes) {
-				System.out.println(articletype.getAtname());
-			}
+			List<ArticleType> articletypes = articTypeleService.selectAll(id);
 			modelAndView.addObject("articletype", articletypes);
 			modelAndView.setViewName("/articletype/list");
 
 			return modelAndView;
 		}
-	 
 		@RequestMapping("/selectOneById")
 		@ResponseBody
 		public ArticleType selectOneById(Long id){

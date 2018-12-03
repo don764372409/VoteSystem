@@ -45,9 +45,9 @@
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">内别编号</th>
+					<th width="80">类别编号</th>
 					<th width="80">类别名称</th>
-					<th width="80">pid</th>
+					<th width="80">主类编号</th>
 					<th width="120">操作</th>
 				</tr>
 			</thead>
