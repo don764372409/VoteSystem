@@ -75,15 +75,15 @@
 			window.top.location = location;
 		}
 		function submitForm(){
+			var index = layer.load(1, {
+				  shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
 			var name = $("input[name=name]").val().trim();
 			var password = $("input[name=password]").val().trim();
 			var code = $("input[name=code]").val().trim();
 			
 			$.post("/login/login",{"name":name,"password":password,"code":code},function(data){
 				if(data.result){
-					var index = layer.load(1, {
-						  shade: [0.1,'#fff'] //0.1透明度的白色背景
-					});
 					location.href="/index/";
 				}else{
 					$.Huimodalalert(data.msg,2000);

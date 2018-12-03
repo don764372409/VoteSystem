@@ -23,4 +23,7 @@ public class StringUtil {
 	    Date strtodate = formatter.parse(strDate, pos);
 	    return strtodate;
 	 }
+	 public static void main(String[] args) {
+		System.err.println("\u914d\u7f6e\u6587\u4ef6\u521d\u59cb\u5316\u5931\u8d25");
+	}
 }
