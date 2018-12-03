@@ -36,29 +36,23 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">活动介绍（规则）：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动介绍（规则）：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-			<input type="text" class="input-text" value="" placeholder="" id="rule" name="rule">
-			 </div>
+			<textarea name="rule" cols="" rows="" class="textarea"  placeholder="规则和介绍：一人一天一票...." datatype="*10-100" dragonfly="true" nullmsg="不能为空！" onKeyUp="$.Huitextarealength(this,200)">
+			</textarea> </div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">是否默认添加参选人员：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否默认添加参选人员：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-			<input type="radio" value="0" placeholder="" id="status" name="status">否
+			<input type="radio" value="0" placeholder="" id="status" name="status" checked>否
 			<input type="radio" value="1" placeholder="" id="status" name="status">是
 			 </div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">开始时间：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-			
-			 </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">结束时间：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-			
-			 </div>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
+		<input type="text" name="starttimes" onfocus="WdatePicker({})" id="datemin" class="input-text Wdate" style="width:120px;">
+		<span class="c-red">*</span>结束时间
+		<input type="text" name="endtimes" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}'})" id="datemax" class="input-text Wdate" style="width:120px;">
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
@@ -99,9 +93,19 @@ $(function(){
 	$(function(){
 	$("#form-member-add").validate({
 		rules:{
-			name:{
+			title:{
 				required:true
 			},
+			rule:{
+				required:true
+			},
+			starttimes:{
+				required:true
+			},
+			endtimes:{
+				required:true
+			},
+			
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -109,13 +113,13 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/candidate/add" ,
+				url: "/vote/add" ,
 				success: function(data){
-					layer.msg(data.msg,{icon:1,time:1000});
+					layer.msg(data.msg,{icon:1,time:2000});
 					if(data.result){
-						parent.$('.btn-refresh').click();
-// 						var index = parent.layer.getFrameIndex(window.name);
-// 						parent.layer.close(index);
+						window.parent.location.reload(); //刷新父页面
+						var index = parent.layer.getFrameIndex(window.name);
+ 						parent.layer.close(index);
 					}
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){

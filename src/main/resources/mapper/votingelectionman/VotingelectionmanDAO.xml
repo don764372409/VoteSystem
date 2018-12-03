@@ -20,7 +20,9 @@
 	<select id="selectOneById" parameterType="Long" resultMap="VotingelectionmanResultMap">
 		select * from t_voting_electionman where id=#{id}
 	</select>
-	<select id="selectAll" resultMap="VotingelectionmanResultMap">
-		select * from t_voting_electionman
+	<select id="selectAll" resultType="Map">
+		select * from t_voting_electionman ve
+		JOIN t_voting v ON v.id=ve.vId
+		JOIN t_electionman e ON e.id=ve.eId 
 	</select>
 </mapper>

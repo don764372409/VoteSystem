@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yuanmaxinxi.dao.votingelectionman.VotingelectionmanDAO;
 import com.yuanmaxinxi.domain.votingelectionman.Votingelectionman;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class VotingelectionmanService{
@@ -33,7 +34,7 @@ public class VotingelectionmanService{
 	}
 
 
-	public List<Votingelectionman> selectAll(){
+	public List<Map<String, Object>> selectAll(){
 		return votingelectionmanDAO.selectAll();
 	}
 

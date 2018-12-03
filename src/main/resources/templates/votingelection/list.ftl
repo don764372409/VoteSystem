@@ -19,57 +19,48 @@
 <script type="text/javascript" src="../H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>投票活动列表</title>
+<title>投票参选人列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 投票活动管理 <span class="c-gray en">&gt;</span> 投票活动列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 投票统计管理 <span class="c-gray en">&gt;</span> 投票参选人列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
 	<div class="text-c">
 	<form action="">
-    <input type="text" class="input-text" style="width:250px" placeholder="投票活动标题" id="name" name="name">
-    <button type="submit" class="btn btn-success" ><i class="icon-search"></i> 搜索</button>
+    <!-- <input type="text" class="input-text" style="width:250px" placeholder="输入参选人名字" id="name" name="name">
+    <button type="submit" class="btn btn-success" ><i class="icon-search"></i> 搜索</button> -->
   	</form>
   </div>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-	<!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>  -->
-	<a class="btn btn-primary radius" data-title="添加投票活动" onclick="voting_add('添加投票活动','/vote/showadd','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加投票活动</a></span>
-	<span class="r">共有数据：<strong>${voting?size}</strong> 条</span> </div>
+	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/showadd','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> 
+	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="80">活动id</th>
-					<th width="80">标题</th>
-					<th width="80">活动介绍（规则）</th>
-					<th width="120">开始时间</th>
-					<th width="75">结束时间</th>
+					<th width="80">编号</th>
+					<th width="80">姓名</th>
+					<th width="80">头像</th>
+					<th width="120">所属活动</th>
+					<th width="75">得票</th>
 					<th width="120">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-			<#if voting?exists>
-			 <#list voting as voting>
+			<#if list?exists>
+			 <#list list as list>
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
-					<td>${voting.id?if_exists}</td>
-					<td class="text-l">${voting.title?if_exists}</td>
-					<td>
-					<#if voting.rule?length gt 33>
-					${voting.rule?substring(0,30)}...
-					<#else>
-					${voting.rule!} 
-					</#if>
-					</td>
-					<td>
-					<#if voting.starttime?exists>${voting.starttime?string("yyyy-MM-dd")!}</#if>
-					</td>
-					<td><#if voting.starttime?exists>${voting.endtime?string("yyyy-MM-dd")!}</#if></td>
+					<td>${list.eId?if_exists}</td>
+					<td class="text-l">${list.name?if_exists}</td>
+					<td><img src="${list.img?if_exists}" style="width: 80px;height: 80px;"></td>
+					<td>${list.title?if_exists} </td>
+					<td>${list.number?if_exists}</td>
 					<td class="f-14 td-manage">
-					<a style="text-decoration:none" class="ml-5" onClick="article_edit('活动编辑','/vote/showEdit',${voting.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${voting.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<a style="text-decoration:none" class="ml-5" onClick="article_edit('编辑','/candidate/showEdit',${list.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${list.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				</#list>
 				</#if>
@@ -97,10 +88,12 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
 	]
 });
-/*活动-添加*/
-function voting_add(title,url,w,h){
+
+/*用户-添加*/
+function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
 }
+
 /*资讯-编辑*/
 function article_edit(title,url,id){
 	layer_show(title,url+"?id="+id,"",550);
@@ -111,7 +104,7 @@ function candidate_del(obj,id){
 		$.ajax({
 			type: 'post',
 			data:{"id":id},
-			url: "/vote/delete",
+			url: "/candidate/delete",
 			dataType: 'json',
 			success: function(data){
 				layer.msg('已删除!',{icon:1,time:1000});

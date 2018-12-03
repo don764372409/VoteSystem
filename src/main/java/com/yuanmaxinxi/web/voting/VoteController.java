@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.yuanmaxinxi.domain.voting.Voting;
 import com.yuanmaxinxi.dto.ResultDTO;
+import com.yuanmaxinxi.service.electionman.ElectionmanService;
 import com.yuanmaxinxi.service.voting.VotingService;
 
 /**
@@ -29,6 +30,8 @@ import com.yuanmaxinxi.service.voting.VotingService;
 public class VoteController {
 	@Autowired
     VotingService votingservice;
+	@Autowired
+	ElectionmanService candidateservice;
 	
 	/**
 	 * 
@@ -87,10 +90,10 @@ public class VoteController {
 		@RequestMapping(value = "/add")
 		@ResponseBody
 		@Transactional(rollbackFor = Exception.class)
-		public ResultDTO votingadd(Voting obj) {
+		public ResultDTO votingadd(Voting obj,HttpServletRequest request) {
 			ResultDTO dto;
 			try {
-				votingservice.insert(obj);
+				votingservice.insert(obj,request);
 				dto = ResultDTO.getIntance(true, "投票活动添加成功!");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -114,10 +117,10 @@ public class VoteController {
 		@RequestMapping(value = "/edit")
 		@ResponseBody
 		@Transactional(rollbackFor = Exception.class)
-		public ResultDTO votingedit(Voting obj) {
+		public ResultDTO votingedit(Voting obj,HttpServletRequest request) {
 			ResultDTO dto;
 			try {
-				votingservice.update(obj);
+				votingservice.update(obj,request);
 				dto = ResultDTO.getIntance(true, "投票活动修改成功!");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -125,5 +128,7 @@ public class VoteController {
 			}
 			return dto;
 		}
+		
+		
 
 }

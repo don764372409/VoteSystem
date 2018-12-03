@@ -31,47 +31,35 @@
 	<form class="form form-horizontal" id="form-member-add">
 	<input name="id" type="hidden" value="${obj.id}">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${obj.name}" placeholder="" id="username" name="name">
+				<input type="text" class="input-text" value="${obj.title}" placeholder="" id="title" name="title">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="organize">
-					<option value="" selected>请选择</option>
-					<#list list as org>
-						<#if (obj.deptId??) && (org.id == obj.deptId)>
-							<option value="${org.id}" selected="selected">${org.name}</option>
-							<#else>
-							<option value="${org.id}">${org.name}</option>
-						</#if>
-					</#list>
-				</select>
-				</span> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">头像：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div class="uploader-thum-container">
-					<div id="fileList" class="uploader-list"></div>
-					<div id="filePicker">选择图片</div>
-					<button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button>
-				</div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">人物介绍：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动介绍（规则）：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-			<script id="editor" type="text/plain" style="width:100%;height:400px;"></script>
-			</div>
+			<textarea name="rule" cols="" rows="" class="textarea"  placeholder="规则和介绍：一人一天一票...." dragonfly="true" nullmsg="不能为空！" onKeyUp="$.Huitextarealength(this,200)">
+			${obj.rule}</textarea> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否默认添加参选人员：</label>
+			<div class="formControls col-xs-8 col-sm-9"> 
+			<input type="radio" value="0" placeholder="" id="status" name="status" checked>否
+			<input type="radio" value="1" placeholder="" id="status" name="status">是
+			 </div>
+		</div>
+		<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
+		<input type="text" name="starttimes" value="${obj.starttime?string("yyyy-MM-dd")!}" onfocus="WdatePicker({})" id="datemin" class="input-text Wdate" style="width:120px;">
+		<span class="c-red">*</span>结束时间
+		<input type="text" name="endtimes" value="${obj.endtime?string("yyyy-MM-dd")!}" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}'})" id="datemax" class="input-text Wdate" style="width:120px;">
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button class="btn btn-primary radius" type="submit" ><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-				<button class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
-				<button class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
+				<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
+				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</form>
@@ -99,115 +87,26 @@ $(function(){
 		radioClass: 'iradio-blue',
 		increaseArea: '20%'
 	});
-	
-	$list = $("#fileList"),
-	$btn = $("#btn-star"),
-	state = "pending",
-	uploader;
-
-	var uploader = WebUploader.create({
-		auto: true,
-		swf: 'lib/webuploader/0.1.5/Uploader.swf',
-	
-		// 文件接收服务端。
-		server: 'fileupload.php',
-	
-		// 选择文件的按钮。可选。
-		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
-		pick: '#filePicker',
-	
-		// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-		resize: false,
-		// 只允许选择图片文件。
-		accept: {
-			title: 'Images',
-			extensions: 'gif,jpg,jpeg,bmp,png',
-			mimeTypes: 'image/*'
-		}
-	});
-	uploader.on( 'fileQueued', function( file ) {
-		var $li = $(
-			'<div id="' + file.id + '" class="item">' +
-				'<div class="pic-box"><img></div>'+
-				'<div class="info">' + file.name + '</div>' +
-				'<p class="state">等待上传...</p>'+
-			'</div>'
-		),
-		$img = $li.find('img');
-		$list.append( $li );
-	
-		// 创建缩略图
-		// 如果为非图片文件，可以不用调用此方法。
-		// thumbnailWidth x thumbnailHeight 为 100 x 100
-		uploader.makeThumb( file, function( error, src ) {
-			if ( error ) {
-				$img.replaceWith('<span>不能预览</span>');
-				return;
-			}
-	
-			$img.attr( 'src', src );
-		}, thumbnailWidth, thumbnailHeight );
-	});
-	// 文件上传过程中创建进度条实时显示。
-	uploader.on( 'uploadProgress', function( file, percentage ) {
-		var $li = $( '#'+file.id ),
-			$percent = $li.find('.progress-box .sr-only');
-	
-		// 避免重复创建
-		if ( !$percent.length ) {
-			$percent = $('<div class="progress-box"><span class="progress-bar radius"><span class="sr-only" style="width:0%"></span></span></div>').appendTo( $li ).find('.sr-only');
-		}
-		$li.find(".state").text("上传中");
-		$percent.css( 'width', percentage * 100 + '%' );
-	});
-	
-	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
-	uploader.on( 'uploadSuccess', function( file ) {
-		$( '#'+file.id ).addClass('upload-state-success').find(".state").text("已上传");
-	});
-	
-	// 文件上传失败，显示上传出错。
-	uploader.on( 'uploadError', function( file ) {
-		$( '#'+file.id ).addClass('upload-state-error').find(".state").text("上传出错");
-	});
-	
-	// 完成上传完了，成功或者失败，先删除进度条。
-	uploader.on( 'uploadComplete', function( file ) {
-		$( '#'+file.id ).find('.progress-box').fadeOut();
-	});
-	uploader.on('all', function (type) {
-        if (type === 'startUpload') {
-            state = 'uploading';
-        } else if (type === 'stopUpload') {
-            state = 'paused';
-        } else if (type === 'uploadFinished') {
-            state = 'done';
-        }
-
-        if (state === 'uploading') {
-            $btn.text('暂停上传');
-        } else {
-            $btn.text('开始上传');
-        }
-    });
-
-    $btn.on('click', function () {
-        if (state === 'uploading') {
-            uploader.stop();
-        } else {
-            uploader.upload();
-        }
-    });
-	
 	var ue = UE.getEditor('editor');
 	
-});
-$(function(){
+	});
+	//表单验证
+	$(function(){
 	$("#form-member-add").validate({
 		rules:{
-			name:{
+			title:{
 				required:true
 			},
+			rule:{
+				required:true
+			},
+			starttimes:{
+				required:true
+			},
+			endtimes:{
+				required:true
+			},
+			
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -215,13 +114,13 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/candidate/edit" ,
+				url: "/vote/edit" ,
 				success: function(data){
-					layer.msg(data.msg,{icon:1,time:1000});
+					layer.msg(data.msg,{icon:1,time:2000});
 					if(data.result){
-						parent.$('.btn-refresh').click();
+						window.parent.location.reload(); //刷新父页面
 						var index = parent.layer.getFrameIndex(window.name);
-						parent.layer.close(index);
+ 						parent.layer.close(index);
 					}
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){
@@ -231,6 +130,7 @@ $(function(){
 		}
 	});
 });
+	
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
