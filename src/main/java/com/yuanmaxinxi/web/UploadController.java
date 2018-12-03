@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baidu.ueditor.ActionEnter;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.util.FileUtil;
 
@@ -25,28 +26,26 @@ import com.yuanmaxinxi.util.FileUtil;
 public class UploadController {
 	@RequestMapping("/config")
 	public void config(HttpServletRequest request,HttpServletResponse response) {
-		org.springframework.core.io.Resource res = new ClassPathResource("config.json");
+		org.springframework.core.io.Resource res = new ClassPathResource("static\\H-ui\\lib\\ueditor\\1.4.3.3\\jsp\\config.json");
 		InputStream is = null;
+		response.setContentType("text/html;charset=utf-8");
 		response.setHeader("Content-Type" , "text/html");
 		try {
-			is = new FileInputStream(res.getFile());
-			StringBuffer sb = new StringBuffer();
-			byte[] b = new byte[1024];
-			int length=0;
-			while(-1!=(length=is.read(b))){
-				sb.append(new String(b,0,length,"utf-8"));
-			}
-			String result = sb.toString().replaceAll("/\\*(.|[\\r\\n])*?\\*/","");
+//			is = new FileInputStream(res.getFile());
+//			StringBuffer sb = new StringBuffer();
+//			byte[] b = new byte[1024];
+//			int length=0;
+//			while(-1!=(length=is.read(b))){
+//				sb.append(new String(b,0,length,"utf-8"));
+//			}
+//			String result = sb.toString().replaceAll("/\\*(.|[\\r\\n])*?\\*/","");
+//			out.print(result);
 			PrintWriter out = response.getWriter();
-			out.print(result);
-		} catch (IOException e) {
+			String rootPath = request.getServletContext().getRealPath("/resource/H-ui/lib/ueditor/1.4.3.3/" );
+			System.err.println(new ActionEnter( request, rootPath ).exec());
+			out.write( new ActionEnter( request, rootPath ).exec() );
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 	/**
@@ -60,7 +59,6 @@ public class UploadController {
 	public @ResponseBody ResultDTO upload(MultipartFile file,HttpServletRequest req){
 		ResultDTO dto;
 		String fileName;
-		
 		try {
 			//获取后缀
 			String endFix = FileUtil.getEndFix(file.getOriginalFilename());
