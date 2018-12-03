@@ -33,4 +33,6 @@ public interface ResourceDAO{
 
 	List<Resource> selectChildrenByParentId(Long pId);
 
+	List<Long> getAllResourceByRole(Long roleId);
+
 }

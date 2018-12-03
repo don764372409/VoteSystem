@@ -19,6 +19,9 @@
 	<delete id="delete" parameterType="Long">
 		delete from t_role where id=#{id}
 	</delete>
+	<delete id="deleteRoleAndResourceByRoleId" parameterType="Long">
+		delete from t_role_resource where roleId=#{roleId}
+	</delete>
 	<select id="selectOneById" parameterType="Long" resultMap="RoleResultMap">
 		select * from t_role where id=#{id}
 	</select>

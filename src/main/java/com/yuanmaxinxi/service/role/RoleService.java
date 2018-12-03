@@ -40,7 +40,7 @@ public class RoleService{
 
 
 	@Transactional
-	public void update(Role obj){
+	public void update(Role obj, Long[] ids){
 		if (obj.getId()==null||obj.getId()<1) {
 			throw new RuntimeException("非法访问.");
 		}
@@ -54,6 +54,23 @@ public class RoleService{
 		if (i!=1) {
 			throw new RuntimeException("角色修改失败,请稍后再试.");
 		}
+		//删除中间表信息
+		try {
+			roleDAO.deleteRoleAndResourceByRoleId(obj.getId());
+			for (Long rId : ids) {
+				Map<String,Long> map = new HashMap<>();
+				map.put("roleId", obj.getId());
+				map.put("resourceId", rId);
+				int row = roleDAO.insertRoleAndResource(map);
+				if (row!=1) {
+					throw new RuntimeException();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("角色菜单权限修改失败,请稍后再试.");
+		}
+		
 	}
 
 
@@ -73,7 +90,7 @@ public class RoleService{
 		} catch (Exception e) {
 			String msg = e.getMessage();
 			if (msg.contains("foreign key")) {
-				msg = "这个角色绑定了其他数据,不能删除.";
+				msg = "这个角色绑定了其他数据(菜单或管理员),不能删除.";
 			}
 			throw new RuntimeException(msg);
 		}
