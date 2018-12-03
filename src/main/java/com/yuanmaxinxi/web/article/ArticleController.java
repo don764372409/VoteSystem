@@ -3,6 +3,7 @@ package com.yuanmaxinxi.web.article;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yuanmaxinxi.domain.article.Article;
+import com.yuanmaxinxi.domain.articletype.ArticleType;
+import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.service.article.ArticleService;
+import com.yuanmaxinxi.service.articletype.ArticleTypeService;
+import com.yuanmaxinxi.service.organize.OrganizeService;
 
 
 
@@ -21,6 +26,8 @@ public class ArticleController {
 
     @Autowired
     ArticleService articleService;
+    @Autowired
+	private ArticleTypeService articletypeService;
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ResponseBody
 	public int delete(Long atpid) {
@@ -28,7 +35,17 @@ public class ArticleController {
 			return result;
 		
 	}
- 
+	@RequestMapping("/showAdd")
+	public String showAdd() {
+		return "/article/add";
+	}
+//	@RequestMapping("/showType")
+//	public String showOrg(Model model) {
+//		List<ArticleType> list = articletypeService.selectOrgAndeDeptToTree();
+//		model.addAttribute("list", list);
+//		System.err.println(list);
+//		return "article/organize";
+//	}
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(Article obj) {
 		int result = articleService.update(obj);
