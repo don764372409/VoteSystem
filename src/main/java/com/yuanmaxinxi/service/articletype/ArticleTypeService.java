@@ -87,4 +87,8 @@ public class ArticleTypeService{
 		return list;
 
 }
+	public List<ArticleType> selectArticleTypeToTree() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

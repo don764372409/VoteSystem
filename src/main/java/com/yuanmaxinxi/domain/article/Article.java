@@ -1,5 +1,7 @@
 package com.yuanmaxinxi.domain.article;
 import java.util.Date;
+
+import com.yuanmaxinxi.domain.articletype.ArticleType;
 public class Article{
 	private Long id;
 	private String title;
@@ -8,6 +10,22 @@ public class Article{
 	private Long aId;
 	private String fail;
 	private int state;
+	private Long typeId;
+	private ArticleType articletype;
+	
+	public Long getTypeId() {
+		return typeId;
+	}
+	public void setTypeId(Long typeId) {
+		this.typeId = typeId;
+	}
+	
+	public ArticleType getArticletype() {
+		return articletype;
+	}
+	public void setArticletype(ArticleType articletype) {
+		this.articletype = articletype;
+	}
 	public Long getId(){
 		return this.id;
 	}

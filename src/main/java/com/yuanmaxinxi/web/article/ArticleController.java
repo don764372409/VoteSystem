@@ -3,24 +3,21 @@ package com.yuanmaxinxi.web.article;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
 import com.yuanmaxinxi.domain.organize.Organize;
+import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
-import com.yuanmaxinxi.service.organize.OrganizeService;
 
 
 
-@RestController
+@Controller
 @RequestMapping(value ="/article",method = { RequestMethod.GET, RequestMethod.POST })
 public class ArticleController {
 
@@ -28,50 +25,54 @@ public class ArticleController {
     ArticleService articleService;
     @Autowired
 	private ArticleTypeService articletypeService;
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    @ResponseBody
-	public int delete(Long atpid) {
-		int result = articleService.delete(atpid);
-			return result;
-		
-	}
 	@RequestMapping("/showAdd")
 	public String showAdd() {
 		return "/article/add";
 	}
-//	@RequestMapping("/showType")
-//	public String showOrg(Model model) {
-//		List<ArticleType> list = articletypeService.selectOrgAndeDeptToTree();
-//		model.addAttribute("list", list);
-//		System.err.println(list);
-//		return "article/organize";
-//	}
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(Article obj) {
-		int result = articleService.update(obj);
-		if (result >= 1) {
-			return "修改成功";
-		} else {
-			return "修改失败";
+	 @RequestMapping("/add")
+		public @ResponseBody ResultDTO add(Article obj) {
+			ResultDTO dto;
+			try {
+				articleService.insert(obj);
+				dto = ResultDTO.getIntance(true, "类别添加成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
+			}
+			return dto;
 		}
- 
-	}
-	
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public int insert(Article obj) {
-		return articleService.insert(obj);
+	 @RequestMapping("/delete")
+		public @ResponseBody ResultDTO delete(Long id) {
+			ResultDTO dto;
+			try {
+				articleService.delete(id);
+				dto = ResultDTO.getIntance(true, "类别删除成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
+			}
+			return dto;
+		}
+	  @RequestMapping("/showEdit")
+			public String showEdit(Model model,Long id) {
+		    	Article obj = articleService.selectOneById(id);
+				model.addAttribute("obj", obj);
+				return "/articletype/edit";
+			}
+	  @RequestMapping("/showType")
+		public String showType(Model model) {
+			List<ArticleType> list = articletypeService.selectArticleTypeToTree();
+			model.addAttribute("list", list);
+			System.err.println(list);
+			return "articletype/organize";
 		}
 	
-	@RequestMapping(value = "/list")
-	public ModelAndView getAllRuntype(Long pid) {
-		ModelAndView modelAndView = new ModelAndView();
-		List<Article> articles = articleService.selectAll();
-		modelAndView.addObject("article", articles);
-		modelAndView.setViewName("/article/list");
-
-		return modelAndView;
+	@RequestMapping("/list")
+	public String list(Model model) {
+		List<Article> list = articleService.selectAll();
+		model.addAttribute("list", list);
+		return "article/list";
 	}
- 
 	@RequestMapping("/selectOneById")
 	@ResponseBody
 	public Article selectOneById(Long id){
