@@ -1,39 +1,53 @@
 package com.yuanmaxinxi.domain.article;
 import java.util.Date;
 public class Article{
-	private Long atpid;
-	private String atcontent;
-	private int atid;
-	private Date addtime;
-	private Long admin_id;
-	public Long getAtpid(){
-		return this.atpid;
+	private Long id;
+	private String title;
+	private String content;
+	private Date time;
+	private Long aId;
+	private String fail;
+	private int state;
+	public Long getId(){
+		return this.id;
 	}
-	public void setAtpid(Long atpid){
-		this.atpid=atpid;
+	public void setId(Long id){
+		this.id=id;
 	}
-	public String getAtcontent(){
-		return this.atcontent;
+	public String getTitle(){
+		return this.title;
 	}
-	public void setAtcontent(String atcontent){
-		this.atcontent=atcontent;
+	public void setTitle(String title){
+		this.title=title;
 	}
-	public int getAtid(){
-		return this.atid;
+	public String getContent(){
+		return this.content;
 	}
-	public void setAtid(int atid){
-		this.atid=atid;
+	public void setContent(String content){
+		this.content=content;
 	}
-	public Date getAddtime(){
-		return this.addtime;
+	public Date getTime(){
+		return this.time;
 	}
-	public void setAddtime(Date addtime){
-		this.addtime=addtime;
+	public void setTime(Date time){
+		this.time=time;
 	}
-	public Long getAdmin_id(){
-		return this.admin_id;
+	public Long getAId(){
+		return this.aId;
 	}
-	public void setAdmin_id(Long admin_id){
-		this.admin_id=admin_id;
+	public void setAId(Long aId){
+		this.aId=aId;
+	}
+	public String getFail(){
+		return this.fail;
+	}
+	public void setFail(String fail){
+		this.fail=fail;
+	}
+	public int getState(){
+		return this.state;
+	}
+	public void setState(int state){
+		this.state=state;
 	}
 }

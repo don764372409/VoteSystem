@@ -1,24 +1,31 @@
 package com.yuanmaxinxi.domain.articletype;
 public class ArticleType{
-	private Long atid;
-	private String atname;
-	private Long pid;
-	public Long getAtid(){
-		return this.atid;
+	private Long id;
+	private String name;
+	private Long pId;
+	private String remark;
+	public Long getId(){
+		return this.id;
 	}
-	public void setAtid(Long atid){
-		this.atid=atid;
+	public void setId(Long id){
+		this.id=id;
 	}
-	public String getAtname(){
-		return this.atname;
+	public String getName(){
+		return this.name;
 	}
-	public void setAtname(String atname){
-		this.atname=atname;
+	public void setName(String name){
+		this.name=name;
 	}
-	public Long getPid(){
-		return this.pid;
+	public Long getPId(){
+		return this.pId;
 	}
-	public void setPid(Long pid){
-		this.pid=pid;
+	public void setPId(Long pId){
+		this.pId=pId;
+	}
+	public String getRemark(){
+		return this.remark;
+	}
+	public void setRemark(String remark){
+		this.remark=remark;
 	}
 }

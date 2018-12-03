@@ -10,10 +10,10 @@ public interface ArticleTypeDAO{
 
 	int update(ArticleType obj);
 
-	int delete(Long atid);
+	int delete(Long id);
 
 	ArticleType selectOneById(Long id);
 
-	List<ArticleType> selectAll();
+	List<ArticleType> selectAll(Long id);
 
 }

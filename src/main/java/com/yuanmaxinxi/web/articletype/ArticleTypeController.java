@@ -29,40 +29,14 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 				return result;
 			
 		}
-	    @RequestMapping(value = "/update")
-		@ResponseBody
-		@Transactional(rollbackFor = Exception.class)
-		public ModelAndView candidateadd(ModelAndView model, HttpServletRequest request,
-			@RequestParam(value = "atid",required = false) Long atid) {
-			ResultDTO dto;
-			if(request.getParameter("add") !=null &&request.getParameter("add").equals("addok")){
-				ArticleType cd=new ArticleType();
-				String name=request.getParameter("name");
-				cd.setAtname(name);
-				if(atid!=null&&atid>0) {//判断是修改还是添加
-					int c=articTypeleService.update(cd);
-					if(c>0) {
-					dto = ResultDTO.getIntance(true,"修改成功");
-					model.setViewName("/articletype/update");
-					}else {
-						dto = ResultDTO.getIntance(false,"修改失败");
-					}
-				}else {
-					int c=articTypeleService.insert(cd);
-					if(c>0) {
-						dto = ResultDTO.getIntance(true,"添加成功");
-						model.setViewName("/articletype/list");
-					}else {
-						dto = ResultDTO.getIntance(false,"添加失败");
-					}
-				}
-			}
-			return model;
+		@RequestMapping("/dd")
+		public String showAdd() {
+			return "admin/add";
 		}
 	    @RequestMapping(value = "/list")
-		public ModelAndView List(Long atid) {
+		public ModelAndView List(Long id) {
 			ModelAndView modelAndView = new ModelAndView();
-			List<ArticleType> articletypes = articTypeleService.selectAll(atid);
+			List<ArticleType> articletypes = articTypeleService.selectAll(id);
 			modelAndView.addObject("articletype", articletypes);
 			modelAndView.setViewName("/articletype/list");
 

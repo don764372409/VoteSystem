@@ -32,39 +32,76 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
-<title>添加分类</title>
+<title>添加类别分类</title>
+<style type="text/css">
+	.searchBtn{
+		position: absolute;
+		display: inline-block;
+		width: 30px;
+		height:31px;
+		border: 1px solid #ddd;
+		right: 0;
+		top:-1px;
+		background: #f4f4f4;
+		line-height: 30px;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-article-add">
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>类别编号</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="请输入类别编号" name="atid">
+	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+	<div class="panel panel-default">
+		<div class="panel-header">基本信息</div>
+		<div class="panel-body">
+			<div class="row cl">
+				<label class="form-label col-sm-2"><span class="c-red">*</span>姓名：</label>
+				<div class="formControls col-sm-10">
+					<input type="text" class="input-text" value="" placeholder="请输入类别名称" name="atname" style="width:45%;">
+					：
+					<input type="text" class="input-text" value="" placeholder="请输入手机" name="phone" style="width:45%;">
+				</div>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>类别名称</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="请输入类别名称" name="atname">
+	</div>
+	<div class="mt-20"></div>
+	<div class="panel panel-default">
+		<div class="panel-header">机构部门信息</div>
+		<div class="panel-body">
+			<div class="row cl">
+				<label class="form-label col-sm-2"><span class="c-red">*</span>所属部门：</label>
+				<div class="formControls col-sm-10">
+					<div style="position: relative;">
+					<input type="hidden" value="" name="dptId">
+					<input type="text" readonly="readonly" onclick="openOrganizeDialog()" class="input-text" value="" placeholder="请选择所属机构部门" name="deptName">
+					<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
+					</div>
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-sm-offset-2">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>获取主类编号</label>
-			<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="请输入类别编号" name="pid">
-			</div>
-		</div>
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-			</div>
-		</div>
+	</div>
 	</form>
 </article>
 <script type="text/javascript">
+function openOrganizeDialog(){
+	var index = layer.open({
+		  type: 2,
+		  title:"部门选择",
+		  area: ['50%', '500px'], //宽高
+		  content: '/admin/showOrg',
+		  btn:['确定'],
+		  yes:function(){
+			  layer.close(index);
+		  }
+	});
+}
 $(function(){
-	$("#form-article-add").validate({
+	$("#form-member-add").validate({
 		rules:{
 			name:{
 				required:true
@@ -86,7 +123,7 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/articletype/add" ,
+				url: "/borrower/add" ,
 				success: function(data){
 					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
