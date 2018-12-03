@@ -29,4 +29,8 @@ public interface ResourceDAO{
 	 */
 	List<Resource> selectChildrenByParentIdAndAdminId(Map<String, Long> map);
 
+	List<Resource> selectAllParents();
+
+	List<Resource> selectChildrenByParentId(Long pId);
+
 }

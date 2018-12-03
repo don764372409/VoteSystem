@@ -2,7 +2,14 @@ package com.yuanmaxinxi.domain.role;
 public class Role{
 	private Long id;
 	private String name;
-	private Long deptId;
+	private int dataRange;//数据范围  0-当前部门  1-当前机构  2-当前机构及下级机构  3-所有机构
+	
+	public int getDataRange() {
+		return dataRange;
+	}
+	public void setDataRange(int dataRange) {
+		this.dataRange = dataRange;
+	}
 	public Long getId(){
 		return this.id;
 	}
@@ -14,11 +21,5 @@ public class Role{
 	}
 	public void setName(String name){
 		this.name=name;
-	}
-	public Long getDeptId(){
-		return this.deptId;
-	}
-	public void setDeptId(Long deptId){
-		this.deptId=deptId;
 	}
 }

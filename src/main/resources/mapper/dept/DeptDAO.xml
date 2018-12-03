@@ -5,13 +5,13 @@
 	<resultMap type="Dept" id="DeptResultMap">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
-		<result column="pId" property="pId"/>
+		<result column="organizeId" property="organizeId"/>
 	</resultMap>
 	<insert id="insert" parameterType="Dept">
-		insert into t_dept(name,pId) values(#{name},#{pId})
+		insert into t_dept(name,organizeId) values(#{name},#{organizeId})
 	</insert>
 	<update id="update" parameterType="Dept">
-		update t_dept set name=#{name},pId=#{pId} where id=#{id}
+		update t_dept set name=#{name},organizeId=#{organizeId} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_dept where id=#{id}
@@ -21,5 +21,8 @@
 	</select>
 	<select id="selectAll" resultMap="DeptResultMap">
 		select * from t_dept
+	</select>
+	<select id="selectAllByOrganizeId" resultMap="DeptResultMap">
+		select * from t_dept where organizeId = #{organizeId}
 	</select>
 </mapper>

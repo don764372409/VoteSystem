@@ -5,13 +5,16 @@
 	<resultMap type="Role" id="RoleResultMap">
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
-		<result column="deptId" property="deptId"/>
+		<result column="dataRange" property="dataRange"/>
 	</resultMap>
-	<insert id="insert" parameterType="Role">
-		insert into t_role(name,deptId) values(#{name},#{deptId})
+	<insert id="insert" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
+		insert into t_role(name,dataRange)values(#{name},#{dataRange})
+	</insert>
+	<insert id="insertRoleAndResource" parameterType="Map">
+		insert into t_role_resource(roleId,resourceId) values(#{roleId},#{resourceId})
 	</insert>
 	<update id="update" parameterType="Role">
-		update t_role set name=#{name},deptId=#{deptId} where id=#{id}
+		update t_role set name=#{name},dataRange=#{dataRange} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_role where id=#{id}

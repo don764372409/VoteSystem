@@ -16,4 +16,6 @@ public interface DeptDAO{
 
 	List<Dept> selectAll();
 
+	List<Dept> selectAllByOrganizeId(Long orgId);
+
 }

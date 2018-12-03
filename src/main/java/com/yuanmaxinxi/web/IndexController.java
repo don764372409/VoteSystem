@@ -22,7 +22,7 @@ public class IndexController {
 	public String index(Model model,HttpSession session) {
 		Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
 		//获取登录者菜单  不要按钮
-		List<Resource> list = (List<Resource>)resourceService.selectAllResourceByType(loginAdmin.getId());
+		List<Resource> list = resourceService.selectAllResourceByType(loginAdmin.getId());
 		model.addAttribute("list", list);
 		return "index";
 	}

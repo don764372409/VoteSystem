@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanmaxinxi.dao.organize.OrganizeDAO">
+	<resultMap type="Organize" id="OrganizeResultMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="pId" property="pId"/>
+	</resultMap>
+	<insert id="insert" parameterType="Organize">
+		insert into t_organize(name,pId) values(#{name},#{pId})
+	</insert>
+	<update id="update" parameterType="Organize">
+		update t_organize set name=#{name},pId=#{pId} where id=#{id}
+	</update>
+	<delete id="delete" parameterType="Long">
+		delete from t_organize where id=#{id}
+	</delete>
+	<select id="selectOneById" parameterType="Long" resultMap="OrganizeResultMap">
+		select * from t_organize where id=#{id}
+	</select>
+	<select id="selectAll" resultMap="OrganizeResultMap">
+		select * from t_organize
+	</select>
+	<select id="selectAllParents" resultMap="OrganizeResultMap">
+		select * from t_organize where pId is null
+	</select>
+	<select id="setChildrenByPId" parameterType="Long" resultMap="OrganizeResultMap">
+		select * from t_organize where pId = #{pId}
+	</select>
+	
+</mapper>

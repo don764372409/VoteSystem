@@ -58,4 +58,24 @@ public class ResourceService{
 		return parents;
 	}
 
+	/**
+	 * 获取所有具有父子结构的菜单   包括按钮
+	 * @return
+	 */
+	public List<Resource> getAllResources() {
+		//获取父节点
+		List<Resource> parents = resourceDAO.selectAllParents();
+		for (Resource res : parents) {
+			//获取子节点
+			List<Resource> children = resourceDAO.selectChildrenByParentId(res.getId());
+			res.setChildren(children);
+			for (Resource cd : children) {
+				//获取按钮
+				List<Resource> btns = resourceDAO.selectChildrenByParentId(cd.getId());
+				cd.setChildren(btns);
+			}
+		}
+		return parents;
+	}
+
 }

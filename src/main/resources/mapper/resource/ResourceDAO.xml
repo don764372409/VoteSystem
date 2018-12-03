@@ -39,4 +39,10 @@
 	<select id="selectAll" resultMap="ResourceResultMap">
 		select * from t_resource
 	</select>
+	<select id="selectAllParents" resultMap="ResourceResultMap">
+		select * from t_resource where pId is null
+	</select>
+	<select id="selectChildrenByParentId" resultMap="ResourceResultMap">
+		select * from t_resource where pId = #{pId}
+	</select>
 </mapper>

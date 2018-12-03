@@ -59,7 +59,7 @@
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
 				<li class="dropDown dropDown_hover">
-					<a href="#" class="dropDown_A">${loginAdmin.username}<i class="Hui-iconfont">&#xe6d5;</i></a>
+					<a href="#" class="dropDown_A">${loginAdmin.name}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" onClick="editUser('密码修改','/user/showPassword')">密码修改</a></li>
 						<li><a href="javascript:;" onClick="editUser('手机号码修改','/user/showPhone')">手机修改</a></li>
@@ -127,31 +127,6 @@
 <script type="text/javascript" src="/H-ui/static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 <script type="text/javascript">
-<!--请在下方写此页面业务相关的脚本-->
-function borrower_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-function content_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-function editUser(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
 $(function(){
 	if($("body").width()<767){
 		$(".dropDown_A").click(function(){

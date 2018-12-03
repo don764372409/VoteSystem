@@ -19,21 +19,13 @@
 <script type="text/javascript" src="/H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>管理员管理</title>
+<title>部门管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 管理员管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 部门管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
-<!--   <div class="text-c"> 短信发送时间： -->
-<!--     <input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;"> -->
-<!--     - -->
-<!--     <input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;"> -->
-<!--     <input type="text" class="input-text" style="width:250px" placeholder="输入短信用户姓名、电话等进行查询" id="" name=""><button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜用户</button> -->
-
-<!--   </div> -->
   <div class="cl pd-5 bg-1 bk-gray mt-20">
-<!--     <span class="l"><a href="javascript:;" onclick="deleteObj()" class="btn btn-danger radius"><i class="icon-trash"></i> 删除用户</a> -->
-    <a href="javascript:;" onclick="addObj('添加管理员','/admin/showAdd')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加管理员</a></span>
+    <a href="javascript:;" onclick="addObj('添加部门','/dept/showAdd')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加部门</a></span>
     <span class="r">共有数据：<strong>${list?size}</strong> 条</span>
   </div>
   <div class="mt-20"></div>
@@ -41,10 +33,8 @@
     <thead>
       <tr class="text-c">
         <th width="40">ID</th>
-        <th width="100">姓名</th>
-        <th width="100">电话</th>
-        <th width="90">所属部门</th>
-        <th width="130">状态</th>
+        <th width="100">部门名称</th>
+        <th width="100">所属机构</th>
         <th width="60">操作</th>
       </tr>
     </thead>
@@ -53,12 +43,12 @@
       <tr class="text-c">
         <td>${obj.id}</td>
         <td>${obj.name!}</td>
-        <td>${obj.phone!}</td>
-        <td>${obj.dept.name!}</td>
-        <td>${obj.status}</td>
+        <td>
+       		${(obj.organize.name)!'无'}
+        </td>
         <td class="f-14 user-manage">
-        	<a title="编辑" href="javascript:;" onclick="edit('添加短信用户','/borrower/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-        	<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.name}','/borrower/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
+        	<a title="编辑" href="javascript:;" onclick="edit('修改部门信息','/dept/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+        	<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.name}','/dept/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
        	</td>
       </tr>
      </#list>
@@ -100,22 +90,23 @@ $('.table-sort').dataTable({
 	]
 });
 function addObj(title,url){
-// 	layer_show(title,url,550,300);
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-// 	打开全屏
-	layer.full(index);
+	layer_show(title,url,550,300);
+// 	var index = layer.open({
+// 		type: 2,
+// 		title: title,
+// 		content: url
+// 	});
+	//打开全屏
+// 	layer.full(index);
 }
 function edit(title,url,id){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url+"?id="+id
-	});
-	layer.full(index);
+	layer_show(title,url+"?id="+id,550,300);
+// 	var index = layer.open({
+// 		type: 2,
+// 		title: title,
+// 		content: url+"?id="+id
+// 	});
+// 	layer.full(index);
 }
 function sendMessage(title,url,id){
 	var index = layer.open({
@@ -134,13 +125,13 @@ function deleteObj(obj,o,u,id){
 			data:{"id":id},
 			dataType: 'json',
 			success: function(data){
-				layer.msg(data.msg,{icon:1,time:1000});
+				layer.msg(data.msg,{icon:1,time:2000});
 				if(data.result){
 					$(obj).parents("tr").remove();
 				}
 			},
 			error:function(data) {
-				layer.msg("网络异常,请稍后再试.",{icon:1,time:1000});
+				layer.msg("网络异常,请稍后再试.",{icon:1,time:2000});
 			},
 		});		
 	});

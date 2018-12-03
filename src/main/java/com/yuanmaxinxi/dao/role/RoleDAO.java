@@ -3,6 +3,7 @@ import com.yuanmaxinxi.domain.role.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Map;
 @Mapper
 @Repository
 public interface RoleDAO{
@@ -16,4 +17,5 @@ public interface RoleDAO{
 
 	List<Role> selectAll();
 
+	int insertRoleAndResource(Map<String, Long> map);
 }

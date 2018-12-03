@@ -44,13 +44,13 @@
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="username" type="text" value="admin" placeholder="账户" class="input-text size-L">
+          <input name="name" type="text" value="admin" placeholder="请输入姓名或电话" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="password" type="password" value="admin" placeholder="密码" class="input-text size-L">
+          <input name="password" type="password" value="admin" placeholder="请输入密码" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
@@ -75,11 +75,11 @@
 			window.top.location = location;
 		}
 		function submitForm(){
-			var username = $("input[name=username]").val().trim();
+			var name = $("input[name=name]").val().trim();
 			var password = $("input[name=password]").val().trim();
 			var code = $("input[name=code]").val().trim();
 			
-			$.post("/login/login",{"username":username,"password":password,"code":code},function(data){
+			$.post("/login/login",{"name":name,"password":password,"code":code},function(data){
 				if(data.result){
 					var index = layer.load(1, {
 						  shade: [0.1,'#fff'] //0.1透明度的白色背景
@@ -93,6 +93,14 @@
 		function changeImg(ele){
 			ele.src = "/login/code?"+new Date().getTime();
 		}
+		$(function(){
+			$(window).keypress(function(event){
+				var keycode = event.keyCode;
+				if(keycode==13){
+					submitForm();
+				}
+			});
+		})
 	</script>
 </body>
 </html>
