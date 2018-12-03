@@ -25,29 +25,42 @@
 <!--/meta 作为公共模版分离出去-->
 
 <title>添加预选人</title>
+<style type="text/css">
+	.searchBtn{
+		position: absolute;
+		display: inline-block;
+		width: 30px;
+		height:31px;
+		border: 1px solid #ddd;
+		right: 0;
+		top:-1px;
+		background: #f4f4f4;
+		line-height: 30px;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-member-add">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>人员姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="username" name="name">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="organize">
-					<option value="" selected>请选择</option>
-					<#list lists as org>
-							<option value="${org.id}">${org.name}</option>
-					</#list>
-				</select>
-				</span> </div>
+			<label class="form-label col-sm-3"><span class="c-red">*</span>所属部门：</label>
+			<div class="formControls col-sm-9">
+				<div style="position: relative;">
+				<input type="hidden" value="" name="dptId">
+				<input type="text" readonly="readonly" onclick="openOrganizeDialog()" class="input-text" value="" placeholder="请选择所属机构部门" name="deptName">
+				<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
+				</div>
+			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">头像：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>展示头像：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
@@ -57,7 +70,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">人物介绍：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>人物介绍：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
 				<script id="editor" type="text/plain" style="width:100%;height:400px;"></script> 
 			</div>
@@ -88,6 +101,18 @@
 <script type="text/javascript" src="../H-ui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script> 
 <script type="text/javascript" src="../H-ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
+function openOrganizeDialog(){
+	var index = layer.open({
+		  type: 2,
+		  title:"部门选择",
+		  area: ['50%', '500px'], //宽高
+		  content: '/admin/showOrg',
+		  btn:['确定'],
+		  yes:function(){
+			  layer.close(index);
+		  }
+	});
+}
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -111,13 +136,13 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/candidate/add" ,
+				url: "/electionman/add" ,
 				success: function(data){
 					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
 						parent.$('.btn-refresh').click();
-// 						var index = parent.layer.getFrameIndex(window.name);
-// 						parent.layer.close(index);
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
 					}
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){
