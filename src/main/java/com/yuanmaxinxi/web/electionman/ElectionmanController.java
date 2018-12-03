@@ -69,10 +69,6 @@ public class ElectionmanController {
 	public ResultDTO electionmanadd(Electionman obj) {
 		ResultDTO dto;
 		try {
-			obj.setImg("http://img4.imgtn.bdimg.com/it/u=2841318189,2319887386&fm=214&gp=0.jpg");
-			obj.setRemark("优秀干部");
-			obj.setFail("fail");
-			obj.setDeptId((long) 1);
 			electionmanService.insert(obj);
 			dto = ResultDTO.getIntance(true, "预选人添加成功!");
 		} catch (Exception e) {

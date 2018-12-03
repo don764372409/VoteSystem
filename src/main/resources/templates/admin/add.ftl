@@ -72,7 +72,7 @@
 				<label class="form-label col-sm-2"><span class="c-red">*</span>所属部门：</label>
 				<div class="formControls col-sm-10">
 					<div style="position: relative;">
-					<input type="hidden" value="" name="dptId">
+					<input type="hidden" value="" name="deptId">
 					<input type="text" readonly="readonly" onclick="openOrganizeDialog()" class="input-text" value="" placeholder="请选择所属机构部门" name="deptName">
 					<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
 					</div>

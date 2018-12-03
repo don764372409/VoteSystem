@@ -82,7 +82,7 @@
 function selectDept(id,name){
 	$("input[name=id]").val(id);
 	$("input[name=name]").val(name);
-	parent.$("input[name=deptid]").val(id);
+	parent.$("input[name=deptId]").val(id);
 	parent.$("input[name=deptName]").val(name);
 }
 </script>
