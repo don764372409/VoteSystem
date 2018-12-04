@@ -19,27 +19,22 @@
 <script type="text/javascript" src="../H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>资讯列表</title>
+<title>参选人列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 资讯管理 <span class="c-gray en">&gt;</span> 资讯列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 文章管理 <span class="c-gray en">&gt;</span> 文章管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-		<button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-	 <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">全部分类</option>
-			<option value="1">分类一</option>
-			<option value="2">分类二</option>
-		</select>
-		</span> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">
-		<input type="text" name="" id="" placeholder=" 资讯名称" style="width:250px" class="input-text">
-		<button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜资讯</button>
+	<div class="text-c">
+<!-- 	<form action=""> -->
+<!--     <input type="text" class="input-text" style="width:250px" placeholder="输入参选人名字" id="name" name="name"> -->
+<!--     <button type="submit" class="btn btn-success" ><i class="icon-search"></i> 搜索</button> -->
+<!--   	</form> -->
+  </div>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加资讯" data-href="article-add.html" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加资讯</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+	 <a href="javascript:;" onclick="member_add('添加文章','/article/showAdd')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加文章</a></span> 
+	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
@@ -55,7 +50,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			 <#list article as art>
+			 <#list list as art>
 				<tr class="text-c">
 					<td><input type="checkbox" value="" name=""></td>
 					<td>${art.id}</td>
@@ -67,7 +62,7 @@
 					<td class="f-14 td-manage">
 					<a style="text-decoration:none" onClick="article_shenhe(this,${art.state})" href="javascript:;" title="审核">审核</a>
 					<a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
-					<a style="text-decoration:none" class="ml-5" onClick="article_del(this,${art.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<a title="删除" href="javascript:;" onclick="deleteObj(this,'${art.title}','/article/delete',${art.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
 					</td>
 				</tr>
 				</#list>
@@ -95,44 +90,43 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
 	]
 });
-/*资讯-添加*/
-function article_add(title,url,w,h){
+
+/*用户-添加*/
+function member_add(title,url){
 	var index = layer.open({
 		type: 2,
 		title: title,
 		content: url
 	});
+// 	打开全屏
 	layer.full(index);
 }
+
 /*资讯-编辑*/
-function article_edit(title,url,id,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
+function article_edit(title,url,id){
+	layer_show(title,url+"?id="+id,"",550);
 }
-function article_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
+/*资讯-删除*/
+function deleteObj(obj,o,u,id){
+	layer.confirm("确认要删除"+o+"吗？",function(index){
 		$.ajax({
 			type: 'POST',
-			url: '/article/delete',
+			url: u,
 			data:{"id":id},
 			dataType: 'json',
 			success: function(data){
-				layer.msg('已删除!',{icon:1,time:5000});
-				location.reload(true);
+				layer.msg(data.msg,{icon:1,time:2000});
 				if(data.result){
 					$(obj).parents("tr").remove();
 				}
 			},
 			error:function(data) {
-				layer.msg("网络异常,请稍后再试.",{icon:1,time:1000});
+				layer.msg("网络异常,请稍后再试.",{icon:1,time:2000});
 			},
 		});		
 	});
 }
+
 /*资讯-审核*/
 function article_shenhe(obj,id){
 	layer.confirm('审核文章？', {

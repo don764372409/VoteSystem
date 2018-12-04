@@ -64,12 +64,18 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 			model.addAttribute("obj", obj);
 			return "/articletype/edit";
 		}
-//	    @RequestMapping("/list")
-//		public String list(Model model,Long id) {
-//			List<ArticleType> list = articTypeleService.selectAll(id);
-//			model.addAttribute("list", list);
-//			return "/articletype/list";
-//		}
+	    @RequestMapping("/edit")
+		public @ResponseBody ResultDTO edit(ArticleType obj) {
+			ResultDTO dto;
+			try {
+				articTypeleService.update(obj);
+				dto = ResultDTO.getIntance(true, "类别修改成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
+			}
+			return dto;
+		}
 		@RequestMapping("/selectOneById")
 		@ResponseBody
 		public ArticleType selectOneById(Long id){

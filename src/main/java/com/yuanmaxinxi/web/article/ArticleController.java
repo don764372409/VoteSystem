@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
+import com.yuanmaxinxi.domain.dept.Dept;
+import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.article.ArticleService;
@@ -18,14 +20,15 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 
 
 @Controller
-@RequestMapping(value ="/article",method = { RequestMethod.GET, RequestMethod.POST })
+@RequestMapping(value ="/article")
 public class ArticleController {
 
     @Autowired
     ArticleService articleService;
     @Autowired
 	private ArticleTypeService articletypeService;
-	@RequestMapping("/showAdd")
+	
+    @RequestMapping("/showAdd")
 	public String showAdd() {
 		return "/article/add";
 	}
@@ -34,7 +37,7 @@ public class ArticleController {
 			ResultDTO dto;
 			try {
 				articleService.insert(obj);
-				dto = ResultDTO.getIntance(true, "类别添加成功!");
+				dto = ResultDTO.getIntance(true, "文章添加成功!");
 			} catch (Exception e) {
 				e.printStackTrace();
 				dto = ResultDTO.getIntance(false, e.getMessage());
@@ -46,25 +49,20 @@ public class ArticleController {
 			ResultDTO dto;
 			try {
 				articleService.delete(id);
-				dto = ResultDTO.getIntance(true, "类别删除成功!");
+				dto = ResultDTO.getIntance(true, "文章删除成功!");
 			} catch (Exception e) {
 				e.printStackTrace();
 				dto = ResultDTO.getIntance(false, e.getMessage());
 			}
 			return dto;
 		}
-	  @RequestMapping("/showEdit")
-			public String showEdit(Model model,Long id) {
-		    	Article obj = articleService.selectOneById(id);
-				model.addAttribute("obj", obj);
-				return "/articletype/edit";
-			}
-	  @RequestMapping("/showType")
-		public String showType(Model model) {
-			List<ArticleType> list = articletypeService.selectArticleTypeToTree();
+	 @RequestMapping("/showEdit")
+		public String showEdit(Long id,Model model,Long pid) {
+		    Article obj = articleService.selectOneById(id);
+			model.addAttribute("obj", obj);
+			List<ArticleType> list = articletypeService.selectAll(pid);//部门列表展示
 			model.addAttribute("list", list);
-			System.err.println(list);
-			return "articletype/organize";
+			return "article/edit";
 		}
 	
 	@RequestMapping("/list")

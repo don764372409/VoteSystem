@@ -44,11 +44,6 @@
 				<input type="text" class="input-text" value="${obj.name}" placeholder="请输入类别名称" name="name">
 			</div>
 		</div>
-		   <div class="row cl">
-			<div class="formControls col-xs-8 col-sm-9">
-            <input type="hidden"  value="" id="pId" name="pId">
-      </div>
-      </div>
 			<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -61,7 +56,6 @@
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 			</div>
 		</div>
-		
 	</form>
 </article>
 <script type="text/javascript">

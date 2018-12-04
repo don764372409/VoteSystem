@@ -12,7 +12,7 @@
 		insert into t_articletype(name,pId,remark) values(#{name},#{pId},#{remark})
 	</insert>
 	<update id="update" parameterType="ArticleType">
-		update t_articletype set name=#{name},pId=#{pId},remark=#{remark} where id=#{id}
+		update t_articletype set name=#{name},remark=#{remark} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_articletype where id=#{id}
@@ -23,5 +23,4 @@
 	<select id="selectAll" resultMap="ArticleTypeResultMap">
 		select * from t_articletype where pId=#{pId}
 	</select>
-	
 </mapper>
