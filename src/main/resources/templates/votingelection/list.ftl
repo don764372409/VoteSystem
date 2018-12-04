@@ -32,8 +32,8 @@
   	</form>
   </div>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/showadd','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> 
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <!-- <span class="l">
+	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/showadd','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> --> 
 	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -43,9 +43,9 @@
 					<th width="80">编号</th>
 					<th width="80">姓名</th>
 					<th width="80">头像</th>
+					<th width="75">得票数</th>
 					<th width="120">所属活动</th>
-					<th width="75">得票</th>
-					<th width="120">操作</th>
+					<th width="120">投票截止时间</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -56,11 +56,9 @@
 					<td>${list.eId?if_exists}</td>
 					<td class="text-l">${list.name?if_exists}</td>
 					<td><img src="${list.img?if_exists}" style="width: 80px;height: 80px;"></td>
-					<td>${list.title?if_exists} </td>
 					<td>${list.number?if_exists}</td>
-					<td class="f-14 td-manage">
-					<a style="text-decoration:none" class="ml-5" onClick="article_edit('编辑','/candidate/showEdit',${list.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${list.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td>${list.title?if_exists} </td>
+					<td><#if list.endtime?exists>${list.endtime?string("yyyy-MM-dd")!}</#if></td>
 				</tr>
 				</#list>
 				</#if>

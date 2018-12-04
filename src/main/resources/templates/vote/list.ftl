@@ -66,7 +66,7 @@
 					<td>
 					<#if voting.starttime?exists>${voting.starttime?string("yyyy-MM-dd")!}</#if>
 					</td>
-					<td><#if voting.starttime?exists>${voting.endtime?string("yyyy-MM-dd")!}</#if></td>
+					<td><#if voting.endtime?exists>${voting.endtime?string("yyyy-MM-dd")!}</#if></td>
 					<td class="f-14 td-manage">
 					<a style="text-decoration:none" class="ml-5" onClick="article_edit('活动编辑','/vote/showEdit',${voting.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
 					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${voting.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
