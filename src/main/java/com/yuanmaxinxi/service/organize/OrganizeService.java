@@ -105,5 +105,18 @@ public class OrganizeService{
 			addChildrenAndDepts(children);
 		}
 	}
-
+	/**
+	 * 封装具有层级关系的部门名称
+	 * @param name
+	 * @param id
+	 * @return
+	 */
+	public String coverDeptName(String name, Long id) {
+		Organize org = selectOneById(id);
+		if (org!=null) {
+			name = org.getName()+":"+name;
+			name = coverDeptName(name, org.getpId());
+		}
+		return name;
+	}
 }

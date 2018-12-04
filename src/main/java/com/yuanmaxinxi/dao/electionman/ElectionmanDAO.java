@@ -20,4 +20,6 @@ public interface ElectionmanDAO{
 
 	List<Electionman> selectAll(Map map);
 
+	int examine(Electionman obj);
+
 }

@@ -1,16 +1,17 @@
 package com.yuanmaxinxi.service.dept;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.yuanmaxinxi.dao.dept.DeptDAO;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.service.organize.OrganizeService;
 import com.yuanmaxinxi.util.StringUtil;
-import com.yuanmaxinxi.dao.dept.DeptDAO;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 @Service
 public class DeptService{
 	@Autowired
@@ -89,4 +90,18 @@ public class DeptService{
 		return list;
 	}
 
+	/**
+	 * 查询部门和部门所属上级机构  机构可能有无限级
+	 * @param deptId
+	 * @return
+	 */
+	public Dept selectOneAndParentOrgById(Long deptId) {
+		Dept dept = selectOneById(deptId);
+		if (dept!=null) {
+			String name = organizeService.coverDeptName(dept.getName(),dept.getOrganizeId());
+			dept.setName(name);
+		}
+		return dept;
+	}
+	
 }

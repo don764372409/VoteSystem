@@ -1,4 +1,7 @@
 package com.yuanmaxinxi.domain.electionman;
+
+import com.yuanmaxinxi.domain.dept.Dept;
+
 public class Electionman{
 	private Long id;
 	private String name;
@@ -8,6 +11,14 @@ public class Electionman{
 	private Long deptId;
 	private String fail;
 	private int state;
+	private Dept dept;
+	
+	public Dept getDept() {
+		return dept;
+	}
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
 	public Long getId(){
 		return this.id;
 	}
