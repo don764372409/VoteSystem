@@ -28,14 +28,18 @@ public class VotingelectionmanService{
 		return votingelectionmanDAO.delete(id);
 	}
 
-
+	@Transactional
 	public Votingelectionman selectOneById(Long id){
 		return votingelectionmanDAO.selectOneById(id);
 	}
 
-
+	@Transactional
 	public List<Map<String, Object>> selectAll(){
 		return votingelectionmanDAO.selectAll();
 	}
-
+	@Transactional
+	public List<Map<String, Object>> getstatistics(){
+		return votingelectionmanDAO.getstatistics();
+	}
+	
 }

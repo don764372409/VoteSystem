@@ -6,7 +6,6 @@ public class Electionman{
 	private Long id;
 	private String name;
 	private String img;
-	private int number;
 	private String remark;
 	private Long deptId;
 	private String fail;
@@ -36,12 +35,6 @@ public class Electionman{
 	}
 	public void setImg(String img){
 		this.img=img;
-	}
-	public int getNumber(){
-		return this.number;
-	}
-	public void setNumber(int number){
-		this.number=number;
 	}
 	public String getRemark(){
 		return this.remark;

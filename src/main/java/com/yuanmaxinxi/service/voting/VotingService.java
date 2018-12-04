@@ -63,6 +63,13 @@ public class VotingService{
 		}else {
 			obj.setEndtime(StringUtil.strToDate(request.getParameter("endtimes")));
 		}
+		if(obj.getStatus()==1) {//如果当前状态选择0，获取已存在的为1状态的记录id
+			Long sid=(long) 0;
+			sid=votingDAO.getstatusid();
+			if(sid>0) {
+				votingDAO.updatestatus(sid);//修改状态为0
+			}
+		}
 		int i = votingDAO.update(obj);
 		if (i!=1) {
 			throw new RuntimeException("修改失败,请稍后重试.");
@@ -82,14 +89,18 @@ public class VotingService{
 			}
 	}
 
-
+	@Transactional
 	public Voting selectOneById(Long id){
 		return votingDAO.selectOneById(id);
 	}
 
-
+	@Transactional
 	public List<Voting> selectAll(Map map){
 		return votingDAO.selectAll(map);
+	}
+	@Transactional
+	public List<Voting> selectvotinglist(){
+		return votingDAO.selectvotinglist();
 	}
 
 }
