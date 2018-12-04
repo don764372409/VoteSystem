@@ -16,8 +16,7 @@
 		value(#{name},#{img},#{remark},#{deptId},#{fail},#{state})
 	</insert>
 	<insert id="insertEleManAndVoting" parameterType="Map">
-		insert into t_voting_electionman(vId,eId)
-		value(vId,eId)
+		insert into t_voting_electionman(vId,eId)value(#{vId},#{eId})
 	</insert>
 	<update id="update" parameterType="Electionman">
 		update t_electionman set name=#{name},img=#{img},remark=#{remark},deptId=#{deptId} where id=#{id}
