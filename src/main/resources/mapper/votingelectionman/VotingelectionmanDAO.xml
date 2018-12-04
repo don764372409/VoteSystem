@@ -25,4 +25,18 @@
 		JOIN t_voting v ON v.id=ve.vId
 		JOIN t_electionman e ON e.id=ve.eId 
 	</select>
+	<select id="getstatistics" parameterType="int" resultType="Map">
+	SELECT e.`name`,v.title,v.id,ve.number
+	FROM t_electionman e
+	JOIN t_voting_electionman ve ON e.id=ve.eId
+	JOIN t_voting v ON v.id=ve.vId
+	<choose>
+    <when test="id != null and id !=''">
+      WHERE v.id=#{id}
+    </when>
+    <otherwise>
+       WHERE v.`status`=1
+    </otherwise>
+    </choose>
+	</select>
 </mapper>

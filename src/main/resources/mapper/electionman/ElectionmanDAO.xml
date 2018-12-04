@@ -6,7 +6,6 @@
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="img" property="img"/>
-		<result column="number" property="number"/>
 		<result column="remark" property="remark"/>
 		<result column="deptId" property="deptId"/>
 		<result column="fail" property="fail"/>
@@ -20,9 +19,6 @@
 			</if>
 			<if test="img != null">
 				img,
-			</if>
-			<if test="number != null">
-				number,
 			</if>
 			<if test="remark != null">
 				remark,
@@ -44,9 +40,6 @@
 			<if test="img != null">
 				#{img},
 			</if>
-			<if test="number != null">
-				#{number},
-			</if>
 			<if test="remark != null">
 				#{remark},
 			</if>
@@ -62,7 +55,7 @@
 			</trim>
 	</insert>
 	<update id="update" parameterType="Electionman">
-		update t_electionman set name=#{name},img=#{img},number=#{number},remark=#{remark},deptId=#{deptId},fail=#{fail},state=#{state} where id=#{id}
+		update t_electionman set name=#{name},img=#{img},remark=#{remark},deptId=#{deptId},fail=#{fail},state=#{state} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_electionman where id=#{id}

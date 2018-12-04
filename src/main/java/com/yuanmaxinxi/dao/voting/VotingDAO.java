@@ -18,5 +18,11 @@ public interface VotingDAO{
 	Voting selectOneById(Long id);
 
 	List<Voting> selectAll(Map map);
+	
+	Long getstatusid();
+	
+	int updatestatus(Long id);
+	
+	List<Voting> selectvotinglist();
 
 }
