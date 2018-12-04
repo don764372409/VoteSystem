@@ -44,17 +44,15 @@
 			</div>
 		</div>
   <div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>父级类别：</label>
-      <select class="formControls col-xs-8 col-sm-9" id="pId" name="pId" onchange="SetSubID(this);">
-      <option value="1">一品一类</option>
-      <option value="2">党员积分</option>
-      <option value="3">党建动态</option>
-      </select>
+			<div class="formControls col-xs-8 col-sm-9">
+            <input type="hidden"  value="" id="pId" name="pId">
+      </div>
       </div>
 		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>类别名称：</label>
+			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="请输入备注信息" name="remark">
+			<textarea rows="2" placeholder="请输入备注信息" name="remark" cols="45">
+				</textarea>
 			</div>
 		</div>
 		
@@ -66,6 +64,19 @@
 	</form>
 </article>
 <script type="text/javascript">
+$(function(){
+	/* 用途: 接收地直栏参数 取id=1 根据ID的值 */
+	urlinfo=window.location.href; //获取当前页面的url
+	len=urlinfo.length;//获取url的长度
+	offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+	newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+	newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+	newsid=newsids[1];//得到参数值
+	newsname=newsids[0];//得到参数名字
+	alert(newsid);
+	$('#pId').val(newsid);
+});
+
 $(function(){
 	$("#form-member-add").validate({
 		rules:{

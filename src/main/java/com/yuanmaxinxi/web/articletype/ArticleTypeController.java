@@ -41,7 +41,7 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 			return "/articletype/list";
 		}
 	    @RequestMapping("/showAdd")
-		public String showAdd(Model model,Long pid,Long id) {
+		public String showAdd(Model model,Long pid) {
 			List<ArticleType> list = atService.selectAll(pid);
 			model.addAttribute("list", list);
 			return "/articletype/add";
