@@ -79,7 +79,6 @@ public class ArticleService{
 		return articleDAO.selectOneById(id);
 	}
 
-
 	public List<Article> selectAll(){
 		List<Article> list = articleDAO.selectAll();
 		Map<Long,ArticleType> cash = new HashMap<>();

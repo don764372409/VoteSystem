@@ -62,11 +62,11 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属类别：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<div style="position: relative;">
-				<input type="hidden" value="" name="deptId">
-				<input type="text" readonly="readonly" onclick="openOrganizeDialog()" class="input-text" value="" placeholder="请选择所属类别" name="deptName">
-				<a title="点击查看类别列表" href="javascript:;" onclick="openOrganizeDialog()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
-				</div>
+				<select id="select" style="width : 80px;height : 30px;">
+				<#list list as li>
+				<option value="${li.id}" >${li.name}</option>
+				</#list>
+                </select>
 			</div>
 		</div>
 		<div class="row cl">
@@ -104,7 +104,7 @@ function openOrganizeDialog(){
 			  layer.close(index);
 		  }
 	});
-}
+} 
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',

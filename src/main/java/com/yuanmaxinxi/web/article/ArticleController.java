@@ -29,7 +29,9 @@ public class ArticleController {
 	private ArticleTypeService articletypeService;
 	
     @RequestMapping("/showAdd")
-	public String showAdd() {
+	public String showAdd(Model model,Long pId) {
+    	List<ArticleType> list = articletypeService.selectTypeToTree(pId);
+		model.addAttribute("list", list);
 		return "/article/add";
 	}
 	 @RequestMapping("/add")
@@ -75,5 +77,10 @@ public class ArticleController {
 	@ResponseBody
 	public Article selectOneById(Long id){
 		return articleService.selectOneById(id);
+	}
+	@RequestMapping("/showType")
+	public String showOrg(Model model) {
+		
+		return "article/organize";
 	}
 }
