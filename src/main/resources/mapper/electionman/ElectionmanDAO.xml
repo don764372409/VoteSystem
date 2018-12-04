@@ -12,62 +12,14 @@
 		<result column="state" property="state"/>
 	</resultMap>
 	<insert id="insert" parameterType="Electionman">
-<<<<<<< HEAD
 		insert into t_electionman(name,img,remark,deptId,fail,state)
 		value(#{name},#{img},#{remark},#{deptId},#{fail},#{state})
-=======
-		insert into t_electionman
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="name != null">
-				name,
-			</if>
-			<if test="img != null">
-				img,
-			</if>
-			<if test="remark != null">
-				remark,
-			</if>
-			<if test="deptId != null">
-				deptId,
-			</if>
-			<if test="fail != null">
-				fail,
-			</if>
-			<if test="state != null and state!=''">
-                state,
-            </if>
-			</trim>
-			<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="name != null">
-				#{name},
-			</if>
-			<if test="img != null">
-				#{img},
-			</if>
-			<if test="remark != null">
-				#{remark},
-			</if>
-			<if test="deptId != null">
-				#{deptId},
-			</if>
-			<if test="fail != null">
-				#{fail},
-			</if>
-			<if test="state != null and state!=''">
-                #{state},
-            </if>
-			</trim>
->>>>>>> branch 'master' of https://github.com/don764372409/VoteSystem.git
 	</insert>
 	<update id="update" parameterType="Electionman">
-<<<<<<< HEAD
 		update t_electionman set name=#{name},img=#{img},remark=#{remark},deptId=#{deptId} where id=#{id}
 	</update>
 	<update id="examine" parameterType="Electionman">
 		update t_electionman set state=#{state},fail=#{fail} where id=#{id}
-=======
-		update t_electionman set name=#{name},img=#{img},remark=#{remark},deptId=#{deptId},fail=#{fail},state=#{state} where id=#{id}
->>>>>>> branch 'master' of https://github.com/don764372409/VoteSystem.git
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_electionman where id=#{id}
