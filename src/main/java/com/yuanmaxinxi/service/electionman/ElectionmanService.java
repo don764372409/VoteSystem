@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yuanmaxinxi.dao.electionman.ElectionmanDAO;
+import com.yuanmaxinxi.dao.voting.VotingDAO;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.service.dept.DeptService;
-import com.yuanmaxinxi.service.voting.VotingService;
 import com.yuanmaxinxi.util.StringUtil;
 
 
@@ -22,7 +22,7 @@ public class ElectionmanService{
 	@Autowired
 	private DeptService deptService;
 	@Autowired
-	private VotingService votingService;
+	private VotingDAO votingDAO;
 	@Transactional
 	public void insert(Electionman obj){
 		if (StringUtil.isNullOrEmpty(obj.getName())) {
@@ -103,6 +103,7 @@ public class ElectionmanService{
 	 * 
 	 * @param obj
 	 */
+	@Transactional
 	public void examine(Electionman obj) {
 		if (obj.getId()==null||obj.getId()<1) {
 			throw new RuntimeException("非法访问.");
@@ -115,13 +116,24 @@ public class ElectionmanService{
 			throw new RuntimeException("参选人员["+ele.getName()+"已经审核完成,不能重复审核].");
 		}
 		//查询是有默认投票活动
-		votingService.get
-		
-		
-		
-		
-		int i = electionmanDAO.examine(obj);
-		if (i!=1) {
+		Long vId = votingDAO.getstatusid();
+		if (vId==null) {
+			throw new RuntimeException("当前系统中没有默认添加审核通过人员的投票活动,请前往投票活动设置后再审核.");
+		}
+		try {
+			int i = electionmanDAO.examine(obj);
+			if (i!=1) {
+				throw new RuntimeException("操作失败,请稍后再试.");
+			}
+			Map<String,Long> map = new HashMap<>();
+			map.put("eId",obj.getId());
+			map.put("vId",vId);
+			int j = electionmanDAO.insertEleManAndVoting(map);
+			if (j!=1) {
+				throw new RuntimeException("操作失败,请稍后再试.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("操作失败,请稍后再试.");
 		}
 	}
