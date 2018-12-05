@@ -61,8 +61,6 @@
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">${loginAdmin.name}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
-						<li><a href="javascript:;" onClick="editUser('密码修改','/user/showPassword')">密码修改</a></li>
-						<li><a href="javascript:;" onClick="editUser('手机号码修改','/user/showPhone')">手机修改</a></li>
 						<li><a href="/login/logout">退出</a></li>
 				</ul>
 			</li>
@@ -103,7 +101,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的办公" data-href="/sms/list">首页</span>
+<!-- 					<span title="我的办公" data-href="/sms/list">首页</span> -->
 					<em></em></li>
 		</ul>
 	</div>
@@ -111,7 +109,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="/sms/list"></iframe>
+<!-- 			<iframe scrolling="yes" frameborder="0" src="/sms/list"></iframe> -->
 	</div>
 </div>
 </section>

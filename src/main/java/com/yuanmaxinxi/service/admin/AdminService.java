@@ -172,4 +172,49 @@ public class AdminService{
 			throw new RuntimeException(msg);
 		}
 	}
+	/**
+	 * 修改密码
+	 * @param loginAdmin
+	 * @param obj
+	 * @return
+	 */
+	public Admin editPassword(Admin loginAdmin, Admin obj,String confPassword) {
+		if (StringUtil.isNullOrEmpty(obj.getPassword())) {
+			throw new RuntimeException("原密码不能为空.");
+		}
+		if (StringUtil.isNullOrEmpty(confPassword)) {
+			throw new RuntimeException("新密码不能为空.");
+		}
+		//用户输的原密码加密
+		String md5Password = MD5Util.encode(obj.getPassword());
+		if (!loginAdmin.getPassword().equals(md5Password)) {
+			throw new RuntimeException("原密码错误.");
+		}
+		//用户输的新密码加密
+		confPassword = MD5Util.encode(confPassword);
+		if (confPassword.equals(md5Password)) {
+			throw new RuntimeException("新密码不能与原密码相同.");
+		}
+		loginAdmin.setPassword(confPassword);
+		int i = adminDAO.updatePassword(loginAdmin);
+		if (i!=1) {
+			throw new RuntimeException("密码修改失败,请稍后重试.");
+		}
+		return loginAdmin;
+	}
+
+
+	public void resetPassword(Long id) {
+		if (id==null||id<1) {
+			throw new RuntimeException("非法访问.");
+		}
+		Admin admin = new Admin();
+		admin.setId(id);
+		String password = MD5Util.encode("88888888");
+		admin.setPassword(password);
+		int i = adminDAO.updatePassword(admin);
+		if (i!=1) {
+			throw new RuntimeException("密码修改失败,请稍后重试.");
+		}
+	}
 }

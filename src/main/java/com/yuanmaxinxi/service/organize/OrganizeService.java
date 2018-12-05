@@ -1,4 +1,5 @@
 package com.yuanmaxinxi.service.organize;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,15 +91,42 @@ public class OrganizeService{
 		}
 		return list;
 	}
+	//获取所有机构 树形
 	public List<Organize> selectOrgAndeDeptToTree() {
 		List<Organize> list = organizeDAO.selectAllParents();
 		addChildrenAndDepts(list);
 		return list;
 	}
+	/**
+	 * 获取当前机构和下级机构
+	 * @return
+	 */
+	public List<Organize> selectCurrentAndChildById(Long id) {
+		List<Organize> list = new ArrayList<>();
+		Organize org = selectOneById(id);
+		list.add(org);
+		selectChildByParentId(org.getId(),list);
+		return list;
+	}
+	/**
+	 * 根据父级机构id  查询子级机构
+	 * @param id
+	 * @param list 
+	 * @return
+	 */
+	private void selectChildByParentId(Long id, List<Organize> list) {
+		List<Organize> children = organizeDAO.selectChildrenByPId(id);
+		list.addAll(children);
+		for (Organize org : children) {
+			selectChildByParentId(org.getId(), list);
+		}
+	}
+
+
 	private void addChildrenAndDepts(List<Organize> list) {
 		for (Organize org : list) {
 			//查儿子
-			List<Organize> children = organizeDAO.setChildrenByPId(org.getId());
+			List<Organize> children = organizeDAO.selectChildrenByPId(org.getId());
 			org.setChildren(children);
 			//查部门
 			List<Dept> depts = deptDAO.selectAllByOrganizeId(org.getId());

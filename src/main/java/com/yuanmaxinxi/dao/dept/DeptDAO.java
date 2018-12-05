@@ -18,4 +18,8 @@ public interface DeptDAO{
 
 	List<Dept> selectAllByOrganizeId(Long orgId);
 
+	Dept selectCurrentDeptByAdminId(Long adminId);
+
+	List<Dept> selectAllByAdminIdToOrg(Long adminId);
+
 }

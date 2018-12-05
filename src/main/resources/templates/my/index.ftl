@@ -57,9 +57,9 @@
 			<div class="row cl">
 				<label class="form-label col-sm-2"><span class="c-red">*</span>姓名：</label>
 				<div class="formControls col-sm-10">
-					<input type="text" class="input-text" value="" placeholder="请输入管理员姓名" name="name" style="width:45%;">
+					<input type="text" class="input-text" readonly="readonly" value="${obj.name}" style="width:45%;">
 					手机：
-					<input type="text" class="input-text" value="" placeholder="请输入手机" name="phone" style="width:45%;">
+					<input type="text" class="input-text" readonly="readonly" value="${obj.phone}" style="width:45%;">
 				</div>
 			</div>
 		</div>
@@ -72,9 +72,7 @@
 				<label class="form-label col-sm-2"><span class="c-red">*</span>所属部门：</label>
 				<div class="formControls col-sm-10">
 					<div style="position: relative;">
-					<input type="hidden" value="" name="deptId">
-					<input type="text" readonly="readonly" onclick="openOrganizeDialog()" class="input-text" value="" placeholder="请选择所属机构部门" name="deptName">
-					<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
+					<input type="text" readonly="readonly" class="input-text" value="${obj.dept.name}">
 					</div>
 				</div>
 			</div>
@@ -86,80 +84,71 @@
 		<div class="panel-body">
 			<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择角色：</label>
-			<div class="formControls col-xs-8 col-sm-10"> <span class="select-box">
-				<select class="select" name="roleId">
-					<#list list as obj>
-						<option value="${obj.id}">
-							角色名称：${obj.name} 数据范围：
-							<#if obj.dataRange==0>
-				       			当前部门
-				       		</#if>
-				       		<#if obj.dataRange==1>
-				       			当前机构
-				       		</#if>
-				       		<#if obj.dataRange==2>
-				       			当前及下属机构
-				       		</#if>
-				       		<#if obj.dataRange==3>
-				       			所有
-				       		</#if>
-						</option>
-					</#list>
-				</select>
-				</span> </div>
+			<div class="formControls col-xs-8 col-sm-10">
+				<input type="text" readonly="readonly" class="input-text" value="${obj.role.name}">
 			</div>
+			</div>
+		</div>
+	</div>
+	<div class="mt-20"></div>
+	<div class="panel panel-default">
+		<div class="panel-header">密码信息</div>
+		<div class="panel-body">
 			<div class="row cl">
-				<div class="col-xs-8 col-sm-10 col-sm-offset-2">
-					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>原密码：</label>
+				<div class="formControls col-xs-8 col-sm-10">
+					<input type="password" class="input-text" value="" name="password">
 				</div>
 			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>新密码：</label>
+				<div class="formControls col-xs-8 col-sm-10">
+					<input type="password" class="input-text" value="" name="newPassword" id="newPassword">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span class="c-red" >*</span>确认密码：</label>
+				<div class="formControls col-xs-8 col-sm-10">
+					<input type="password" class="input-text" value="" name="configPassword">
+				</div>
+			</div>
+				<div class="row cl">
+					<div class="col-xs-8 col-sm-10 col-sm-offset-2">
+						<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					</div>
+				</div>
 		</div>
 	</div>
 	</form>
 </article>
 <script type="text/javascript">
-function openOrganizeDialog(){
-	var index = layer.open({
-		  type: 2,
-		  title:"部门选择",
-		  area: ['50%', '500px'], //宽高
-		  content: '/admin/showOrg',
-		  btn:['确定'],
-		  yes:function(){
-			  layer.close(index);
-		  }
-	});
-}
 $(function(){
 	$("#form-member-add").validate({
 		rules:{
-			name:{
+			password:{
 				required:true
 			},
-			phone:{
+			newPassword:{
 				required:true,
-				isMobile:true
 			},
-			loanTime:{
-				required:true
-			},
-			repaymentTime:{
-				required:true
+			configPassword:{
+				required:true,
+				equalTo: "#newPassword"
 			},
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
+			var confPassword = $("input[name=configPassword]").val();
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/admin/add" ,
+				url: "/my/editPassword" ,
+				data:{"confPassword":confPassword},
 				success: function(data){
 					if(data.result){
 						layer.msg(data.msg,{icon:1,time:2000});
-						parent.$('.btn-refresh').click();
-						var index = parent.layer.getFrameIndex(window.name);
-						parent.layer.close(index);
+						location.reload();
 					}else{
 						layer.msg(data.msg,{icon:2,time:2000});
 					}

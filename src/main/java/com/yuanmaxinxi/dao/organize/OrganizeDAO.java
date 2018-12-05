@@ -21,5 +21,5 @@ public interface OrganizeDAO {
 
 	List<Organize> selectAllParents();
 
-	List<Organize> setChildrenByPId(Long pId);
+	List<Organize> selectChildrenByPId(Long pId);
 }

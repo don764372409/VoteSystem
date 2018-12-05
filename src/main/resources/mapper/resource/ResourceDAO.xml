@@ -36,6 +36,13 @@
 			)
 		) and pId = #{pId} and type = 0
 	</select>
+	<select id="selectAllByAdminId" parameterType="Long" resultMap="ResourceResultMap">
+		select * from t_resource where id in(
+			select resourceId from t_role_resource where roleId in (
+				select roleId from t_admin_role where adminId = #{adminId}
+			)
+		) and type = 0 and url is not null
+	</select>
 	<select id="selectAll" resultMap="ResourceResultMap">
 		select * from t_resource
 	</select>

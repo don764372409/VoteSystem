@@ -19,6 +19,9 @@
 	<update id="update" parameterType="Admin">
 		update t_admin set name=#{name},phone=#{phone},deptId=#{deptId} where id=#{id}
 	</update>
+	<update id="updatePassword" parameterType="Admin">
+		update t_admin set password=#{password} where id=#{id}
+	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_admin where id=#{id}
 	</delete>

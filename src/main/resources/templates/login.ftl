@@ -83,6 +83,7 @@
 			var code = $("input[name=code]").val().trim();
 			
 			$.post("/login/login",{"name":name,"password":password,"code":code},function(data){
+				layer.close(index);
 				if(data.result){
 					location.href="/index/";
 				}else{

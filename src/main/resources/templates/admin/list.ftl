@@ -65,6 +65,7 @@
         <td class="f-14 user-manage">
         	<a title="编辑" href="javascript:;" onclick="edit('修改管理员','/admin/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
         	<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.name}','/admin/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
+        	<a title="重置密码" href="javascript:;" onclick="resetPassword(this,'${obj.name}','/admin/resetPassword',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe63f;</i></a>
        	</td>
       </tr>
      </#list>
@@ -143,6 +144,27 @@ function deleteObj(obj,o,u,id){
 				if(data.result){
 					layer.msg(data.msg,{icon:1,time:2000});
 					$(obj).parents("tr").remove();
+				}else{
+					layer.msg(data.msg,{icon:2,time:2000});
+				}
+
+			},
+			error:function(data) {
+				layer.msg("网络异常,请稍后再试.",{icon:2,time:2000});
+			},
+		});		
+	});
+}
+function resetPassword(obj,o,u,id){
+	layer.confirm("确认要重置"+o+"的密码吗？",function(index){
+		$.ajax({
+			type: 'POST',
+			url: u,
+			data:{"id":id},
+			dataType: 'json',
+			success: function(data){
+				if(data.result){
+					layer.msg(data.msg,{icon:1,time:2000});
 				}else{
 					layer.msg(data.msg,{icon:2,time:2000});
 				}

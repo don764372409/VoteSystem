@@ -35,4 +35,7 @@ public interface ResourceDAO{
 
 	List<Long> getAllResourceByRole(Long roleId);
 
+	List<Resource> selectAllByAdminId(Long adminId);
+
+
 }

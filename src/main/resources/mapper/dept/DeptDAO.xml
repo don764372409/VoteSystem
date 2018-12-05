@@ -22,6 +22,18 @@
 	<select id="selectAll" resultMap="DeptResultMap">
 		select * from t_dept
 	</select>
+	<select id="selectCurrentDeptByAdminId" resultMap="DeptResultMap">
+		select * from t_dept where id in(
+			select deptId from t_admin where id = #{adminId} 
+		)
+	</select>
+	<select id="selectAllByAdminIdToOrg" resultMap="DeptResultMap">
+		select * from t_dept where organizeId =(
+			select organizeId from t_dept where id = (
+				select deptId from t_admin where id = #{adminId} 
+			)
+		)
+	</select>
 	<select id="selectAllByOrganizeId" resultMap="DeptResultMap">
 		select * from t_dept where organizeId = #{organizeId}
 	</select>

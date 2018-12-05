@@ -87,4 +87,16 @@ public class AdminController {
 		}
 		return dto;
 	}
+	@RequestMapping("/resetPassword")
+	public @ResponseBody ResultDTO resetPassword(Long id) {
+		ResultDTO dto;
+		try {
+			adminService.resetPassword(id);
+			dto = ResultDTO.getIntance(true, "管理员密码重置成功,新密码为:88888888(8个8)!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto = ResultDTO.getIntance(false, e.getMessage());
+		}
+		return dto;
+	}
 }

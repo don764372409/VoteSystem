@@ -1,4 +1,5 @@
 package com.yuanmaxinxi.service.dept;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yuanmaxinxi.dao.dept.DeptDAO;
+import com.yuanmaxinxi.dao.role.RoleDAO;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.organize.Organize;
+import com.yuanmaxinxi.domain.role.Role;
 import com.yuanmaxinxi.service.organize.OrganizeService;
 import com.yuanmaxinxi.util.StringUtil;
 @Service
@@ -18,6 +21,8 @@ public class DeptService{
 	private DeptDAO deptDAO;
 	@Autowired
 	private OrganizeService organizeService;
+	@Autowired
+	private RoleDAO roleDAO;
 	@Transactional
 	public void insert(Dept obj){
 		if (StringUtil.isNullOrEmpty(obj.getName())) {
@@ -106,5 +111,50 @@ public class DeptService{
 		}
 		return dept;
 	}
-	
+	/**
+	 * 根据登录者 查询对应权限  根据全限得到数据权限   根据数据权限  得到能查的部门对象
+	 * @param adminId
+	 * @return
+	 */
+	public List<Dept> selectAllByAdminId(Long adminId){
+		//装员工能查的部门对象
+		List<Dept> depts = new ArrayList<>();
+		List<Role> roels = roleDAO.selectAllByAdminId(adminId);
+		//默认只能查当前部门
+		int dataRange = 0;
+		//得到角色中的最大数据权限
+		for (Role role : roels) {
+			if (role.getDataRange()>dataRange) {
+				dataRange = role.getDataRange();
+			}
+		}
+		//当前部门
+		if (dataRange==0) {
+			Dept dept = deptDAO.selectCurrentDeptByAdminId(adminId);
+			depts.add(dept);
+		}
+		//当前当前机构
+		if (dataRange==1) {
+			//通过当前部门得所属机构   通过所属机构获取当前机构中的所有部门
+			List<Dept> list = deptDAO.selectAllByAdminIdToOrg(adminId);
+		}
+		//当前机构及下属机构
+		if (dataRange==2) {
+			//通过员工得当前机构   通过当前机构获取下级机构  再获取下级机构的部门
+			Dept dept = deptDAO.selectCurrentDeptByAdminId(adminId);
+			if (dept!=null) {
+				List<Organize> list = organizeService.selectCurrentAndChildById(dept.getOrganizeId());
+				for (Organize org : list) {
+					List<Dept> ds = deptDAO.selectAllByOrganizeId(org.getId());
+					depts.addAll(ds);
+				}
+			}
+		}
+		//所有部门
+		if (dataRange==3) {
+			List<Dept> list = deptDAO.selectAll();
+			depts.addAll(list);
+		}
+		return depts;
+	}
 }

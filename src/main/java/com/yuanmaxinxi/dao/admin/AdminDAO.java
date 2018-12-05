@@ -21,4 +21,6 @@ public interface AdminDAO{
 	int insertAdminAndRole(Map<String, Long> map);
 
 	int deleteAdminAndRoleByAdminId(Long adminId);
+
+	int updatePassword(Admin loginAdmin);
 }

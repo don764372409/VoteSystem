@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.dto.ResultDTO;
@@ -49,7 +50,8 @@ public class ElectionmanController {
 		Map<String,Object> map=new HashMap<String,Object>();
 //		String name=request.getParameter("name");
 //		map.put("name", name);
-		List<Electionman> list=electionmanService.selectAll(map);
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		List<Electionman> list=electionmanService.selectAll(map,loginAdmin.getId());
 		model.addAttribute("list",list);	
 		return "/electionman/list";
 	}
