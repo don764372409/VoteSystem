@@ -1,13 +1,23 @@
 package com.yuanmaxinxi.domain.electionman;
+
+import com.yuanmaxinxi.domain.dept.Dept;
+
 public class Electionman{
 	private Long id;
 	private String name;
 	private String img;
-	private int number;
 	private String remark;
 	private Long deptId;
 	private String fail;
 	private int state;
+	private Dept dept;
+	
+	public Dept getDept() {
+		return dept;
+	}
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
 	public Long getId(){
 		return this.id;
 	}
@@ -25,12 +35,6 @@ public class Electionman{
 	}
 	public void setImg(String img){
 		this.img=img;
-	}
-	public int getNumber(){
-		return this.number;
-	}
-	public void setNumber(int number){
-		this.number=number;
 	}
 	public String getRemark(){
 		return this.remark;

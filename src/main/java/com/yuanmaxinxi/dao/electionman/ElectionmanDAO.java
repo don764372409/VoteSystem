@@ -20,4 +20,8 @@ public interface ElectionmanDAO{
 
 	List<Electionman> selectAll(Map map);
 
+	int examine(Electionman obj);
+
+	int insertEleManAndVoting(Map<String, Long> map);
+
 }

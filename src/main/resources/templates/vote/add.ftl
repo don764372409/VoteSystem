@@ -48,6 +48,7 @@
 			<input type="radio" value="1" placeholder="" id="status" name="status">是
 			 </div>
 		</div>
+		<span class="c-red">注意：选择“是”状态可以自动添加审核通过的参选人员,且一个系统中同一时间只能存在一个状态为“是”的投票活动.</span>
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
 		<input type="text" name="starttimes" onfocus="WdatePicker({})" id="datemin" class="input-text Wdate" style="width:120px;">

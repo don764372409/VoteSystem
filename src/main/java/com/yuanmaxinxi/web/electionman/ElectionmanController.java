@@ -53,6 +53,12 @@ public class ElectionmanController {
 		model.addAttribute("list",list);	
 		return "/electionman/list";
 	}
+	@RequestMapping("/showRemark")
+	public String showRemark(Model model,Long id) {
+		Electionman obj = electionmanService.selectOneById(id);
+		model.addAttribute("obj", obj);
+		return "electionman/remark";
+	}
 	@RequestMapping("/showadd")
 	public String showAdd() {
 		return "electionman/add";
@@ -70,7 +76,7 @@ public class ElectionmanController {
 		ResultDTO dto;
 		try {
 			electionmanService.insert(obj);
-			dto = ResultDTO.getIntance(true, "预选人添加成功!");
+			dto = ResultDTO.getIntance(true, "预选人员添加成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			dto = ResultDTO.getIntance(false, e.getMessage());
@@ -81,9 +87,42 @@ public class ElectionmanController {
 	public String showEdit(Long id,Model model) {
 		Electionman obj = electionmanService.selectOneById(id);
 		model.addAttribute("obj", obj);
-		List<Dept> list = deptService.selectAll();//部门列表展示
-		model.addAttribute("list", list);
+		Dept dept = deptService.selectOneAndParentOrgById(obj.getDeptId());
+		model.addAttribute("dept", dept);
 		return "electionman/edit";
+	}
+	@RequestMapping("/showExamine")
+	public String showExamine(Long id,Model model) {
+		Electionman obj = electionmanService.selectOneById(id);
+		model.addAttribute("obj", obj);
+		Dept dept = deptService.selectOneAndParentOrgById(obj.getDeptId());
+		model.addAttribute("dept", dept);
+		return "electionman/examine";
+	}
+	@RequestMapping(value = "/isExamine")
+	@ResponseBody
+	public ResultDTO examine(Long id) {
+		ResultDTO dto;
+		Electionman obj = electionmanService.selectOneById(id);
+		if (obj!=null&&obj.getState()!=0) {
+			dto = ResultDTO.getIntance(false, "该参选人员["+obj.getName()+"]已经审核完成,不能重复审核.");
+		}else {
+			dto = ResultDTO.getIntance(true, "可以审核!");
+		}
+		return dto;
+	}
+	@RequestMapping(value = "/examine")
+	@ResponseBody
+	public ResultDTO examine(Electionman obj) {
+		ResultDTO dto;
+		try {
+			electionmanService.examine(obj);
+			dto = ResultDTO.getIntance(true, "审核完成并将该预选人员成功设置到默认投票活动中!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto = ResultDTO.getIntance(false, e.getMessage());
+		}
+		return dto;
 	}
 
 	/**
@@ -100,10 +139,9 @@ public class ElectionmanController {
 	public ResultDTO electionmanedit(Electionman obj) {
 		ResultDTO dto;
 		try {
-			obj.setImg("http://img4.imgtn.bdimg.com/it/u=2841318189,2319887386&fm=214&gp=0.jpg");
-			obj.setRemark("优秀干部");
-			obj.setFail("fail");
-			obj.setDeptId((long) 5);
+			obj.setFail("");
+			//修改之后重新审核
+			obj.setState(0);
 			electionmanService.update(obj);
 			dto = ResultDTO.getIntance(true, "预选人信息修改成功!");
 		} catch (Exception e) {

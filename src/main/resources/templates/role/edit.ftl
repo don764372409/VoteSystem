@@ -128,7 +128,7 @@
 			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>菜单权限：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="panel panel-default">
-					<div class="panel-header">所有</div>
+					<div class="panel-header">父级菜单>子级菜单>按钮</div>
 					<div class="panel-body">
 						<ul id="tree" class="ztree"></ul>
 					</div>

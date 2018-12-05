@@ -44,11 +44,12 @@
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否默认添加参选人员：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-			<input type="radio" value="0" placeholder="" id="status" name="status" checked>否
-			<input type="radio" value="1" placeholder="" id="status" name="status">是
+			<div class="formControls col-xs-8 col-sm-9">
+			<input type="radio" value="0" id="status" name="status" <#if obj.status==0>checked</#if>/>否
+			<input type="radio" value="1" id="status" name="status" <#if obj.status==1>checked</#if> />是
 			 </div>
 		</div>
+		<span class="c-red">注意：选择“是”状态可以自动添加审核通过的参选人员,且一个系统中同一时间只能存在一个状态为“是”的投票活动.</span>
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
 		<input type="text" name="starttimes" value="${obj.starttime?string("yyyy-MM-dd")!}" onfocus="WdatePicker({})" id="datemin" class="input-text Wdate" style="width:120px;">
