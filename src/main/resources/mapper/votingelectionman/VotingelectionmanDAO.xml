@@ -39,4 +39,13 @@
     </otherwise>
     </choose>
 	</select>
+	
+	<select id="getwechatelist"  resultType="Map">
+	SELECT e.`name`,e.id as uid,e.img,ve.number
+	FROM t_electionman e
+	JOIN t_voting_electionman ve ON e.id=ve.eId
+	JOIN t_voting v ON v.id=ve.vId
+	WHERE v.`status`=1
+	</select>
+	
 </mapper>

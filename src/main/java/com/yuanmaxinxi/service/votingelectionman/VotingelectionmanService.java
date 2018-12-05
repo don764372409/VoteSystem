@@ -42,4 +42,9 @@ public class VotingelectionmanService{
 		return votingelectionmanDAO.getstatistics(vid);
 	}
 	
+	@Transactional
+	public List<Map<String, Object>> getwechatelist(){
+		return votingelectionmanDAO.getwechatelist();
+	}
+	
 }
