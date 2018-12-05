@@ -84,8 +84,9 @@ public class DeptService{
 			Organize org = map.get(orgId);
 			if (org==null) {
 				org = organizeService.selectOneById(orgId);
-				dept.setOrganize(org);
+				map.put(orgId, org);
 			}
+			dept.setOrganize(org);
 		}
 		return list;
 	}
