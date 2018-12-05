@@ -108,14 +108,6 @@ function edit(title,url,id){
 // 	});
 // 	layer.full(index);
 }
-function sendMessage(title,url,id){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url+"?id="+id
-	});
-	layer.full(index);
-}
 
 function deleteObj(obj,o,u,id){
 	layer.confirm("确认要删除"+o+"吗？",function(index){
@@ -125,13 +117,15 @@ function deleteObj(obj,o,u,id){
 			data:{"id":id},
 			dataType: 'json',
 			success: function(data){
-				layer.msg(data.msg,{icon:1,time:2000});
 				if(data.result){
+					layer.msg(data.msg,{icon:1,time:2000});
 					$(obj).parents("tr").remove();
+				}else{
+					layer.msg(data.msg,{icon:2,time:2000});
 				}
 			},
 			error:function(data) {
-				layer.msg("网络异常,请稍后再试.",{icon:1,time:2000});
+				layer.msg("网络异常,请稍后再试.",{icon:2,time:2000});
 			},
 		});		
 	});

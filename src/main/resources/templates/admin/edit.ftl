@@ -33,43 +33,122 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 <title>添加短信用户</title>
+<style type="text/css">
+	.searchBtn{
+		position: absolute;
+		display: inline-block;
+		width: 30px;
+		height:31px;
+		border: 1px solid #ddd;
+		right: 0;
+		top:-1px;
+		background: #f4f4f4;
+		line-height: 30px;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="form-member-add">
-		<input name="id" type="hidden" value="${obj.id}">
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>姓名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${obj.name}" placeholder="请输入姓名" name="name">
+	<div class="panel panel-default">
+		<div class="panel-header">基本信息</div>
+		<div class="panel-body">
+			<div class="row cl">
+				<label class="form-label col-sm-2"><span class="c-red">*</span>姓名：</label>
+				<div class="formControls col-sm-10">
+					<input type="hidden" value="${obj.id}" name="id">
+					<input type="text" class="input-text" value="${obj.name}" placeholder="请输入管理员姓名" name="name" style="width:45%;">
+					手机：
+					<input type="text" class="input-text" value="${obj.phone}" placeholder="请输入手机" name="phone" style="width:45%;">
+				</div>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>手机：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${obj.phone}" placeholder="请输入手机" name="phone">
+	</div>
+	<div class="mt-20"></div>
+	<div class="panel panel-default">
+		<div class="panel-header">机构部门信息</div>
+		<div class="panel-body">
+			<div class="row cl">
+				<label class="form-label col-sm-2"><span class="c-red">*</span>所属部门：</label>
+				<div class="formControls col-sm-10">
+					<div style="position: relative;">
+					<input type="hidden" value="${obj.deptId}" name="deptId">
+					<input type="text" readonly="readonly" onclick="openOrganizeDialog()" class="input-text" value="${(obj.dept.name)!}" placeholder="请选择所属机构部门" name="deptName">
+					<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>借款时间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" placeholder="请输入借款时间" onfocus="WdatePicker()" name="loanTime" value="${obj.loanTime?string('yyyy-MM-dd')}" class="input-text Wdate">	
+	</div>
+	<div class="mt-20"></div>
+	<div class="panel panel-default">
+		<div class="panel-header">角色信息</div>
+		<div class="panel-body">
+			<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择角色：</label>
+			<div class="formControls col-xs-8 col-sm-10"> <span class="select-box">
+				<select class="select" name="roleId">
+					<#list list as role>
+						<#if (obj.role.id) == (role.id)>
+							<option value="${role.id}" selected="selected">
+								角色名称：${role.name} 数据范围：
+								<#if role.dataRange==0>
+					       			当前部门
+					       		</#if>
+					       		<#if role.dataRange==1>
+					       			当前机构
+					       		</#if>
+					       		<#if role.dataRange==2>
+					       			当前及下属机构
+					       		</#if>
+					       		<#if role.dataRange==3>
+					       			所有
+					       		</#if>
+							</option>
+							<#else>
+								<option value="${role.id}">
+									角色名称：${role.name} 数据范围：
+									<#if role.dataRange==0>
+						       			当前部门
+						       		</#if>
+						       		<#if role.dataRange==1>
+						       			当前机构
+						       		</#if>
+						       		<#if role.dataRange==2>
+						       			当前及下属机构
+						       		</#if>
+						       		<#if role.dataRange==3>
+						       			所有
+						       		</#if>
+								</option>
+						</#if>
+					</#list>
+				</select>
+				</span> </div>
+			</div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-10 col-sm-offset-2">
+					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+				</div>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3">还款时间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" placeholder="请输入还款时间" onfocus="WdatePicker()" name="repaymentTime" value="${obj.repaymentTime?string('yyyy-MM-dd')}" class="input-text Wdate">	
-			</div>
-		</div>
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-			</div>
-		</div>
+	</div>
 	</form>
 </article>
 <script type="text/javascript">
+function openOrganizeDialog(){
+	var index = layer.open({
+		  type: 2,
+		  title:"部门选择",
+		  area: ['50%', '500px'], //宽高
+		  content: '/admin/showOrg',
+		  btn:['确定'],
+		  yes:function(){
+			  layer.close(index);
+		  }
+	});
+}
 $(function(){
 	$("#form-member-add").validate({
 		rules:{
@@ -93,13 +172,16 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/borrower/edit" ,
+				url: "/admin/edit" ,
 				success: function(data){
-					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
+						layer.msg(data.msg,{icon:1,time:2000});
 						parent.$('.btn-refresh').click();
-// 						var index = parent.layer.getFrameIndex(window.name);
-// 						parent.layer.close(index);
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					}else{
+						
+						layer.msg(data.msg,{icon:2,time:2000});
 					}
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){

@@ -44,7 +44,7 @@
         <th width="100">姓名</th>
         <th width="100">电话</th>
         <th width="90">所属部门</th>
-        <th width="130">状态</th>
+        <th width="90">角色</th>
         <th width="60">操作</th>
       </tr>
     </thead>
@@ -54,11 +54,17 @@
         <td>${obj.id}</td>
         <td>${obj.name!}</td>
         <td>${obj.phone!}</td>
-        <td>${obj.dept.name!}</td>
-        <td>${obj.status}</td>
+        <td>${(obj.dept.name)!}</td>
+        <td>
+        	<#if (obj.roles)??>
+				<#list obj.roles as role>
+					${role.name}
+				</#list>
+        	</#if>
+		</td>
         <td class="f-14 user-manage">
-        	<a title="编辑" href="javascript:;" onclick="edit('添加短信用户','/borrower/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-        	<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.name}','/borrower/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
+        	<a title="编辑" href="javascript:;" onclick="edit('修改管理员','/admin/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+        	<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.name}','/admin/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
        	</td>
       </tr>
      </#list>
@@ -134,13 +140,16 @@ function deleteObj(obj,o,u,id){
 			data:{"id":id},
 			dataType: 'json',
 			success: function(data){
-				layer.msg(data.msg,{icon:1,time:1000});
 				if(data.result){
+					layer.msg(data.msg,{icon:1,time:2000});
 					$(obj).parents("tr").remove();
+				}else{
+					layer.msg(data.msg,{icon:2,time:2000});
 				}
+
 			},
 			error:function(data) {
-				layer.msg("网络异常,请稍后再试.",{icon:1,time:1000});
+				layer.msg("网络异常,请稍后再试.",{icon:2,time:2000});
 			},
 		});		
 	});

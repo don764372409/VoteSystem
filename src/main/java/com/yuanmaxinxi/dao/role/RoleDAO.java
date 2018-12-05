@@ -20,4 +20,6 @@ public interface RoleDAO{
 	int insertRoleAndResource(Map<String, Long> map);
 
 	void deleteRoleAndResourceByRoleId(Long roleId);
+
+	List<Role> selectAllByAdminId(Long adminId);
 }
