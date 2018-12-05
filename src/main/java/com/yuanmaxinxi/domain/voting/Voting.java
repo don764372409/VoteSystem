@@ -1,11 +1,15 @@
 package com.yuanmaxinxi.domain.voting;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Voting{
 	private Long id;
 	private String title;
 	private String rule;
 	private int status;
+	@DateTimeFormat(pattern = "yyyy-MM-dd" )
 	private Date starttime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd" )
 	private Date endtime;
 	public Long getId(){
 		return this.id;

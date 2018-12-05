@@ -46,6 +46,7 @@
 					<th width="80">活动介绍（规则）</th>
 					<th width="120">开始时间</th>
 					<th width="75">结束时间</th>
+					<th width="75">默认添加参选人状态</th>
 					<th width="120">操作</th>
 				</tr>
 			</thead>
@@ -67,6 +68,14 @@
 					<#if voting.starttime?exists>${voting.starttime?string("yyyy-MM-dd")!}</#if>
 					</td>
 					<td><#if voting.endtime?exists>${voting.endtime?string("yyyy-MM-dd")!}</#if></td>
+					<td>
+					<#if voting.status?? && voting.status==0>
+						<span class="label label-secondary radius">普通状态</span>
+					</#if>
+					<#if voting.status?? && voting.status==1>
+						<span class="label label-success radius">默认状态</span>
+					</#if>
+					</td>
 					<td class="f-14 td-manage">
 					<a style="text-decoration:none" class="ml-5" onClick="article_edit('活动编辑','/vote/showEdit',${voting.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
 					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${voting.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
