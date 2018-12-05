@@ -115,8 +115,6 @@ public class ElectionmanService{
 			throw new RuntimeException("参选人员["+ele.getName()+"已经审核完成,不能重复审核].");
 		}
 		//查询是有默认投票活动
-		votingService.get
-		
 		
 		
 		
