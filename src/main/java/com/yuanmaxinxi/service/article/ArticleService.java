@@ -18,8 +18,6 @@ import java.util.Map;
 public class ArticleService{
 	@Autowired
 	private ArticleDAO articleDAO;
-	@Autowired
-	private ArticleTypeDAO articletypeDAO;
 	public void insert(Article obj){
 		if (StringUtil.isNullOrEmpty(obj.getTitle())) {
 			throw new RuntimeException("主题名称不能为空.");
@@ -28,7 +26,7 @@ public class ArticleService{
 			throw new RuntimeException("内容不能为空.");
 		}
 		if (obj.getAId()==null||obj.getAId()<1) {
-			throw new RuntimeException("修改文章时必须选择类别.");
+			throw new RuntimeException("添加文章时必须选择类别.");
 		}
 		int i = articleDAO.insert(obj);
 		if (i!=1) {
@@ -79,18 +77,7 @@ public class ArticleService{
 		return articleDAO.selectOneById(id);
 	}
 
-	public List<Article> selectAll(){
-		List<Article> list = articleDAO.selectAll();
-		Map<Long,ArticleType> cash = new HashMap<>();
-		for (Article article : list) {
-			Long typeId = article.getTypeId();
-			ArticleType type = cash.get(typeId);
-			if (type == null) {
-				type = articletypeDAO.selectOneById(typeId);
-				cash.put(typeId, type);
-			}
-			article.setArticletype(type);
-		}
-		return list;
+	public List<Article> selectAll(Long pId){
+		return  articleDAO.selectAll(pId);
 	}
 	}

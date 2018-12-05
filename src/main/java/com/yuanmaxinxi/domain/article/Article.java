@@ -1,11 +1,14 @@
 package com.yuanmaxinxi.domain.article;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.yuanmaxinxi.domain.articletype.ArticleType;
 public class Article{
 	private Long id;
 	private String title;
 	private String content;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date time;
 	private Long aId;
 	private String fail;

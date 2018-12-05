@@ -34,18 +34,18 @@ public class ArticleController {
 		model.addAttribute("list", list);
 		return "/article/add";
 	}
-	 @RequestMapping("/add")
-		public @ResponseBody ResultDTO add(Article obj) {
-			ResultDTO dto;
-			try {
-				articleService.insert(obj);
-				dto = ResultDTO.getIntance(true, "文章添加成功!");
-			} catch (Exception e) {
-				e.printStackTrace();
-				dto = ResultDTO.getIntance(false, e.getMessage());
-			}
-			return dto;
+    @RequestMapping("/add")
+	public @ResponseBody ResultDTO add(Article obj) {
+		ResultDTO dto;
+		try {
+			articleService.insert(obj);
+			dto = ResultDTO.getIntance(true, "文章添加成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto = ResultDTO.getIntance(false, e.getMessage());
 		}
+		return dto;
+	}
 	 @RequestMapping("/delete")
 		public @ResponseBody ResultDTO delete(Long id) {
 			ResultDTO dto;
@@ -59,17 +59,28 @@ public class ArticleController {
 			return dto;
 		}
 	 @RequestMapping("/showEdit")
-		public String showEdit(Long id,Model model,Long pid) {
-		    Article obj = articleService.selectOneById(id);
+		public String showEdit(Model model,Long id,Long pId) {
+	    	Article obj = articleService.selectOneById(id);
 			model.addAttribute("obj", obj);
-			List<ArticleType> list = articletypeService.selectAll(pid);//部门列表展示
+			List<ArticleType> list = articletypeService.selectTypeToTree(pId);
 			model.addAttribute("list", list);
-			return "article/edit";
+			return "/article/edit";
 		}
-	
+	    @RequestMapping("/edit")
+		public @ResponseBody ResultDTO edit(Article obj) {
+			ResultDTO dto;
+			try {
+				articleService.update(obj);
+				dto = ResultDTO.getIntance(true, "类别修改成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
+			}
+			return dto;
+		}
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Article> list = articleService.selectAll();
+	public String list(Model model,Long pId) {
+		List<Article> list = articleService.selectAll(pId);
 		model.addAttribute("list", list);
 		return "article/list";
 	}
@@ -77,10 +88,5 @@ public class ArticleController {
 	@ResponseBody
 	public Article selectOneById(Long id){
 		return articleService.selectOneById(id);
-	}
-	@RequestMapping("/showType")
-	public String showOrg(Model model) {
-		
-		return "article/organize";
 	}
 }

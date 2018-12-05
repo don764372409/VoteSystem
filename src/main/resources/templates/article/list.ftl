@@ -32,19 +32,17 @@
 <!--   	</form> -->
   </div>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
 	 <a href="javascript:;" onclick="member_add('添加文章','/article/showAdd')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加文章</a></span> 
 	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
 				<tr class="text-c">
-					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="80">文章编号</th>
 					<th width="80">文章主题</th>
 					<th width="80">文章内容</th>
 					<th width="120">发布时间</th>
-					<th width="75">发布人</th>
 					<th width="80">状态提示</th>
 					<th width="120">操作</th>
 				</tr>
@@ -52,16 +50,14 @@
 			<tbody>
 			 <#list list as art>
 				<tr class="text-c">
-					<td><input type="checkbox" value="" name=""></td>
 					<td>${art.id}</td>
 					<td>${art. title}</td>
 					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${art.content}</u></td>
 					<td>${art.time?string("yyyy-MM-dd")!} </td>
-					<td>${art.fail}</td>
 					<td class="f-14 td-manage">
 					<td class="f-14 td-manage">
 					<a style="text-decoration:none" onClick="article_shenhe(this,${art.state})" href="javascript:;" title="审核">审核</a>
-					<a style="text-decoration:none" class="ml-5" onClick="article_edit('资讯编辑','article-add.html','10001')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+					<a title="编辑" href="javascript:;" onclick="article_edit('修改文章信息','/article/showEdit',${art.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 					<a title="删除" href="javascript:;" onclick="deleteObj(this,'${art.title}','/article/delete',${art.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
 					</td>
 				</tr>
@@ -87,16 +83,24 @@ $('.table-sort').dataTable({
 	"pading":false,
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
+	  {"orderable":false,"aTargets":[0,5]}// 不参与排序的列
 	]
 });
 
 /*用户-添加*/
-function member_add(title,url){
+function member_add(title,url,pId){
+	 /* 用途: 接收地直栏参数 取id=1 根据ID的值 */
+	  urlinfo=window.location.href; //获取当前页面的url
+	  len=urlinfo.length;//获取url的长度
+	  offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+	  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+	 newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+	  newsid=newsids[1];//得到参数值
+	  newsname=newsids[0];//得到参数名字
 	var index = layer.open({
 		type: 2,
 		title: title,
-		content: url
+		content: url+"?pId="+newsid
 	});
 // 	打开全屏
 	layer.full(index);
@@ -104,8 +108,21 @@ function member_add(title,url){
 
 /*资讯-编辑*/
 function article_edit(title,url,id){
-	layer_show(title,url+"?id="+id,"",550);
-}
+	  urlinfo=window.location.href; //获取当前页面的url
+	  len=urlinfo.length;//获取url的长度
+	  offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+	  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+	 newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+	  newsid=newsids[1];//得到参数值
+	  newsname=newsids[0];//得到参数名字
+	  var index = layer.open({
+			type: 2,
+			title: title,
+			content: url+"?id="+id+"&pId="+newsid
+		});
+//	 	打开全屏
+		layer.full(index);
+	}
 /*资讯-删除*/
 function deleteObj(obj,o,u,id){
 	layer.confirm("确认要删除"+o+"吗？",function(index){

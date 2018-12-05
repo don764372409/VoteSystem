@@ -16,6 +16,6 @@ public interface ArticleDAO{
 
 	Article selectOneById(Long id);
 
-	List<Article> selectAll();
+	List<Article> selectAll(Long pId);
 
 }

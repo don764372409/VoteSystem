@@ -19,7 +19,7 @@
 <script type="text/javascript" src="/H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>部门管理</title>
+<title>类别管理</title>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 类别管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -97,8 +97,6 @@ function addObj(title,url,id){
 	 newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
 	  newsid=newsids[1];//得到参数值
 	  newsname=newsids[0];//得到参数名字
-	  
-	
 	layer_show(title,url+"?pId="+newsid,550,300);
 	//var index = layer.open({
  	//	type: 2,

@@ -24,7 +24,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加预选人</title>
+<title>添加文章</title>
 <style type="text/css">
 	.searchBtn{
 		position: absolute;
@@ -52,7 +52,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-			<script id="editor" type="text/plain" style="width:100%;height:400px;" ></script>
+			<script id="editor" type="text/plain" style="width:100%;height:400px;" name="content" value=""></script>
 			</div>
 		</div>
 		<div class="row cl">
@@ -62,10 +62,10 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属类别：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<select id="select" style="width : 80px;height : 30px;">
+				<select id="select" class="input-text" name="aId" style="width:120px;">
 				<#list list as li>
-				<option value="${li.id}" >${li.name}</option>
-				</#list>
+				<option value="${li.id}">${li.name}</option>
+				   </#list>
                 </select>
 			</div>
 		</div>
@@ -123,9 +123,9 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			var deptId = $("input[name=deptId]").val()
+			var aId = $("input[aId=aId]").val()
 			var remark = ue.getContent();
-			console.log(deptId+","+remark);
+			console.log(aId+","+remark);
 			$(form).ajaxSubmit({
 				type: 'post',
 				url: "/article/add" ,
