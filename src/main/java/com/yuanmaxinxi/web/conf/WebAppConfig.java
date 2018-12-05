@@ -15,6 +15,6 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Override  
     public void addInterceptors(InterceptorRegistry registry) {  
         //注册自定义拦截器，添加拦截路径和排除拦截路径  
-        registry.addInterceptor(new LoginInterceptor(resourceService)).addPathPatterns("/**").excludePathPatterns("/index/**","/login/**","/commons/**","/H-ui/**","/ueditor/**");  
+        registry.addInterceptor(new LoginInterceptor(resourceService)).addPathPatterns("/**").excludePathPatterns("/login/**","/commons/**","/H-ui/**","/ueditor/**","/uploader/file/**");  
     }  
 }

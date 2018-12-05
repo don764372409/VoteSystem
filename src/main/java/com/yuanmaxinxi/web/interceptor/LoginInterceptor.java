@@ -21,11 +21,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		String requestURI = request.getRequestURI();
 		if (loginAdmin==null) {
 			response.sendRedirect("/login/show");
 			return false;
 		}
-		String requestURI = request.getRequestURI();
+		System.err.println(requestURI);
 		//获取所有被权限管理的菜单
 		List<Resource> res = resourceService.selectAll();
 		List<String> resUrls = new ArrayList<>();
@@ -45,7 +46,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 		}
 		//但是登陆者又没有这个权限
 		if (!urls.contains(requestURI)) {
-			response.sendRedirect("/index/noRole");
+			response.sendRedirect("/login/noRole");
 			return false;
 		}
 		

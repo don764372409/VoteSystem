@@ -67,5 +67,8 @@ public class LoginController {
 		}
 		return dto;
 	}
-	
+	@RequestMapping("/noRole")
+	public String index() {
+		return "noRole";
+	}
 }

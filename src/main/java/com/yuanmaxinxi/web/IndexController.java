@@ -26,8 +26,4 @@ public class IndexController {
 		model.addAttribute("list", list);
 		return "index";
 	}
-	@RequestMapping("/noRole")
-	public String index() {
-		return "noRole";
-	}
 }
