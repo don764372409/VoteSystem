@@ -86,12 +86,9 @@ public class DeptService{
 				org = organizeService.selectOneById(orgId);
 				map.put(orgId, org);
 			}
-<<<<<<< HEAD
 			dept.setOrganize(org);
-=======
 			Dept d2 = selectOneAndParentOrgById(dept.getId());
 			dept.setName(d2.getName());
->>>>>>> branch 'master' of https://github.com/don764372409/VoteSystem.git
 		}
 		return list;
 	}
