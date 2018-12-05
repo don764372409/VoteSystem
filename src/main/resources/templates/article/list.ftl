@@ -41,27 +41,50 @@
 				<tr class="text-c">
 					<th width="80">文章编号</th>
 					<th width="80">文章主题</th>
-					<th width="80">文章内容</th>
 					<th width="120">发布时间</th>
 					<th width="80">状态提示</th>
+					<th width="80">审核消息</th>
 					<th width="120">操作</th>
 				</tr>
 			</thead>
 			<tbody>
-			 <#list list as art>
+			<#if list?exists>
+			 <#list list as obj>
 				<tr class="text-c">
-					<td>${art.id}</td>
-					<td>${art. title}</td>
-					<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="article_edit('查看','article-zhang.html','10001')" title="查看">${art.content}</u></td>
-					<td>${art.time?string("yyyy-MM-dd")!} </td>
+					<td>${obj.id}</td>
+					<td>${obj.title}</td>
+					<td>${obj.time?string("yyyy-MM-dd")!} </td>
+					<td class="td-status">
+						<#if obj.state?? && obj.state==0>
+							<span class="label label-secondary radius">待审核</span>
+						</#if>
+						<#if obj.state?? && obj.state==1>
+							<span class="label label-success radius">审核通过</span>
+						</#if>
+						<#if obj.state?? && obj.state==2>
+							<span class="label label-danger  radius">审核失败</span>
+						</#if>
+					</td>
+					<td>
+						<#if obj.state?? && obj.state==0>
+							审核中
+						</#if>
+						<#if obj.state?? && obj.state==1>
+							审核通过
+						</#if>
+						<#if obj.state?? && obj.state==2>
+							${art.fail?if_exists}
+						</#if>
+					</td>
 					<td class="f-14 td-manage">
-					<td class="f-14 td-manage">
-					<a style="text-decoration:none" onClick="article_shenhe(this,${art.state})" href="javascript:;" title="审核">审核</a>
-					<a title="编辑" href="javascript:;" onclick="article_edit('修改文章信息','/article/showEdit',${art.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-					<a title="删除" href="javascript:;" onclick="deleteObj(this,'${art.title}','/article/delete',${art.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
+					<a style="text-decoration:none" class="ml-5" onClick="obj_examine('审核文章','/article/showExamine',${obj.id})" href="javascript:;" title="审核"><i class="Hui-iconfont">&#xe725;</i></a>
+					<a style="text-decoration:none" class="ml-5" onClick="showRemark('${obj.title}',${obj.id})"href="javascript:;" title="查看详情介绍"><i class="Hui-iconfont">&#xe665;</i></a>
+					<a title="编辑" href="javascript:;" onclick="article_edit('修改文章信息','/article/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+					<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.title}','/article/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
 					</td>
 				</tr>
 				</#list>
+				</#if>
 			</tbody>
 		</table>
 	</div>
@@ -105,7 +128,47 @@ function member_add(title,url,pId){
 // 	打开全屏
 	layer.full(index);
 }
-
+function showRemark(title,id){
+	var index = layer.open({
+		type: 2,
+		title:title+"详情介绍",
+		area: ['50%', '500px'], //宽高
+		content: '/article/showRemark?id='+id,
+	});
+	layer.full(index);
+}
+function showHeadImg(id){
+	layer.open({
+		  type: 1,
+		  title: false,
+		  closeBtn: 0,
+		  area: '516px',
+// 		  skin: 'layui-layer-nobg', //没有背景色
+		  shadeClose: true,
+		  content: $('#'+id+"_img")
+		});
+}
+function obj_examine(title,url,id){
+	$.ajax({url:"/article/isExamine",
+		type:"post",
+		dataType:"json",
+		async:false,
+		data:{"id":id},
+		success:function(data){
+			if(data.result){
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url+"?id="+id
+				});
+			// 	打开全屏
+				layer.full(index);
+			}else{
+				layer.msg(data.msg,{icon:2,time:2000});				
+			}		
+		}
+	});
+}
 /*资讯-编辑*/
 function article_edit(title,url,id){
 	  urlinfo=window.location.href; //获取当前页面的url
@@ -142,52 +205,6 @@ function deleteObj(obj,o,u,id){
 			},
 		});		
 	});
-}
-
-/*资讯-审核*/
-function article_shenhe(obj,id){
-	layer.confirm('审核文章？', {
-		btn: ['通过','不通过','取消'], 
-		shade: false,
-		closeBtn: 0
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-		$(obj).remove();
-		layer.msg('已发布', {icon:6,time:1000});
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-		$(obj).remove();
-    	layer.msg('未通过', {icon:5,time:1000});
-	});	
-}
-/*资讯-下架*/
-function article_stop(obj,id){
-	layer.confirm('确认要下架吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
-		$(obj).remove();
-		layer.msg('已下架!',{icon: 5,time:1000});
-	});
-}
-
-/*资讯-发布*/
-function article_start(obj,id){
-	layer.confirm('确认要发布吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-		$(obj).remove();
-		layer.msg('已发布!',{icon: 6,time:1000});
-	});
-}
-/*资讯-申请上线*/
-function article_shenqing(obj,id){
-	$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-	$(obj).parents("tr").find(".td-manage").html("");
-	layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
 }
 </script> 
 </body>

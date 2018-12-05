@@ -58,6 +58,12 @@ public class ArticleController {
 			}
 			return dto;
 		}
+	 @RequestMapping("/showRemark")
+		public String showRemark(Model model,Long id) {
+		 Article obj = articleService.selectOneById(id);
+			model.addAttribute("obj", obj);
+			return "/article/remark";
+		}
 	 @RequestMapping("/showEdit")
 		public String showEdit(Model model,Long id,Long pId) {
 	    	Article obj = articleService.selectOneById(id);
@@ -70,6 +76,8 @@ public class ArticleController {
 		public @ResponseBody ResultDTO edit(Article obj) {
 			ResultDTO dto;
 			try {
+				obj.setFail("");
+				obj.setState(0);
 				articleService.update(obj);
 				dto = ResultDTO.getIntance(true, "类别修改成功!");
 			} catch (Exception e) {
@@ -88,5 +96,38 @@ public class ArticleController {
 	@ResponseBody
 	public Article selectOneById(Long id){
 		return articleService.selectOneById(id);
+	}
+	@RequestMapping("/showExamine")
+	public String showExamine(Long id,Model model,Long pId) {
+		Article obj = articleService.selectOneById(id);
+		model.addAttribute("obj", obj);
+		ArticleType type = (ArticleType) articletypeService.selectTypeToTree(pId);
+		model.addAttribute("type", type);
+		return "article/examine";
+	}
+	@RequestMapping(value = "/isExamine")
+	@ResponseBody
+	public ResultDTO examine(Long id) {
+		ResultDTO dto;
+		Article obj = articleService.selectOneById(id);
+		if (obj!=null&&obj.getState()!=0) {
+			dto = ResultDTO.getIntance(false, "文章["+obj.getTitle()+"]已经审核完成,不能重复审核.");
+		}else {
+			dto = ResultDTO.getIntance(true, "可以审核!");
+		}
+		return dto;
+	}
+	@RequestMapping(value = "/examine")
+	@ResponseBody
+	public ResultDTO examine(Electionman obj) {
+		ResultDTO dto;
+		try {
+			articleService.examine(obj);
+			dto = ResultDTO.getIntance(true, "审核完成并将该文章推送到首页中!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto = ResultDTO.getIntance(false, e.getMessage());
+		}
+		return dto;
 	}
 }

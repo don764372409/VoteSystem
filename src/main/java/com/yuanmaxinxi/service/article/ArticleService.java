@@ -1,6 +1,7 @@
 package com.yuanmaxinxi.service.article;
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
+import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.util.StringUtil;
 import com.yuanmaxinxi.dao.article.ArticleDAO;
@@ -79,5 +80,19 @@ public class ArticleService{
 
 	public List<Article> selectAll(Long pId){
 		return  articleDAO.selectAll(pId);
+	}
+	@Transactional
+	public void examine(Electionman obj) {
+		if (obj.getId()==null||obj.getId()<1) {
+			throw new RuntimeException("非法访问.");
+		}
+		if (obj.getState()==2&&StringUtil.isNullOrEmpty(obj.getFail())) {
+			throw new RuntimeException("审核失败时需要填写原因.");
+		}
+		Article ele = articleDAO.selectOneById(obj.getId());
+		if (ele.getState()!=0) {
+			throw new RuntimeException("文章["+ele.getTitle()+"已经审核完成,不能重复审核].");
+		}
+		
 	}
 	}

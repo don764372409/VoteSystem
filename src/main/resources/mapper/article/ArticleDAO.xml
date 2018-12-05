@@ -26,4 +26,7 @@
 	<select id="selectAll" resultMap="ArticleResultMap">
 		SELECT * FROM t_article WHERE aId IN(SELECT id FROM t_articletype WHERE pId=#{pId}) 
 	</select>
+	<update id="examine" parameterType="Article">
+		update t_article set state=#{state},fail=#{fail} where id=#{id}
+	</update>
 </mapper>
