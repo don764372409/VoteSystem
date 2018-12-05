@@ -117,7 +117,7 @@ public class ElectionmanController {
 		ResultDTO dto;
 		try {
 			electionmanService.examine(obj);
-			dto = ResultDTO.getIntance(true, "审核完成!");
+			dto = ResultDTO.getIntance(true, "审核完成并将该预选人员成功设置到默认投票活动中!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			dto = ResultDTO.getIntance(false, e.getMessage());

@@ -125,7 +125,14 @@ function examine(state){
 	var id = $("input[name=id]").val();
 	if (state==1) {
 		$.post("/electionman/examine",{"id":id,"state":1},function(data){
-			
+			if (data.result) {
+				layer.msg(data.msg,{icon:1,time:1000});
+				parent.$('.btn-refresh').click();
+				var index = parent.layer.getFrameIndex(window.name);
+				parent.layer.close(index);
+			}else{
+				layer.msg(data.msg,{icon:2,time:2000});
+			}	
 		});
 	}
 	if(state==2){

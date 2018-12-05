@@ -78,11 +78,13 @@ $(function(){
 				type: 'post',
 				url: "/dept/add" ,
 				success: function(data){
-					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
+						layer.msg(data.msg,{icon:1,time:2000});
 						parent.$('.btn-refresh').click();
 						var index = parent.layer.getFrameIndex(window.name);
 						parent.layer.close(index);
+					}else{
+						layer.msg(data.msg,{icon:2,time:2000});
 					}
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){

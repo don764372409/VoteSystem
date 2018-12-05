@@ -78,8 +78,38 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="mt-20"></div>
+	<div class="panel panel-default">
+		<div class="panel-header">角色信息</div>
+		<div class="panel-body">
 			<div class="row cl">
-				<div class="col-xs-8 col-sm-9 col-sm-offset-2">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>选择角色：</label>
+			<div class="formControls col-xs-8 col-sm-10"> <span class="select-box">
+				<select class="select" name="roleId">
+					<#list list as obj>
+						<option value="${obj.id}">
+							角色名称：${obj.name} 数据范围：
+							<#if obj.dataRange==0>
+				       			当前部门
+				       		</#if>
+				       		<#if obj.dataRange==1>
+				       			当前机构
+				       		</#if>
+				       		<#if obj.dataRange==2>
+				       			当前及下属机构
+				       		</#if>
+				       		<#if obj.dataRange==3>
+				       			所有
+				       		</#if>
+						</option>
+					</#list>
+				</select>
+				</span> </div>
+			</div>
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-10 col-sm-offset-2">
 					<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 				</div>
 			</div>
@@ -123,13 +153,13 @@ $(function(){
 		submitHandler:function(form){
 			$(form).ajaxSubmit({
 				type: 'post',
-				url: "/borrower/add" ,
+				url: "/admin/add" ,
 				success: function(data){
 					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
 						parent.$('.btn-refresh').click();
-// 						var index = parent.layer.getFrameIndex(window.name);
-// 						parent.layer.close(index);
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
 					}
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){

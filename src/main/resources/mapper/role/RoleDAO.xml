@@ -28,4 +28,9 @@
 	<select id="selectAll" resultMap="RoleResultMap">
 		select * from t_role
 	</select>
+	<select id="selectAllByAdminId" resultMap="RoleResultMap">
+		select * from t_role where id in(
+			select roleId from t_admin_role where adminId = #{adminId}
+		)
+	</select>
 </mapper>

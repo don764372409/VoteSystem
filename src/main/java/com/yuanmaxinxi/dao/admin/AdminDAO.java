@@ -3,6 +3,7 @@ import com.yuanmaxinxi.domain.admin.Admin;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Map;
 @Mapper
 @Repository
 public interface AdminDAO{
@@ -16,4 +17,8 @@ public interface AdminDAO{
 
 	List<Admin> selectAll();
 	Admin selectOneByName(String name);
+
+	int insertAdminAndRole(Map<String, Long> map);
+
+	int deleteAdminAndRoleByAdminId(Long adminId);
 }

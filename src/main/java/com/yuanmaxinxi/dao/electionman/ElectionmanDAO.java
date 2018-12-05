@@ -22,4 +22,6 @@ public interface ElectionmanDAO{
 
 	int examine(Electionman obj);
 
+	int insertEleManAndVoting(Map<String, Long> map);
+
 }

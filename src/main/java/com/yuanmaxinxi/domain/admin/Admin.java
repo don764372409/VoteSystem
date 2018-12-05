@@ -1,6 +1,10 @@
 package com.yuanmaxinxi.domain.admin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.yuanmaxinxi.domain.dept.Dept;
+import com.yuanmaxinxi.domain.role.Role;
 
 public class Admin{
 	private Long id;
@@ -10,7 +14,21 @@ public class Admin{
 	private int status;
 	private Long deptId;
 	private Dept dept;
+	private List<Role> roles = new ArrayList<>();
+	private Role role;
 	
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 	public Dept getDept() {
 		return dept;
 	}

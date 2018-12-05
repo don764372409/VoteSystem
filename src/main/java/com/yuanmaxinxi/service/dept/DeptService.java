@@ -86,6 +86,8 @@ public class DeptService{
 				org = organizeService.selectOneById(orgId);
 				dept.setOrganize(org);
 			}
+			Dept d2 = selectOneAndParentOrgById(dept.getId());
+			dept.setName(d2.getName());
 		}
 		return list;
 	}
