@@ -45,7 +45,7 @@
 					<th width="80">头像</th>
 					<th width="75">得票数</th>
 					<th width="120">所属活动</th>
-					<th width="120">投票截止时间</th>
+					<th width="120">投票截止日期</th>
 				</tr>
 			</thead>
 			<tbody>
