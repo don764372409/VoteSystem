@@ -19,7 +19,7 @@
 <script type="text/javascript" src="/H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>部门管理</title>
+<title>类别管理</title>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 类别管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -87,18 +87,35 @@ $('.table-sort').dataTable({
 // 	  {"orderable":false,"aTargets":[0,4,5]}// 制定列不参与排序
 	]
 });
-function addObj(title,url){
-	layer_show(title,url,550,300);
-// 	var index = layer.open({
-// 		type: 2,
-// 		title: title,
-// 		content: url
-// 	});
-	//打开全屏
-// 	layer.full(index);
+function addObj(title,url,id){
+	
+	  /* 用途: 接收地直栏参数 取id=1 根据ID的值 */
+	  urlinfo=window.location.href; //获取当前页面的url
+	  len=urlinfo.length;//获取url的长度
+	  offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+	  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+	 newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+	  newsid=newsids[1];//得到参数值
+	  newsname=newsids[0];//得到参数名字
+	layer_show(title,url+"?pId="+newsid,550,300);
+	//var index = layer.open({
+ 	//	type: 2,
+ 	//	title: title,
+	//	content: 
+ 	//});
+	//layer.full(index);
 }
 function edit(title,url,id){
-	layer_show(title,url+"?id="+id,550,300);
+	  /* 用途: 接收地直栏参数 取id=1 根据ID的值 */
+	  urlinfo=window.location.href; //获取当前页面的url
+	  len=urlinfo.length;//获取url的长度
+	  offset=urlinfo.indexOf("?");//设置参数字符串开始的位置
+	  newsidinfo=urlinfo.substr(offset,len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
+	 newsids=newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
+	  newsid=newsids[1];//得到参数值
+	  newsname=newsids[0];//得到参数名字
+	  
+	layer_show(title,url+"?id="+id+"&pId="+newsid,550,300);
 // 	var index = layer.open({
 // 		type: 2,
 // 		title: title,

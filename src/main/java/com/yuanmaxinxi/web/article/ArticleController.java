@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
+import com.yuanmaxinxi.domain.dept.Dept;
+import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.article.ArticleService;
@@ -18,58 +20,67 @@ import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 
 
 @Controller
-@RequestMapping(value ="/article",method = { RequestMethod.GET, RequestMethod.POST })
+@RequestMapping(value ="/article")
 public class ArticleController {
 
     @Autowired
     ArticleService articleService;
     @Autowired
 	private ArticleTypeService articletypeService;
-	@RequestMapping("/showAdd")
-	public String showAdd() {
+	
+    @RequestMapping("/showAdd")
+	public String showAdd(Model model,Long pId) {
+    	List<ArticleType> list = articletypeService.selectTypeToTree(pId);
+		model.addAttribute("list", list);
 		return "/article/add";
 	}
-	 @RequestMapping("/add")
-		public @ResponseBody ResultDTO add(Article obj) {
-			ResultDTO dto;
-			try {
-				articleService.insert(obj);
-				dto = ResultDTO.getIntance(true, "类别添加成功!");
-			} catch (Exception e) {
-				e.printStackTrace();
-				dto = ResultDTO.getIntance(false, e.getMessage());
-			}
-			return dto;
+    @RequestMapping("/add")
+	public @ResponseBody ResultDTO add(Article obj) {
+		ResultDTO dto;
+		try {
+			articleService.insert(obj);
+			dto = ResultDTO.getIntance(true, "文章添加成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto = ResultDTO.getIntance(false, e.getMessage());
 		}
+		return dto;
+	}
 	 @RequestMapping("/delete")
 		public @ResponseBody ResultDTO delete(Long id) {
 			ResultDTO dto;
 			try {
 				articleService.delete(id);
-				dto = ResultDTO.getIntance(true, "类别删除成功!");
+				dto = ResultDTO.getIntance(true, "文章删除成功!");
 			} catch (Exception e) {
 				e.printStackTrace();
 				dto = ResultDTO.getIntance(false, e.getMessage());
 			}
 			return dto;
 		}
-	  @RequestMapping("/showEdit")
-			public String showEdit(Model model,Long id) {
-		    	Article obj = articleService.selectOneById(id);
-				model.addAttribute("obj", obj);
-				return "/articletype/edit";
-			}
-	  @RequestMapping("/showType")
-		public String showType(Model model) {
-			List<ArticleType> list = articletypeService.selectArticleTypeToTree();
+	 @RequestMapping("/showEdit")
+		public String showEdit(Model model,Long id,Long pId) {
+	    	Article obj = articleService.selectOneById(id);
+			model.addAttribute("obj", obj);
+			List<ArticleType> list = articletypeService.selectTypeToTree(pId);
 			model.addAttribute("list", list);
-			System.err.println(list);
-			return "articletype/organize";
+			return "/article/edit";
 		}
-	
+	    @RequestMapping("/edit")
+		public @ResponseBody ResultDTO edit(Article obj) {
+			ResultDTO dto;
+			try {
+				articleService.update(obj);
+				dto = ResultDTO.getIntance(true, "类别修改成功!");
+			} catch (Exception e) {
+				e.printStackTrace();
+				dto = ResultDTO.getIntance(false, e.getMessage());
+			}
+			return dto;
+		}
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Article> list = articleService.selectAll();
+	public String list(Model model,Long pId) {
+		List<Article> list = articleService.selectAll(pId);
 		model.addAttribute("list", list);
 		return "article/list";
 	}

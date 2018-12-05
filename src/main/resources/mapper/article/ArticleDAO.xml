@@ -12,7 +12,7 @@
 		<result column="state" property="state"/>
 	</resultMap>
 	<insert id="insert" parameterType="Article">
-		insert into t_article(title,content,time,aId,fail,state) values(#{title},#{content},#{time},#{aId},#{fail},#{state})
+		insert into t_article(title,content,time,aId,state) values(#{title},#{content},#{time},#{aId},#{state})
 	</insert>
 	<update id="update" parameterType="Article">
 		update t_article set title=#{title},content=#{content},time=#{time},aId=#{aId},fail=#{fail},state=#{state} where id=#{id}
@@ -24,6 +24,6 @@
 		select * from t_article where id=#{id}
 	</select>
 	<select id="selectAll" resultMap="ArticleResultMap">
-		select * from t_article
+		SELECT * FROM t_article WHERE aId IN(SELECT id FROM t_articletype WHERE pId=#{pId}) 
 	</select>
 </mapper>

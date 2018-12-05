@@ -12,5 +12,6 @@ public interface ArticleTypeDAO{
 	int delete(Long id);
 	ArticleType selectOneById(Long id);
 	List<ArticleType> selectAll(Long pid);
+	List<ArticleType> selectAllParents(Long pId);
 
 }

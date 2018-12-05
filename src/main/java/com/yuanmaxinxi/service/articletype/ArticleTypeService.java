@@ -68,6 +68,11 @@ public class ArticleTypeService{
 	public ArticleType selectOneById(Long id){
 		return articleTypeDAO.selectOneById(id);
 	}
+	public List<ArticleType> selectTypeToTree(Long pId) {
+		List<ArticleType> list =articleTypeDAO.selectAllParents(pId);
+		return list;
+	}
+
 
 
 //	public List<ArticleType> selectAll(Long pId){
@@ -87,8 +92,4 @@ public class ArticleTypeService{
 		return list;
 
 }
-	public List<ArticleType> selectArticleTypeToTree() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
