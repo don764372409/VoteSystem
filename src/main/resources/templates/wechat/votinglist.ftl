@@ -50,7 +50,8 @@
 						<p>
 						${obj.uid?if_exists}号：
 						${obj.name?if_exists}
-						</p><p>
+						</p>
+						<p style="color: #4495F7;">
 					 	${obj.number?if_exists}票
 					 	</p>
 					 	<p>
