@@ -60,7 +60,17 @@
 		</div>
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>添加时间：</label>
-		<input type="text" name="time" onfocus="WdatePicker({})" readonly="readonly" value="${obj.time?string("yyyy-MM-dd")!}" id="datemin" class="input-text Wdate" style="width:120px;">
+		<div class="formControls col-xs-8 col-sm-9">
+		<input type="text" name="time"  readonly="readonly" value="${obj.time?string("yyyy-MM-dd")!}" id="datemin" class="input-text Wdate" style="width:120px;">
+		</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属类别：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<#list list as li>
+				<input type="text" class="input-text" value="${li.name}" readonly="readonly" placeholder="类别" id="aId" name="aId" style="width:120px;">
+				   </#list>
+			</div>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-sm-offset-1">
@@ -101,6 +111,7 @@ $(function(){
 	});
 });
 function examine(state){
+	
 	var id = $("input[name=id]").val();
 	if (state==1) {
 		$.post("/article/examine",{"id":id,"state":1},function(data){

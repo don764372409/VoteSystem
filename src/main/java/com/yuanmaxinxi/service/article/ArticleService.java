@@ -82,7 +82,7 @@ public class ArticleService{
 		return  articleDAO.selectAll(pId);
 	}
 	@Transactional
-	public void examine(Electionman obj) {
+	public void examine(Article obj) {
 		if (obj.getId()==null||obj.getId()<1) {
 			throw new RuntimeException("非法访问.");
 		}

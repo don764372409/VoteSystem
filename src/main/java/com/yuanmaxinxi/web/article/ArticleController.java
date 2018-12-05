@@ -98,11 +98,11 @@ public class ArticleController {
 		return articleService.selectOneById(id);
 	}
 	@RequestMapping("/showExamine")
-	public String showExamine(Long id,Model model,Long pId) {
+	public String showExamine(Long id,Model model) {
 		Article obj = articleService.selectOneById(id);
 		model.addAttribute("obj", obj);
-		ArticleType type = (ArticleType) articletypeService.selectTypeToTree(pId);
-		model.addAttribute("type", type);
+		List<ArticleType> list = articletypeService.selectTypeToTree(id);
+		model.addAttribute("list", list);
 		return "article/examine";
 	}
 	@RequestMapping(value = "/isExamine")
@@ -119,7 +119,7 @@ public class ArticleController {
 	}
 	@RequestMapping(value = "/examine")
 	@ResponseBody
-	public ResultDTO examine(Electionman obj) {
+	public ResultDTO examine(Article obj) {
 		ResultDTO dto;
 		try {
 			articleService.examine(obj);
