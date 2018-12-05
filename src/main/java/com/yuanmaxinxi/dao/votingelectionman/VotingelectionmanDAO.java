@@ -1,5 +1,6 @@
 package com.yuanmaxinxi.dao.votingelectionman;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.yuanmaxinxi.domain.votingelectionman.Votingelectionman;
@@ -20,6 +21,6 @@ public interface VotingelectionmanDAO{
 
 	List<Map<String, Object>> selectAll();
 	
-	List<Map<String, Object>> getstatistics();
+	List<Map<String, Object>> getstatistics(@Param("vid") Long vid);
 
 }
