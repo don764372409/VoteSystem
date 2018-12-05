@@ -38,8 +38,8 @@ public class VotingelectionmanService{
 		return votingelectionmanDAO.selectAll();
 	}
 	@Transactional
-	public List<Map<String, Object>> getstatistics(){
-		return votingelectionmanDAO.getstatistics();
+	public List<Map<String, Object>> getstatistics(Long vid){
+		return votingelectionmanDAO.getstatistics(vid);
 	}
 	
 }

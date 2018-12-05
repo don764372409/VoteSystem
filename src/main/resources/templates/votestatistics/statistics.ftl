@@ -31,10 +31,10 @@
 		<form class="Huiform" method="post" action="" >
 		投票类别：
 		<span class="select-box" style="width:150px">
-			<select class="select" name="vid" size="1">
+			<select class="select" name="id" size="1">
 			<#if list?exists>
 			<#list list as list>
-				<option value="${list.id?if_exists}">${list.title?if_exists}</option>
+				<option <#if (((list.id)!'') == vid)>selected="selected"</#if> value="${list.id?if_exists}">${list.title?if_exists}</option>
 			</#list>
 			</#if>
 			</select>
@@ -80,8 +80,8 @@ option = {
     xAxis : [
         {
             type : 'category',
-            data : ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
-			//data : [<#list map as list>${list.name?if_exists}</#list>]
+            //data : ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
+			data : [<#list map as list>"${list.name?if_exists}",</#list>]
         }
     ],
     yAxis : [
@@ -91,9 +91,32 @@ option = {
     ],
     series : [
         {
-            name:'降水量',
+            name:'得票数',
             type:'bar',
-            data:[5, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+			 itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　//好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
+                        color: function(params) {
+                            // build a color map as your need.
+                            var colorList = [
+                              '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　　//以下为是否显示，显示位置和显示格式的设置了
+                        label: {
+                            show: true,
+                            position: 'top',
+//                             formatter: '{c}'
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+　　　　　　　　　　//设置柱的宽度，要是数据太少，柱子太宽不美观~
+　　　　　　　　　　barWidth:70,
+            data:[<#list map as list>${list.number?if_exists},</#list>],
             markPoint : {
                 data : [
                     {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},

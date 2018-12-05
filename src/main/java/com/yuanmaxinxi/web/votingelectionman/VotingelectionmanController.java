@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yuanmaxinxi.domain.voting.Voting;
 import com.yuanmaxinxi.service.voting.VotingService;
@@ -51,11 +52,16 @@ public class VotingelectionmanController {
 	* @throws
 	 */
 	@RequestMapping("/votestatistics/statistics")
-	public String statistics(Model model) {
+	public String statistics(Model model,@RequestParam(value = "id", required = false) Long id) {
 		List<Voting> list=votingservice.selectvotinglist();//活动分类列表
-		List<Map<String, Object>> map = veservice.getstatistics();//展示数据
+		Long vid=(long) 0;
+		if(id!=null && id>0) {
+			vid=id;
+		}
+		List<Map<String, Object>> map = veservice.getstatistics(vid);//展示数据
 		model.addAttribute("list", list);
 		model.addAttribute("map", map);
+		model.addAttribute("vid", vid);
 		return "/votestatistics/statistics";
 	}
 	

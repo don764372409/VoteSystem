@@ -84,8 +84,9 @@ public class OrganizeService{
 			Organize parent = map.get(pId);
 			if (parent==null) {
 				parent = selectOneById(pId);
-				org.setParent(parent);
+				map.put(pId, parent);
 			}
+			org.setParent(parent);
 		}
 		return list;
 	}
