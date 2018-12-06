@@ -40,6 +40,7 @@
 			<thead>
 				<tr class="text-c">
 					<th width="80">文章编号</th>
+					<th width="80">文章图片</th>
 					<th width="80">文章主题</th>
 					<th width="120">发布时间</th>
 					<th width="80">状态提示</th>
@@ -52,6 +53,10 @@
 			 <#list list as obj>
 				<tr class="text-c">
 					<td>${obj.id}</td>
+					<td>
+						<img src="${obj.img?if_exists}" style="width: 30px;height: 30px;cursor: pointer;" onclick="showHeadImg(${obj.id})">
+						<img src="${obj.img?if_exists}" style="display: none;width: 516px;" id="${obj.id}_img">
+					</td>
 					<td>${obj.title}</td>
 					<td>${obj.time?string("yyyy-MM-dd")!} </td>
 					<td class="td-status">
@@ -73,7 +78,7 @@
 							审核通过
 						</#if>
 						<#if obj.state?? && obj.state==2>
-							${art.fail?if_exists}
+							${obj.fail?if_exists}
 						</#if>
 					</td>
 					<td class="f-14 td-manage">

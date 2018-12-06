@@ -44,11 +44,28 @@
 <body>
 <article class="page-container">
 <form class="form form-horizontal" id="form-member-add">
+
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章主题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 			    <input type="hidden" value="${obj.id}" name="id">
 				<input type="text" class="input-text" value="${obj.title}" readonly="readonly" placeholder="文章主题" id="title" name="title">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>展示头像：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<div id="fileList" class="uploader-list"></div>
+					<div style="margin-bottom: 10px;">
+						<#if obj.img??>
+							<img alt="" id="headImg" src="${obj.img}" width="100" height="120" >
+							<#else>
+							<img alt="" id="headImg" src="/commons/jia.png" width="100" height="120" >
+						</#if>
+						
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row cl">
@@ -63,14 +80,6 @@
 		<div class="formControls col-xs-8 col-sm-9">
 		<input type="text" name="time"  readonly="readonly" value="${obj.time?string("yyyy-MM-dd")!}" id="datemin" class="input-text Wdate" style="width:120px;">
 		</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属类别：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<#list list as li>
-				<input type="text" class="input-text" value="${li.name}" readonly="readonly" placeholder="类别" id="aId" name="aId" style="width:120px;">
-				   </#list>
-			</div>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-sm-offset-1">

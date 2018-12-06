@@ -75,11 +75,12 @@ public class ArticleController {
 	    @RequestMapping("/edit")
 		public @ResponseBody ResultDTO edit(Article obj) {
 			ResultDTO dto;
+			System.err.println(obj);
 			try {
 				obj.setFail("");
 				obj.setState(0);
 				articleService.update(obj);
-				dto = ResultDTO.getIntance(true, "类别修改成功!");
+				dto = ResultDTO.getIntance(true, "修改成功!");
 			} catch (Exception e) {
 				e.printStackTrace();
 				dto = ResultDTO.getIntance(false, e.getMessage());
@@ -122,6 +123,7 @@ public class ArticleController {
 	public ResultDTO examine(Article obj) {
 		ResultDTO dto;
 		try {
+		System.err.println("---------------");
 			articleService.examine(obj);
 			dto = ResultDTO.getIntance(true, "审核完成并将该文章推送到首页中!");
 		} catch (Exception e) {

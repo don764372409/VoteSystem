@@ -20,6 +20,9 @@ public class ArticleService{
 	@Autowired
 	private ArticleDAO articleDAO;
 	public void insert(Article obj){
+		if (StringUtil.isNullOrEmpty(obj.getImg())) {
+			throw new RuntimeException("请上传文章展示图片.");
+		}
 		if (StringUtil.isNullOrEmpty(obj.getTitle())) {
 			throw new RuntimeException("主题名称不能为空.");
 		}
@@ -92,6 +95,10 @@ public class ArticleService{
 		Article ele = articleDAO.selectOneById(obj.getId());
 		if (ele.getState()!=0) {
 			throw new RuntimeException("文章["+ele.getTitle()+"已经审核完成,不能重复审核].");
+		}
+		int i = articleDAO.examine(obj);
+		if (i!=1) {
+			throw new RuntimeException("操作失败,请稍后再试.");
 		}
 		
 	}

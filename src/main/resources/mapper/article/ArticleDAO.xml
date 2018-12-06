@@ -4,6 +4,7 @@
 <mapper namespace="com.yuanmaxinxi.dao.article.ArticleDAO">
 	<resultMap type="Article" id="ArticleResultMap">
 		<id column="id" property="id"/>
+		<result column="img" property="img"/>
 		<result column="title" property="title"/>
 		<result column="content" property="content"/>
 		<result column="time" property="time"/>
@@ -12,10 +13,11 @@
 		<result column="state" property="state"/>
 	</resultMap>
 	<insert id="insert" parameterType="Article">
-		insert into t_article(title,content,time,aId,state) values(#{title},#{content},#{time},#{aId},#{state})
+		insert into t_article(img,title,content,time,aId,state) 
+		values(#{img},#{title},#{content},#{time},#{aId},#{state})
 	</insert>
 	<update id="update" parameterType="Article">
-		update t_article set title=#{title},content=#{content},time=#{time},aId=#{aId},fail=#{fail},state=#{state} where id=#{id}
+		update t_article set img=#{img},title=#{title},content=#{content},time=#{time},aId=#{aId},fail=#{fail},state=#{state} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_article where id=#{id}
