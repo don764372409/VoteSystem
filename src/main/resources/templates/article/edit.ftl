@@ -47,21 +47,21 @@
 	<form class="form form-horizontal" id="form-member-add">
 	<input name="id" type="hidden" value="${obj.id}">
 	<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>展示头像：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>展示图片：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
 					<div style="margin-bottom: 10px;">
 						<#if obj.img??>
-							<input name="headImg" type="hidden" value="${obj.img!}">
+							<input name="img" type="hidden" value="${obj.img!}">
 							<img alt="" id="headImg" src="${obj.img}" width="100" height="120" >
 							<#else>
-							<input name="headImg" type="hidden" value="${obj.img!}">
+							<input name="img" type="hidden" value="${obj.img!}">
 							<img alt="" id="headImg" src="/commons/jia.png" width="100" height="120" >
 						</#if>
 						
 					</div>
-					<div id="filePicker">上传头像图片</div>
+					<div id="filePicker">上传图片</div>
 				</div>
 			</div>
 		</div>
@@ -210,13 +210,13 @@ $(function(){
 	uploader.on( 'uploadSuccess', function( object,ret ) {
 		if (ret.result) {
 			uploader.reset();
-			layer.msg("头像上传成功,点击按钮可替换.",{icon:1,time:1000});
+			layer.msg("图片上传成功,点击按钮可替换.",{icon:1,time:1000});
 			$("#headImg").attr("src",ret.msg);
 			$("input[name=img]").val(ret.msg);
-			$(".webuploader-pick").html("修改头像图片");
+			$(".webuploader-pick").html("修改图片");
 		}else{
-			layer.msg("头像上传失败,请刷新重试.",{icon:1,time:1000});
-			$(".webuploader-pick").html("上传头像图片");
+			layer.msg("图片上传失败,请刷新重试.",{icon:1,time:1000});
+			$(".webuploader-pick").html("上传图片");
 		}
 	});
 	// 文件上传失败，显示上传出错。
