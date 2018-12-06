@@ -26,4 +26,14 @@ public class StringUtil {
 	 public static void main(String[] args) {
 		System.err.println("\u914d\u7f6e\u6587\u4ef6\u521d\u59cb\u5316\u5931\u8d25");
 	}
+	 /*判断是否是数字*/
+	 public static boolean isNumeric(String str){
+		    for (int i = str.length();--i>=0;){  
+		        if (!Character.isDigit(str.charAt(i))){
+		             return false;
+		         }
+		     }
+		    return true;
+		 }
+	 
 }

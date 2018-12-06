@@ -39,13 +39,38 @@
     </otherwise>
     </choose>
 	</select>
-	
 	<select id="getwechatelist"  resultType="Map">
 	SELECT e.`name`,e.id as uid,e.img,ve.number
 	FROM t_electionman e
 	JOIN t_voting_electionman ve ON e.id=ve.eId
 	JOIN t_voting v ON v.id=ve.vId
 	WHERE v.`status`=1
+	order by ve.number desc
 	</select>
-	
+	<select id="getallorganize" resultType="Map">
+		select * from t_organize
+	</select>
+	<select id="getalldept" parameterType="Long" resultType="Map">
+		select * from t_dept where organizeId =#{id}
+	</select>
+	<select id="getallvoter" parameterType="Long" resultType="Map">
+		SELECT id,name FROM t_electionman WHERE deptId= #{id}
+	</select>
+	<select id="chagewechatvlist" resultType="Map">
+	SELECT e.`name`,e.id as uid,e.img,ve.number
+	FROM t_electionman e
+	JOIN t_voting_electionman ve ON e.id=ve.eId
+	JOIN t_voting v ON v.id=ve.vId
+	WHERE v.`status`=1 
+	<if test="deptId != null and deptId !=''">
+	and e.deptId=#{deptId}
+	</if>
+	<if test="type!='3' and type='1' and name!=''">
+	and e.id=#{name}
+	</if>
+	<if test="type!='3' and type='2' and name!=''">
+	and e.name=#{name}
+	</if>
+	order by ve.number desc
+	</select>
 </mapper>

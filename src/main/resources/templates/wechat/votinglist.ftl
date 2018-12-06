@@ -20,43 +20,58 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <style type="text/css">
-
+.tbtd{background-color: #4495F7;border-color:#4495F7;color: #fff;}
+.sb{float: left;padding: 4% 2%;width: 45%;box-sizing: border-box;margin-right: 1%;margin-left: 4%;}
+.tip-bot{background:#fff;padding:5px}
+.prov{border: solid 1px #ddd;width: 33%;}
+.city{border: solid 1px #ddd;width: 33%;}
+.county{border: solid 1px #ddd;}
 </style>
 <title>活动列表</title>
 </head>
 <body>
-<div class="page-container">
+<div class="page-container" style="background-color: #FAFAFA;">
 	<div class="text-c">
 	<div class="text-c">
+	<table style="background-color: #4495f7;">
+	<tr>
+	<td class="tbtd">0<p>已报名</p></td>
+	<td class="tbtd">0<p>总投票 </p></td>
+	<td class="tbtd">0<p>浏览量</p> </td>
+	</tr>
+	</table>
+	<form action="" id="vform" style="margin-top: 10px;">
 	<div>
-	<button type="submit" style="background-color: #4495F7;border-color:#4495F7;" class="btn btn-success" >已报名</button>
-	<button type="submit" style="background-color: #4495F7;border-color:#4495F7;" class="btn btn-success" >总投票 </button>
-	<button type="submit" style="background-color: #4495F7;border-color:#4495F7;" class="btn btn-success" >浏览量 </button>
+	选择机构:
+	<select name="organize" class="prov"></select>
+    <select name="dept" class="city"></select>
+    <!-- <select name="voter" class="county"></select> -->
 	</div>
-	<form action="">
-    <input type="text" class="input-text" style="width:250px" placeholder="姓名/编号" id="name" name="name">
-    <button type="submit" style="background-color: #4495F7;border-color:#4495F7;" class="btn btn-success" ><i class="icon-search"></i> 搜索</button>
+	<div style="margin-top: 8px;">
+    <input type="text" id="name" name="name" class="input-text" style="width: 70%;" placeholder="姓名/编号">
+    <button type="submit" style="background-color: #4495F7;width: 25%;border-color:#4495F7;" class="btn btn-success" ><i class="icon-search"></i> 搜索</button>
+  	</div>
   	</form>
   </div>
 	</div>
-	<div class="mt-20">
-	<ul>
+	<div class="mt-20" style="background: #eee;overflow: hidden;">
+	<ul id="ull" style="overflow: hidden;margin-left: -2%;font-size: 12px;">
 		<#if list?exists>
 			 <#list list as obj>
-					<li style="float: left;width: 50%;padding: 20px 10px;width: 43.33333333%;box-sizing: border-box;">
-						<div>
+					<li class="sb">
 						<img src="${obj.img?if_exists}" style="width: 100%;">
-						</div>
-						<p>
-						${obj.uid?if_exists}号：
-						${obj.name?if_exists}
-						</p>
-						<p style="color: #4495F7;">
-					 	${obj.number?if_exists}票
-					 	</p>
-					 	<p>
-					 	<button type="submit" style="background-color: #4495F7;width: 100%;border-color:#4495F7;" class="btn btn-success" >投票 </button>
-					 	</p>
+						<div class='tip-bot'>
+							<p style="color: #7a838c;margin-bottom: 3px;">
+							${obj.uid?if_exists}号：
+							${obj.name?if_exists}
+							</p>
+							<p style="color: #4495F7;margin-bottom: 3px;">
+						 	${obj.number?if_exists} 票
+						 	</p>
+						 	<p>
+						 	<button type="submit" style="background-color: #4495F7;width: 100%;border-color:#4495F7;" class="btn btn-success" >投票 </button>
+						 	</p>
+					 	</div>
 					</li>
 				</#list>
 				</#if>
@@ -74,7 +89,117 @@
 <script type="text/javascript" src="../H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="../H-ui/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
+$(function() {
+	loadProv();//初始化
+});
+//当select标签内容发生改变是触发事件
+$(".prov").change(function() {
+    loadCity();
+});
+/* $(".city").change(function() {
+    loadCounty();
+}); */
+	//加载公司
+	function loadProv() {
+	    $.ajax({
+	        type: "post",
+	        url: "/getallorganize",
+	        dataType: "json",
+	        async: false, //同步
+	        success: function(data) {
+	            var provlist = data;
+	            //console.log(citylist);
+	            var str = '';
+					str +='<option value=""> 请选择</option>'
+	            for(var i = 0; i < provlist.length; i++) {
+	                str += '<option value=' + provlist[i].id + '>' + provlist[i].name + '</option>'
+	            }
+	            $(".prov").html(str);
+	            loadCity(); //加载部门
+	        },
+	        error: function() {
+	            console.log("获取公司失败");
+	        }
+	    });
+	}
 
+	function loadCity() {
+	    var prov_id = $(".prov").find("option:selected").val();
+	    $.ajax({
+	        type: "post",
+	        url: "/getalldept",
+	        data: {
+	            id: prov_id
+	        },
+	        dataType: "json",
+	        async: true,
+	        success: function(data) {
+	            var citylist = data;
+	            //console.log(citylist);
+	            var str = ''
+	            for(var i = 0; i < citylist.length; i++) {
+	                str += '<option value=' + citylist[i].id + '>' + citylist[i].name + '</option>'
+	            }
+	            $(".city").html(str);
+	           // loadCounty();
+
+	        },
+	        error: function() {
+	            console.log("获取部门失败");
+	        }
+	    });
+	}
+
+	//加载参选人
+	function loadCounty() {
+	    var prov_id = $(".prov").find("option:selected").val();
+	    var city_id = $(".city").find("option:selected").val();
+	    $.ajax({
+	        type: "post",
+	        url: "/getallvoter",
+	        async: true,
+	        data: {
+	            id: city_id
+	        },
+	        dataType: "json",
+	        async: true,
+	        success: function(data) {
+	            var countylist = data;
+	            //console.log(citylist);
+	            var str = ''
+	            for(var i = 0; i < countylist.length; i++) {
+	                str += '<option value=' + countylist[i].id + '>' + countylist[i].name + '</option>'
+	            }
+	            $(".county").html(str);
+	        },
+	        error: function() {
+	            console.log("获取选手失败");
+	        }
+	    });
+	}
+
+	//提交搜索
+	$(function(){
+		$("#vform").validate({
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				$(form).ajaxSubmit({
+					type: 'post',
+					url: "/chagewechatvlist" ,
+					success: function(data){
+						for (var  i= 0; i < data.rows.length; i++) {
+					//$("#ull").append("<li class='sb'><img style='width: 100%;' src="+data.rows[i].img+"><div id='y' class='mui-media-body'>"+data.rows[i].title+"<p class='mui-ellipsis'>"+data.rows[i].time+"</p></div></闪电>");	 							
+ 						}
+					},
+	                error: function(XmlHttpRequest, textStatus, errorThrown){
+						layer.msg('网络异常,请刷新重试!',{icon:2,time:1000});
+					}
+				});
+			}
+		});
+	});
 </script> 
 </body>
 </html>
