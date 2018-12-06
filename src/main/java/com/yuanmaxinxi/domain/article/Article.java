@@ -37,11 +37,11 @@ public class Article{
 		this.id=id;
 	}
 	
-	public String getImg() {
-		return img;
+	public String getImg(){
+		return this.img;
 	}
-	public void setImg(String img) {
-		this.img = img;
+	public void setImg(String img){
+		this.img=img;
 	}
 	public String getTitle(){
 		return this.title;

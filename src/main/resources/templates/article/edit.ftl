@@ -160,6 +160,7 @@ $(function(){
 		submitHandler:function(form){
 			var aId = $("input[aId=aId]").val()
 			var remark = ue.getContent();
+			var headImg = $("input[name=img]").val();
 			console.log(aId+","+remark);
 			$(form).ajaxSubmit({
 				type: 'post',
@@ -211,7 +212,7 @@ $(function(){
 			uploader.reset();
 			layer.msg("头像上传成功,点击按钮可替换.",{icon:1,time:1000});
 			$("#headImg").attr("src",ret.msg);
-			$("input[name=headImg]").val(ret.msg);
+			$("input[name=img]").val(ret.msg);
 			$(".webuploader-pick").html("修改头像图片");
 		}else{
 			layer.msg("头像上传失败,请刷新重试.",{icon:1,time:1000});

@@ -13,7 +13,8 @@
 		<result column="state" property="state"/>
 	</resultMap>
 	<insert id="insert" parameterType="Article">
-		insert into t_article(img,title,content,time,aId,state) values(#{img},#{title},#{content},#{time},#{aId},#{state})
+		insert into t_article(img,title,content,time,aId,state) 
+		values(#{img},#{title},#{content},#{time},#{aId},#{state})
 	</insert>
 	<update id="update" parameterType="Article">
 		update t_article set img=#{img},title=#{title},content=#{content},time=#{time},aId=#{aId},fail=#{fail},state=#{state} where id=#{id}
