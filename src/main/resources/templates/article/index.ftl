@@ -33,7 +33,7 @@ white-space: nowrap;}
 				<ul id="ull" class="mui-table-view" >
 					
 						<li class="mui-table-view-cell mui-media">
-							<a href="/frontArt/selectArt?id=64">
+							<a href="/article/list?pId=1">
 								<img class="mui-media-object mui-pull-right" src="/artimgvoid/img/1529067137657.jpg">
 								<div  id="y" class="mui-media-body">
 									泸县总工会2018年公开招聘 社会化工会工作者拟录用人员公示

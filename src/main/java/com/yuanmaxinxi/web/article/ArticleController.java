@@ -75,11 +75,12 @@ public class ArticleController {
 	    @RequestMapping("/edit")
 		public @ResponseBody ResultDTO edit(Article obj) {
 			ResultDTO dto;
+			System.err.println(obj);
 			try {
 				obj.setFail("");
 				obj.setState(0);
 				articleService.update(obj);
-				dto = ResultDTO.getIntance(true, "类别修改成功!");
+				dto = ResultDTO.getIntance(true, "修改成功!");
 			} catch (Exception e) {
 				e.printStackTrace();
 				dto = ResultDTO.getIntance(false, e.getMessage());

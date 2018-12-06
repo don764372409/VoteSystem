@@ -79,4 +79,10 @@ public class Article{
 	public void setState(int state){
 		this.state=state;
 	}
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", img=" + img + ", title=" + title + ", content=" + content + ", time=" + time
+				+ ", aId=" + aId + ", fail=" + fail + ", state=" + state + ", typeId=" + typeId + ", articletype="
+				+ articletype + "]";
+	}
 }

@@ -56,7 +56,7 @@
 							<input name="img" type="hidden" value="${obj.img!}">
 							<img alt="" id="headImg" src="${obj.img}" width="100" height="120" >
 							<#else>
-							<input name="img" type="hidden" value="${obj.img!}">
+							<input name="img" type="hidden" value="">
 							<img alt="" id="headImg" src="/commons/jia.png" width="100" height="120" >
 						</#if>
 						
@@ -74,8 +74,8 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-			<input name="content" value='${obj.content!}' type="hidden">
-			<script id="editor" type="text/plain" style="width:100%;height:400px;" name="content" value="${obj.content}"></script>
+			<input name="rem" value='${obj.content!}' type="hidden">
+			<script id="editor" type="text/plain" style="width:100%;height:400px;"></script>
 			</div>
 		</div>
 		<div class="row cl">
@@ -145,8 +145,8 @@ $(function(){
 	});
 	var ue = UE.getEditor('editor');
 	ue.addListener("ready", function () { 
-		var rem = $("input[name=content]").val();
-		ue.setContent(rem,true);
+		var content = $("input[name=rem]").val();
+		ue.setContent(content,true);
 	});
 	$("#form-member-add").validate({
 		rules:{
@@ -160,11 +160,12 @@ $(function(){
 		submitHandler:function(form){
 			var aId = $("input[aId=aId]").val()
 			var remark = ue.getContent();
-			var headImg = $("input[name=img]").val();
+
 			console.log(aId+","+remark);
 			$(form).ajaxSubmit({
 				type: 'post',
 				url: "/article/edit" ,
+				data:{"aId":aId,"content":remark},
 				success: function(data){
 					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
