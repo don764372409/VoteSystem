@@ -117,7 +117,7 @@ $(function(){
 					var btns = child.children;
 					for (var k = 0; k < btns.length; k++) {
 						var btn = btns[k];
-						zNodes.push({id:btn.id,pId:child.pId,name:btn.name});
+						zNodes.push({id:btn.id,pId:child.id,name:btn.name});
 					}
 				}
 			}

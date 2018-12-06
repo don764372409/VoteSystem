@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.electionman.Electionman;
+import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.dept.DeptService;
 import com.yuanmaxinxi.service.electionman.ElectionmanService;
+import com.yuanmaxinxi.service.resource.ResourceService;
 
 /**
  * 
@@ -36,6 +38,8 @@ public class ElectionmanController {
 	private ElectionmanService electionmanService;
 	@Autowired
 	private DeptService deptService;
+	@Autowired
+	private ResourceService resourceService;
 	
 	/**
 	 * 
@@ -53,6 +57,10 @@ public class ElectionmanController {
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		List<Electionman> list=electionmanService.selectAll(map,loginAdmin.getId());
 		model.addAttribute("list",list);	
+		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/electionman/list",loginAdmin.getId());
+		List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/electionman/list",loginAdmin.getId());
+		model.addAttribute("btn1s", btn1s);
+		model.addAttribute("btn2s", btn2s);
 		return "/electionman/list";
 	}
 	@RequestMapping("/showRemark")

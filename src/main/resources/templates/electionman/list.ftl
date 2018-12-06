@@ -34,7 +34,11 @@
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">
-		 	<a href="javascript:;" onclick="obj_add('添加参选人员','/electionman/showadd')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人员</a>
+			<#if btn1s??>
+				<#list btn1s as btn>
+				 	<a href="javascript:;" onclick="${btn.fn}" class="btn btn-primary radius"><i class="Hui-iconfont">${btn.icon}</i>${btn.name}</a>
+				</#list>
+			</#if>
 	 	</span> 
 	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
@@ -86,10 +90,11 @@
 						</#if>
 					</td>
 					<td class="f-14 td-manage">
-						<a style="text-decoration:none" class="ml-5" onClick="obj_edit('预选人编辑','/electionman/showEdit',${obj.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
-						<a style="text-decoration:none" class="ml-5" onClick="obj_del('${obj.name}',this,${obj.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
-						<a style="text-decoration:none" class="ml-5" onClick="showRemark('${obj.name}','${obj.id}')" href="javascript:;" title="查看详情介绍"><i class="Hui-iconfont">&#xe665;</i></a>
-						<a style="text-decoration:none" class="ml-5" onClick="obj_examine('审核参选人员','/electionman/showExamine',${obj.id})" href="javascript:;" title="审核"><i class="Hui-iconfont">&#xe725;</i></a>
+						<#if btn2s??>
+							<#list btn2s as btn2>
+								<a style="text-decoration:none" class="ml-5" onClick="${btn2.fn?replace('obj.id','${obj.id}')?replace('obj.name','${obj.name}')}" href="javascript:;" title="${btn2.name}"><i class="Hui-iconfont">${btn2.icon}</i></a> 
+							</#list>
+						</#if>
 					</td>
 				</tr>
 				</#list>
@@ -186,8 +191,12 @@ function obj_del(name,obj,id){
 			url: "/electionman/delete",
 			dataType: 'json',
 			success: function(data){
-				layer.msg('已删除!',{icon:1,time:1000});
-				$(obj).parents("tr").remove();
+				if (data.result) {
+					layer.msg(data.msg,{icon:1,time:1000});
+					$(obj).parents("tr").remove();
+				}else{
+					layer.msg(data.msg,{icon:2,time:2000});
+				}
 			},
 			error:function(data) {
 				$.Huimodalalert(data.msg,2000);

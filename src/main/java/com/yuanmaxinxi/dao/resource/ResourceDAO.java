@@ -37,5 +37,7 @@ public interface ResourceDAO{
 
 	List<Resource> selectAllByAdminId(Long adminId);
 
+	List<Resource> selectAllTypeByAdminIdAndUrl(Map<String, Object> map);
+
 
 }

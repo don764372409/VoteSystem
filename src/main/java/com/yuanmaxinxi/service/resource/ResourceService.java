@@ -75,4 +75,12 @@ public class ResourceService{
 		return resourceDAO.selectAll();
 	}
 
+	public List<Resource> selectAllTypeByAdminIdAndUrl(int type,String url, Long adminId) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("url", url);
+		map.put("adminId", adminId);
+		map.put("type", type);
+		return resourceDAO.selectAllTypeByAdminIdAndUrl(map);
+	}
+
 }

@@ -31,10 +31,15 @@
 		select * from t_electionman where id=#{id}
 	</select>
 	<select id="selectAll" parameterType="Map" resultMap="ElectionmanResultMap">
-		select * from t_electionman
-		<if test="name != null and name !=''">
-		where name like concat(concat('%',#{name}),'%')
-		</if>
+		select * from t_electionman 
+		<where>
+			<if test="name != null and name !=''">
+			and name like concat(concat('%',#{name}),'%')
+			</if>
+			and deptId in <foreach collection="list" item="dept" close=")" open="(" separator=",">
+				#{dept.id}
+			</foreach>
+		</where>
 	</select>
 	<select id="countall" parameterType="Map" resultType="int">
 	 	SELECT COUNT(*) FROM t_electionman

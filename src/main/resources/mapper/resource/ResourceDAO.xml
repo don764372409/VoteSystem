@@ -9,6 +9,7 @@
 		<result column="icon" property="icon"/>
 		<result column="type" property="type"/>
 		<result column="url" property="url"/>
+		<result column="fn" property="fn"/>
 	</resultMap>
 	<insert id="insert" parameterType="Resource">
 		insert into t_resource(name,pId,icon,type,url) values(#{name},#{pId},#{icon},#{type},#{url})
@@ -41,7 +42,7 @@
 			select resourceId from t_role_resource where roleId in (
 				select roleId from t_admin_role where adminId = #{adminId}
 			)
-		) and type = 0 and url is not null
+		) and url is not null
 	</select>
 	<select id="selectAll" resultMap="ResourceResultMap">
 		select * from t_resource
@@ -54,5 +55,14 @@
 	</select>
 	<select id="selectChildrenByParentId" resultMap="ResourceResultMap">
 		select * from t_resource where pId = #{pId}
+	</select>
+	<select id="selectAllTypeByAdminIdAndUrl" resultMap="ResourceResultMap">
+		select * from t_resource where pId =(
+			select id from t_resource where url = #{url}
+		) and type = #{type} and id in(
+			select resourceId from t_role_resource where roleId in (
+				select roleId from t_admin_role where adminId = #{adminId}
+			)
+		)
 	</select>
 </mapper>

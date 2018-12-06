@@ -66,7 +66,7 @@
 				<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
 					<div style="margin-bottom: 10px;">
-						<input name="headImg" type="hidden">
+						<input name="img" type="hidden">
 						<img alt="" id="headImg" src="/commons/jia.png" width="100" height="120" >
 					</div>
 					<div id="filePicker">上传头像图片</div>
@@ -135,11 +135,10 @@ $(function(){
 		submitHandler:function(form){
 			var deptId = $("input[name=deptId]").val();
 			var remark = ue.getContent();
-			var headImg = $("input[name=headImg]").val();
 			$(form).ajaxSubmit({
 				type: 'post',
 				url: "/electionman/add" ,
-				data:{"deptId":deptId,"remark":remark,"img":headImg},
+				data:{"deptId":deptId,"remark":remark},
 				success: function(data){
 					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
@@ -188,7 +187,7 @@ $(function(){
 			uploader.reset();
 			layer.msg("头像上传成功,点击按钮可替换.",{icon:1,time:1000});
 			$("#headImg").attr("src",ret.msg);
-			$("input[name=headImg]").val(ret.msg);
+			$("input[name=img]").val(ret.msg);
 			$(".webuploader-pick").html("修改头像图片");
 		}else{
 			layer.msg("头像上传失败,请刷新重试.",{icon:1,time:1000});

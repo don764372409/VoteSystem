@@ -10,8 +10,15 @@ public class Resource{
 	private String icon;
 	private int type;
 	private String url;
+	private String fn;
 	private List<Resource> children = new ArrayList<>();
 	
+	public String getFn() {
+		return fn;
+	}
+	public void setFn(String fn) {
+		this.fn = fn;
+	}
 	public String getpId() {
 		return pId;
 	}
