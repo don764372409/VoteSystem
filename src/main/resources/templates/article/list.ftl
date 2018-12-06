@@ -73,7 +73,7 @@
 							审核通过
 						</#if>
 						<#if obj.state?? && obj.state==2>
-							${art.fail?if_exists}
+							${obj.fail?if_exists}
 						</#if>
 					</td>
 					<td class="f-14 td-manage">

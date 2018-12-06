@@ -122,6 +122,7 @@ public class ArticleController {
 	public ResultDTO examine(Article obj) {
 		ResultDTO dto;
 		try {
+		System.err.println("---------------");
 			articleService.examine(obj);
 			dto = ResultDTO.getIntance(true, "审核完成并将该文章推送到首页中!");
 		} catch (Exception e) {

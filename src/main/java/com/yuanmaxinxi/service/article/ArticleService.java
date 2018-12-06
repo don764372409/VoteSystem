@@ -93,6 +93,10 @@ public class ArticleService{
 		if (ele.getState()!=0) {
 			throw new RuntimeException("文章["+ele.getTitle()+"已经审核完成,不能重复审核].");
 		}
+		int i = articleDAO.examine(obj);
+		if (i!=1) {
+			throw new RuntimeException("操作失败,请稍后再试.");
+		}
 		
 	}
 	}
