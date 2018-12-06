@@ -40,6 +40,7 @@
 			<thead>
 				<tr class="text-c">
 					<th width="80">文章编号</th>
+					<th width="80">文章图片</th>
 					<th width="80">文章主题</th>
 					<th width="120">发布时间</th>
 					<th width="80">状态提示</th>
@@ -52,6 +53,7 @@
 			 <#list list as obj>
 				<tr class="text-c">
 					<td>${obj.id}</td>
+					<td>${obj.img}</td>
 					<td>${obj.title}</td>
 					<td>${obj.time?string("yyyy-MM-dd")!} </td>
 					<td class="td-status">

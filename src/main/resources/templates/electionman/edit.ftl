@@ -76,7 +76,7 @@
 						</#if>
 						
 					</div>
-					<div id="filePicker">上传头像图片</div>
+					<div id="filePicker">上传图片</div>
 				</div>
 			</div>
 		</div>

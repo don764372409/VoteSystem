@@ -20,6 +20,9 @@ public class ArticleService{
 	@Autowired
 	private ArticleDAO articleDAO;
 	public void insert(Article obj){
+		if (StringUtil.isNullOrEmpty(obj.getImg())) {
+			throw new RuntimeException("请上传文章展示图片.");
+		}
 		if (StringUtil.isNullOrEmpty(obj.getTitle())) {
 			throw new RuntimeException("主题名称不能为空.");
 		}
