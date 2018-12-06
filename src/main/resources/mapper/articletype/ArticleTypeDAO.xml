@@ -24,6 +24,6 @@
 		select * from t_articletype where pId=#{pId}
 	</select>
 	<select id="selectAllParents" resultMap="ArticleTypeResultMap">
-		SELECT * FROM t_articletype WHERE pId=#{pId} and id>4
+		SELECT * FROM t_articletype WHERE pId=#{pId} and id>=4
 	</select>
 </mapper>

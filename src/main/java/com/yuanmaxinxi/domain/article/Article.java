@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
 public class Article{
 	private Long id;
+	private String img;
 	private String title;
 	private String content;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -34,6 +35,13 @@ public class Article{
 	}
 	public void setId(Long id){
 		this.id=id;
+	}
+	
+	public String getImg(){
+		return this.img;
+	}
+	public void setImg(String img){
+		this.img=img;
 	}
 	public String getTitle(){
 		return this.title;
@@ -70,5 +78,11 @@ public class Article{
 	}
 	public void setState(int state){
 		this.state=state;
+	}
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", img=" + img + ", title=" + title + ", content=" + content + ", time=" + time
+				+ ", aId=" + aId + ", fail=" + fail + ", state=" + state + ", typeId=" + typeId + ", articletype="
+				+ articletype + "]";
 	}
 }
