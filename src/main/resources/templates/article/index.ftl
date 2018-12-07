@@ -33,14 +33,15 @@ white-space: nowrap;}
 				<ul id="ull" class="mui-table-view" >
 					
 						<li class="mui-table-view-cell mui-media">
-							<a href="/article/list?pId=1">
-								<img class="mui-media-object mui-pull-right" src="/artimgvoid/img/1529067137657.jpg">
+							<#list list as obj>
+								<img class="mui-media-object mui-pull-right" src="${obj.img}">
 								<div  id="y" class="mui-media-body">
-									泸县总工会2018年公开招聘 社会化工会工作者拟录用人员公示
+								    ${obj.title}
 									<p class='mui-ellipsis'>
-										2018-06-15 20:49:26
+										${obj.time?string("yyyy-MM-dd")!}
 									</p>
 								</div>
+								</#list>
 							</a>
 						</li>
 				</ul>
@@ -81,9 +82,9 @@ white-space: nowrap;}
 			$("#more").hide();
 			$.ajax({
 				 type: "POST",  
-			        url: "/frontArt/getArt",  
+			        url: "/article/index",  
 			        data: {
-			        	"currentPage":curr
+			        	"aId":5
 			        	},  
 			        dataType:"json",  
 			        async:true,  
@@ -91,7 +92,7 @@ white-space: nowrap;}
 		        	console.log(data);
 		        		for (var  i= 0; i < data.rows.length; i++) {
 							//$("#im2").append("<img src="+data.rows[i].img+" class="+" col-xs-6 col-sm-6 col-md-6 col-xs-6"+">")
- 							$("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"/frontArt/selectArt?id="+data.rows[i].id+"><img class='mui-media-object mui-pull-right' src="+data.rows[i].img+"><div id='y' class='mui-media-body'>"+data.rows[i].title+"<p class='mui-ellipsis'>"+data.rows[i].publish_time+"</p></div></a></li>");	 							
+ 							$("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"/article/index?aId="+data.rows[i].aId+"><img class='mui-media-object mui-pull-right' src="+data.rows[i].img+"><div id='y' class='mui-media-body'>"+data.rows[i].title+"<p class='mui-ellipsis'>"+data.rows[i].time+"</p></div></a></li>");	 							
  						}
 			       		$("#more").show();
 			       		$("#mm").hide();

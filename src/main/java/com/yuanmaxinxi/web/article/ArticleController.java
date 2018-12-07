@@ -132,4 +132,12 @@ public class ArticleController {
 		}
 		return dto;
 	}
+	@RequestMapping("/index")
+	public String indexShow(Model model,Long aId,Long id) {
+		Article obj = articleService.selectOneById(id);
+		model.addAttribute("obj", obj);
+		List<Article> list = articleService.indexShow(aId);
+		model.addAttribute("list", list);
+		return "article/index";
+	}
 }
