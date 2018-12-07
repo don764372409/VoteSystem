@@ -17,7 +17,14 @@ import com.yuanmaxinxi.service.votingelectionman.VotingelectionmanService;
 import com.yuanmaxinxi.service.votingman.VotingmanService;
 import com.yuanmaxinxi.util.StringUtil;
 import com.yuanmaxinxi.util.IPUtils;
-
+/**
+ * 
+* @ClassName: WechatController
+* @Description: TODO(微信端投票展示相关)
+* @author Liudan
+* @date 2018年12月7日
+*
+ */
 @Controller
 public class WechatController {
 	
