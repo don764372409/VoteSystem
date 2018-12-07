@@ -85,7 +85,8 @@ public class ArticleService{
 		return  articleDAO.selectAll(pId);
 	}
 	public List<Article> indexShow(Long aId){
-		return  articleDAO.indexShow(aId);
+		return articleDAO.indexShow(aId);
+		
 	}
 	@Transactional
 	public void examine(Article obj) {

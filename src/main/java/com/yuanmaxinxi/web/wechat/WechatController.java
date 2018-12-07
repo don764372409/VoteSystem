@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yuanmaxinxi.domain.article.Article;
+import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.votingelectionman.VotingelectionmanService;
 import com.yuanmaxinxi.util.StringUtil;
 
@@ -18,6 +21,9 @@ public class WechatController {
 	
 	@Autowired
 	private VotingelectionmanService veservice;
+	
+	@Autowired
+	private ArticleService articleService;
 	
 	/**
 	 * 
@@ -78,6 +84,18 @@ public class WechatController {
 		}
 		List<Map<String, Object>> list=veservice.chagewechatvlist(deptId,type,names);
 		return list;
+	}
+	@RequestMapping("/showIndex")
+	public String showIndex(Model model,Long id) {
+	 Article obj = articleService.selectOneById(id);
+		model.addAttribute("obj", obj);
+		return "/wechat/article";
+	}
+	@RequestMapping("/indexShow")
+	public String indexShow(Model model,Long aId) {
+		List<Article> list = articleService.indexShow(aId);
+		model.addAttribute("list", list);
+		return "/wechat/index";
 	}
 	
 }

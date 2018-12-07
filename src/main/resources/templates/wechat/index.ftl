@@ -31,9 +31,9 @@ white-space: nowrap;}
 	<body>
 			<div class="mui-card">
 				<ul id="ull" class="mui-table-view" >
-					
-						<li class="mui-table-view-cell mui-media">
 							<#list list as obj>
+							<li class="mui-table-view-cell mui-media">
+							<a href="/article/showIndex?id=${obj.id}">
 								<img class="mui-media-object mui-pull-right" src="${obj.img}">
 								<div  id="y" class="mui-media-body">
 								    ${obj.title}
@@ -41,9 +41,11 @@ white-space: nowrap;}
 										${obj.time?string("yyyy-MM-dd")!}
 									</p>
 								</div>
+								</a>
+								</li>
 								</#list>
-							</a>
-						</li>
+							
+						
 				</ul>
 				 <div class="mui-col-sm-12 mui-col-xs-12" style="margin-top: 20px">
 			 	<div id="more"><p class='mui-ellipsis'><span style="cursor:pointer;">查看更多</span>
@@ -64,10 +66,11 @@ white-space: nowrap;}
 	</script>
 	<script type="text/javascript">
 	$(function(){
-		var c=2;
-		if (c<=1) {
-			$("#more").hide();
-			$("#nolist").show();
+		//获取当前UL的LI个数。判断10
+		c = document.getElementById('ull').getElementsByTagName('li').length;
+		if (c<2) {
+			$("#more").hide();//更多 隐藏
+			$("#nolist").show();//没有了 显示
 		}else {
 			$("#more").show();
 			$("#nolist").hide();
@@ -75,14 +78,14 @@ white-space: nowrap;}
 		
 	});
 	
-	var curr=2;
+ var curr=2; 
 	$(function(){
 		$("#more").click(function(){
 			$("#mm").show();
 			$("#more").hide();
 			$.ajax({
 				 type: "POST",  
-			        url: "/article/index",  
+			        url: "/wechat/index",  
 			        data: {
 			        	"aId":5
 			        	},  
@@ -90,14 +93,14 @@ white-space: nowrap;}
 			        async:true,  
 			        success: function(data){
 		        	console.log(data);
-		        		for (var  i= 0; i < data.rows.length; i++) {
+		        		for (var  i= 0; i < data.length; i++) {
 							//$("#im2").append("<img src="+data.rows[i].img+" class="+" col-xs-6 col-sm-6 col-md-6 col-xs-6"+">")
- 							$("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"/article/index?aId="+data.rows[i].aId+"><img class='mui-media-object mui-pull-right' src="+data.rows[i].img+"><div id='y' class='mui-media-body'>"+data.rows[i].title+"<p class='mui-ellipsis'>"+data.rows[i].time+"</p></div></a></li>");	 							
+                            $("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"article/showIndex?id="+data[i].id+"><img class='mui-media-object mui-pull-right' src="+data[i].img+"><div id='y' class='mui-media-body'>"+data[i].title+"<p class='mui-ellipsis'>"+data[i].time+"</p></div></a></li>");	 							
  						}
 			       		$("#more").show();
 			       		$("#mm").hide();
-						curr+=1;
-			        	if(data.totalPage<curr){
+					 curr+=1;
+			        	if(data<curr){
 			        		$("#nolist").show();
 			        		$("#more").hide();
 			        		$("#mm").hide();
@@ -107,7 +110,7 @@ white-space: nowrap;}
 			        }
 			        	
 			 });
-		});
+		}); 
 		
 		//获取所有#dd
 	/* 	$("#bbt name").each(index,item){
