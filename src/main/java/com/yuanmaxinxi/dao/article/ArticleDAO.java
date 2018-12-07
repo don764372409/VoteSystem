@@ -18,6 +18,7 @@ public interface ArticleDAO{
 	Article selectOneById(Long id);
 
 	List<Article> selectAll(Long pId);
+	List<Article>  indexShow(Long ald);
 	int examine(Article obj);
 
 }

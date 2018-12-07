@@ -30,6 +30,7 @@ public class WechatController {
 	@Autowired
 	private VotingelectionmanService votingelectionmanservice;
 	
+	
 	/**
 	 * 
 	* @Title: wechatvlist
