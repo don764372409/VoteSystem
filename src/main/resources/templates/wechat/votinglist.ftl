@@ -214,7 +214,7 @@ $(".prov").change(function() {
 			        	"vId":vId
 			        	},  
 					success: function(data){
-						layer.msg(data.msg,{icon:1,time:2000});
+						layer.msg(data.msg,{icon:1,time:1000});
 						//window.location.reload();
 						if(data.result==true){
 							var ps=$("#ps_"+uid).attr("data-ps");
