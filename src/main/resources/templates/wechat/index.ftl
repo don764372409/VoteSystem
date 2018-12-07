@@ -53,14 +53,14 @@ white-space: nowrap;}
 				</div>
 				<div id="mm" ><p class='mui-ellipsis'>加载中...</p></div>
 				<div id="nolist"><p class='mui-ellipsis'>没有了</p></div>
-			 </div>
+			 </div> 
 			</div>
 			
 
 	</body>
 	<script src="../H-ui/static/h-ui/js/mui.min.js"></script>
 	<script>
-		mui.init({
+	 mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
 	</script>
@@ -80,14 +80,15 @@ white-space: nowrap;}
 	
  var curr=2; 
 	$(function(){
+		c = document.getElementById('ull').getElementsByTagName('li').length;
 		$("#more").click(function(){
 			$("#mm").show();
 			$("#more").hide();
 			$.ajax({
 				 type: "POST",  
-			        url: "/wechat/index",  
+			        url: "/article/index",  
 			        data: {
-			        	"aId":5
+			        	"currentPage":curr
 			        	},  
 			        dataType:"json",  
 			        async:true,  
@@ -95,8 +96,8 @@ white-space: nowrap;}
 		        	console.log(data);
 		        		for (var  i= 0; i < data.length; i++) {
 							//$("#im2").append("<img src="+data.rows[i].img+" class="+" col-xs-6 col-sm-6 col-md-6 col-xs-6"+">")
-                            $("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"article/showIndex?id="+data[i].id+"><img class='mui-media-object mui-pull-right' src="+data[i].img+"><div id='y' class='mui-media-body'>"+data[i].title+"<p class='mui-ellipsis'>"+data[i].time+"</p></div></a></li>");	 							
- 						}
+                            $("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"article/showIndex?id="+data[i].id+"><img class='mui-media-object mui-pull-right' src="+data[i].img+"><div id='y' class='mui-media-body'>"+data[i].title+"<p class='mui-ellipsis'>"+data[i].time+"</p></div></a></li>");
+		        		}
 			       		$("#more").show();
 			       		$("#mm").hide();
 					 curr+=1;
@@ -113,16 +114,14 @@ white-space: nowrap;}
 		}); 
 		
 		//获取所有#dd
-	/* 	$("#bbt name").each(index,item){
+	/* $("#bbt name").each(index,item){
 			alert($(this).val());
-		} */
-		
-	});
+			
+		}   */
+		});
 	
 	
-	
-	</script>
-	
+	</script> 
 	
 	
 </html>

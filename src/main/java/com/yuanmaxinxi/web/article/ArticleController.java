@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
 import com.yuanmaxinxi.domain.dept.Dept;
@@ -91,6 +93,7 @@ public class ArticleController {
 		}
 	@RequestMapping("/list")
 	public String list(Model model,Long pId) {
+		ModelAndView result = new ModelAndView("pages");
 		List<Article> list = articleService.selectAll(pId);
 		model.addAttribute("list", list);
 		return "article/list";
@@ -132,5 +135,17 @@ public class ArticleController {
 			dto = ResultDTO.getIntance(false, e.getMessage());
 		}
 		return dto;
+	}
+	@RequestMapping("/showIndex")
+	public String showIndex(Model model,Long id) {
+	 Article obj = articleService.selectOneById(id);
+		model.addAttribute("obj", obj);
+		return "/wechat/article";
+	}
+	@RequestMapping("/index")
+	public String indexShow(Model model,Long aId) {
+		List<Article> list = articleService.indexShow(aId);
+		model.addAttribute("list", list);
+		return "/wechat/index";
 	}
 }
