@@ -21,7 +21,11 @@ public class VotingelectionmanService{
 	public int update(Votingelectionman obj){
 		return votingelectionmanDAO.update(obj);
 	}
-
+	
+	@Transactional
+	public int updatenewnumber(Long id) {
+		return votingelectionmanDAO.updatenewnumber(id);
+	}
 
 	@Transactional
 	public int delete(Long id){

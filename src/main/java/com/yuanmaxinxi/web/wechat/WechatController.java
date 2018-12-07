@@ -6,18 +6,29 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.yuanmaxinxi.domain.electionman.Electionman;
+import com.yuanmaxinxi.domain.votingman.Votingman;
+import com.yuanmaxinxi.dto.ResultDTO;
+import com.yuanmaxinxi.service.electionman.ElectionmanService;
 import com.yuanmaxinxi.service.votingelectionman.VotingelectionmanService;
+import com.yuanmaxinxi.service.votingman.VotingmanService;
 import com.yuanmaxinxi.util.StringUtil;
+import com.yuanmaxinxi.util.IPUtils;
 
 @Controller
 public class WechatController {
 	
 	@Autowired
 	private VotingelectionmanService veservice;
+	@Autowired
+	private VotingmanService votingmanservice;
+	@Autowired
+	ElectionmanService electionmanservice;
+	@Autowired
+	private VotingelectionmanService votingelectionmanservice;
 	
 	/**
 	 * 
@@ -35,6 +46,16 @@ public class WechatController {
 		model.addAttribute("list",list);
 		return "/wechat/votinglist";
 	}
+	
+	/*选手详情*/
+	@RequestMapping("/wechatvshow")
+	public String wechatvshow(Model model,@RequestParam(value = "id") Long id,@RequestParam(value = "vId") Long vId) {
+		Electionman obj=electionmanservice.selectOneById(id);
+		model.addAttribute("vId",vId);
+		model.addAttribute("obj",obj);
+		return "/wechat/votershow";
+	}
+	
 	/*获取全部公司列表*/
 	@RequestMapping("/getallorganize")
 	@ResponseBody  
@@ -79,5 +100,47 @@ public class WechatController {
 		List<Map<String, Object>> list=veservice.chagewechatvlist(deptId,type,names);
 		return list;
 	}
+	
+	/**
+	 * 
+	* @Title: wechatvoting
+	* @Description: TODO(微信用户投票)
+	* @param  id
+	* @return ResultDTO    返回类型
+	* @throws
+	 */
+	@RequestMapping(value = "/wechatvoting")
+	@ResponseBody
+	 public ResultDTO wechatvoting(HttpServletRequest request,Long id,Long vId){
+		ResultDTO dto;
+		try {
+			HttpServletRequest httpRequest=(HttpServletRequest)request; 
+			String urls= "http://" + request.getServerName()+ ":"+ request.getServerPort()+ httpRequest.getContextPath() 
+			+ httpRequest.getServletPath();
+			String openid=IPUtils.getIP(1);		//访问者ip地址
+			int v=votingmanservice.selectwechatonly(openid,id);//是否今日已经投过该选手
+			if(v>0) {
+				dto = ResultDTO.getIntance(false, "您今日已经投过该选手了，不能重复投票！");
+			}else {
+				synchronized ("NUM") {
+				int upnuber=votingelectionmanservice.updatenewnumber(id);//原票数+1
+				if(upnuber>0) {//投票成功
+				Votingman obj=new Votingman();
+				obj.setEId(id);
+				obj.setOpenid(openid);
+				obj.setVId(vId);
+				votingmanservice.insert(obj);//更新投票记录
+				dto = ResultDTO.getIntance(true, "投票成功!");
+				}else {
+				dto = ResultDTO.getIntance(false, "投票失败!");	
+				}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			dto = ResultDTO.getIntance(false, "投票失败!");
+		}
+		return dto;
+    }
 	
 }

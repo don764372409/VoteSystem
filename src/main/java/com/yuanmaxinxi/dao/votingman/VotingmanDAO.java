@@ -1,6 +1,7 @@
 package com.yuanmaxinxi.dao.votingman;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import com.yuanmaxinxi.domain.votingman.Votingman;
 
@@ -18,4 +19,6 @@ public interface VotingmanDAO{
 
 	List<Votingman> selectAll();
 
+	int selectwechatonly(@Param("openid") String openid,@Param("id") Long id);
+	
 }
