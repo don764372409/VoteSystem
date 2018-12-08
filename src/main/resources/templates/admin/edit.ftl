@@ -141,7 +141,7 @@ function openOrganizeDialog(){
 	var index = layer.open({
 		  type: 2,
 		  title:"部门选择",
-		  area: ['50%', '500px'], //宽高
+		  area: ['50%', '80%'], //宽高
 		  content: '/admin/showOrg',
 		  btn:['确定'],
 		  yes:function(){
@@ -157,7 +157,7 @@ $(function(){
 			},
 			phone:{
 				required:true,
-				isMobile:true
+// 				isMobile:true
 			},
 			loanTime:{
 				required:true

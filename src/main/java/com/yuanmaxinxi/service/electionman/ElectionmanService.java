@@ -85,8 +85,12 @@ public class ElectionmanService{
 
 
 	public List<Electionman> selectAll( Map map, Long adminId){
+		System.err.println(adminId);
 		//获取能查那些部门的参选人员
 		List<Dept> depts = deptService.selectAllByAdminId(adminId);
+		for (Dept dept : depts) {
+			System.err.println(dept);
+		}
 		map.put("list", depts);
 		List<Electionman> list = electionmanDAO.selectAll(map);
 		Map<Long,Dept> cash = new HashMap<>();
@@ -128,12 +132,15 @@ public class ElectionmanService{
 			if (i!=1) {
 				throw new RuntimeException("操作失败,请稍后再试.");
 			}
-			Map<String,Long> map = new HashMap<>();
-			map.put("eId",obj.getId());
-			map.put("vId",vId);
-			int j = electionmanDAO.insertEleManAndVoting(map);
-			if (j!=1) {
-				throw new RuntimeException("操作失败,请稍后再试.");
+			//审核成功才添加到 参选人员与投票活动中间表中
+			if (obj.getState()==1) {
+				Map<String,Long> map = new HashMap<>();
+				map.put("eId",obj.getId());
+				map.put("vId",vId);
+				int j = electionmanDAO.insertEleManAndVoting(map);
+				if (j!=1) {
+					throw new RuntimeException("操作失败,请稍后再试.");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

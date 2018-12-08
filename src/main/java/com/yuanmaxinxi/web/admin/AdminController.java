@@ -51,7 +51,6 @@ public class AdminController {
 	public String showOrg(Model model) {
 		List<Organize> list = organizeService.selectOrgAndeDeptToTree();
 		model.addAttribute("list", list);
-		System.err.println(list);
 		return "admin/organize";
 	}
 	@RequestMapping("/add")

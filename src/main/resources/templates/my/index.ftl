@@ -147,8 +147,10 @@ $(function(){
 				data:{"confPassword":confPassword},
 				success: function(data){
 					if(data.result){
-						layer.msg(data.msg,{icon:1,time:2000});
-						location.reload();
+						layer.msg(data.msg,{icon:1,time:2000},function(){
+							location.href="/login/show";
+						});
+// 						location.reload();
 					}else{
 						layer.msg(data.msg,{icon:2,time:2000});
 					}
