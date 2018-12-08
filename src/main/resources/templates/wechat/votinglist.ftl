@@ -37,7 +37,7 @@
 	<tr>
 	<td class="tbtd">${list?size}<p>参选数</p></td>
 	<td class="tbtd">0<p>总投票 </p></td>
-	<td class="tbtd">0<p>浏览量</p> </td>
+	<td class="tbtd">0<p>浏览量</p></td>
 	</tr>
 	</table>
 	<form action="" id="vform" style="margin-top: 10px;">
@@ -59,7 +59,7 @@
 		<#if list?exists>
 			 <#list list as obj>
 					<li class="sb">
-						<a href="/wechatvshow?id=${obj.uid!}&vId=${obj.vId!}"><img src="${obj.img?if_exists}" style="width: 100%;"></a>
+						<a href="/wechatvshow?id=${obj.uid!}&vId=${obj.vId!}"><img src="${obj.img?if_exists}" style="width: 100%;height: 144.28px;"></a>
 						<div class='tip-bot'>
 							<p style="color: #7a838c;margin-bottom: 3px;">
 							${obj.uid?if_exists}号：
@@ -193,7 +193,7 @@ $(".prov").change(function() {
 					success: function(data){
 						$("#ull").children().filter('li').remove();
 						for (var  i= 0; i < data.length; i++) {
-						$("#ull").append("<li class='sb'><a href='/wechatvshow?id="+data[i].uid+"&vId="+data[i].vId+"'><img style='width: 100%;' src="+data[i].img+"></a><div class='tip-bot'><p style='color: #7a838c;margin-bottom: 3px;'>"+data[i].uid+"号："+data[i].name+"</p><p id='ps_"+data[i].uid+"' data-ps='"+data[i].number+"' style='color: #4495F7;margin-bottom: 3px;'>"+data[i].number+"票</p><p><button type='button' onclick='voting("+data[i].uid+","+data[i].vId+")' style='background-color: #4495F7;width: 100%;border-color:#4495F7;' class='btn btn-success'>投票 </button></p></div></li>"); 					
+						$("#ull").append("<li class='sb'><a href='/wechatvshow?id="+data[i].uid+"&vId="+data[i].vId+"'><img style='width: 100%;height: 144.28px;' src="+data[i].img+"></a><div class='tip-bot'><p style='color: #7a838c;margin-bottom: 3px;'>"+data[i].uid+"号："+data[i].name+"</p><p id='ps_"+data[i].uid+"' data-ps='"+data[i].number+"' style='color: #4495F7;margin-bottom: 3px;'>"+data[i].number+"票</p><p><button type='button' onclick='voting("+data[i].uid+","+data[i].vId+")' style='background-color: #4495F7;width: 100%;border-color:#4495F7;' class='btn btn-success'>投票 </button></p></div></li>"); 					
 						}
 					},
 	                error: function(XmlHttpRequest, textStatus, errorThrown){

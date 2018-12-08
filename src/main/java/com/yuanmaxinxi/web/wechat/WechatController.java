@@ -49,6 +49,7 @@ public class WechatController {
 	 */
 	@RequestMapping("/wechatvlist")
 	public String wechatlist(Model model) {
+		//这里用来加浏览量
 		List<Map<String, Object>> list=veservice.getwechatelist();
 		model.addAttribute("list",list);
 		return "/wechat/votinglist";
@@ -125,6 +126,10 @@ public class WechatController {
 			String urls= "http://" + request.getServerName()+ ":"+ request.getServerPort()+ httpRequest.getContextPath() 
 			+ httpRequest.getServletPath();
 			String openid=IPUtils.getIP(1);		//访问者ip地址
+			int t=votingmanservice.selectwechattoday(openid);//是否今日已经投过票
+			if(t>0) {
+				dto = ResultDTO.getIntance(false, "您今日已经投过票了，请明天再来！");
+			}else {
 			int v=votingmanservice.selectwechatonly(openid,id);//是否今日已经投过该选手
 			if(v>0) {
 				dto = ResultDTO.getIntance(false, "您今日已经投过该选手了，不能重复投票！");
@@ -142,6 +147,7 @@ public class WechatController {
 				dto = ResultDTO.getIntance(false, "投票失败!");	
 				}
 				}
+			}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

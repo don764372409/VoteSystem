@@ -21,4 +21,6 @@ public interface VotingmanDAO{
 
 	int selectwechatonly(@Param("openid") String openid,@Param("id") Long id);
 	
+	int selectwechattoday(@Param("openid") String openid);
+	
 }
