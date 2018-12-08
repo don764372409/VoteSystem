@@ -32,8 +32,10 @@
 
 <!--   </div> -->
   <div class="cl pd-5 bg-1 bk-gray mt-20">
-<!--     <span class="l"><a href="javascript:;" onclick="deleteObj()" class="btn btn-danger radius"><i class="icon-trash"></i> 删除用户</a> -->
-    <a href="javascript:;" onclick="addObj('添加管理员','/admin/showAdd')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加管理员</a></span>
+	     <span class="l">
+<!-- <a href="javascript:;" onclick="deleteObj()" class="btn btn-danger radius"><i class="icon-trash"></i> 删除用户</a> -->
+    		<a href="javascript:;" onclick="addObj('添加管理员','/admin/showAdd')" class="btn btn-primary radius"><i class="icon-plus">&#xe600;</i> 添加管理员</a>
+    	</span>
     <span class="r">共有数据：<strong>${list?size}</strong> 条</span>
   </div>
   <div class="mt-20"></div>
