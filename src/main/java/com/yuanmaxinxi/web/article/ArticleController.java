@@ -2,6 +2,8 @@ package com.yuanmaxinxi.web.article;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.organize.Organize;
+import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
+import com.yuanmaxinxi.service.resource.ResourceService;
 import com.yuanmaxinxi.util.Pager;
 import com.yuanmaxinxi.util.StringUtil;
 
@@ -32,7 +37,8 @@ public class ArticleController {
     ArticleService articleService;
     @Autowired
 	private ArticleTypeService articletypeService;
-	
+    @Autowired
+	private ResourceService resourceService;
     @RequestMapping("/showAdd")
 	public String showAdd(Model model,Long pId) {
     	List<ArticleType> list = articletypeService.selectTypeToTree(pId);
@@ -95,10 +101,27 @@ public class ArticleController {
 			return dto;
 		}
 	@RequestMapping("/list")
-	public String list(Model model,Long pId) {
+	public String list(Model model,Long pId,HttpServletRequest request) {
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+    	if(pId==1) {
+    		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/article/list?pId=1",loginAdmin.getId());
+			List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/article/list?pId=1",loginAdmin.getId());
+			model.addAttribute("btn1s", btn1s);
+			model.addAttribute("btn2s", btn2s);
+    	}else if(pId==2) {
+    		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/article/list?pId=2",loginAdmin.getId());
+			List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/article/list?pId=2",loginAdmin.getId());
+			model.addAttribute("btn1s", btn1s);
+			model.addAttribute("btn2s", btn2s);
+    	}else if(pId==3) {
+    		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/article/list?pId=3",loginAdmin.getId());
+			List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/article/list?pId=3",loginAdmin.getId());
+			model.addAttribute("btn1s", btn1s);
+			model.addAttribute("btn2s", btn2s);
+    	}
 		List<Article> list = articleService.selectAll(pId);
 		model.addAttribute("list", list);
-		return "article/list";
+		return "/article/list";
 	}
 	@RequestMapping("/selectOneById")
 	@ResponseBody
