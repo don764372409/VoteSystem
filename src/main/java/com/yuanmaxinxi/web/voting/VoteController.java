@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.yuanmaxinxi.domain.admin.Admin;
+import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.domain.voting.Voting;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.electionman.ElectionmanService;
+import com.yuanmaxinxi.service.resource.ResourceService;
 import com.yuanmaxinxi.service.voting.VotingService;
 
 /**
@@ -32,6 +36,8 @@ public class VoteController {
     VotingService votingservice;
 	@Autowired
 	ElectionmanService candidateservice;
+	@Autowired
+	private ResourceService resourceService;
 	
 	/**
 	 * 
@@ -42,14 +48,18 @@ public class VoteController {
 	* @throws
 	 */
 	@GetMapping("/list")
-	public ModelAndView votinglist(ModelAndView modelView,HttpServletRequest request) {
+	public String votinglist(Model model,HttpServletRequest request) {
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/vote/list",loginAdmin.getId());
+		List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/vote/list",loginAdmin.getId());
 		Map<String,Object> map=new HashMap<String,Object>();
 		String name=request.getParameter("name");
 		map.put("name", name);
 		List<Voting> votinglist=votingservice.selectAll(map);
-		modelView.addObject("voting", votinglist);	
-		modelView.setViewName("/vote/list");
-		return modelView;
+		model.addAttribute("btn1s", btn1s);
+		model.addAttribute("btn2s", btn2s);
+		model.addAttribute("voting", votinglist);
+		return "/vote/list";
 	}
 	
 	/**

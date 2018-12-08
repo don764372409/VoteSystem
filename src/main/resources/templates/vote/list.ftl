@@ -32,9 +32,14 @@
   	</form>
   </div>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-	<!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>  -->
-	<a class="btn btn-primary radius" data-title="添加投票活动" onclick="voting_add('添加投票活动','/vote/showadd','','510')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加投票活动</a></span>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<span class="l">
+	<#if btn1s??>
+		<#list btn1s as btn>
+		<a href="javascript:;" onclick="${btn.fn}" class="btn btn-primary radius" data-title="添加投票活动"><i class="Hui-iconfont">${btn.icon}</i>${btn.name}</a>
+		</#list>
+	</#if>
+	</span>
 	<span class="r">共有数据：<strong>${voting?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -77,8 +82,12 @@
 					</#if>
 					</td>
 					<td class="f-14 td-manage">
-					<a style="text-decoration:none" class="ml-5" onClick="article_edit('活动编辑','/vote/showEdit',${voting.id})" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a style="text-decoration:none" class="ml-5" onClick="candidate_del(this,${voting.id})" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<#if btn2s??>
+							<#list btn2s as btn2>
+								<a style="text-decoration:none" class="ml-5" onClick="${btn2.fn?replace('voting.id','${voting.id}')}" href="javascript:;" title="${btn2.name}"><i class="Hui-iconfont">${btn2.icon}</i></a> 
+							</#list>
+						</#if>
+					</td>
 				</tr>
 				</#list>
 				</#if>
