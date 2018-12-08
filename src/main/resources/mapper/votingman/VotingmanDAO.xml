@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuanmaxinxi.dao.votingman.VotingmanDAO">
+	<resultMap type="Votingman" id="VotingmanResultMap">
+		<id column="id" property="id"/>
+		<result column="openid" property="openid"/>
+		<result column="vId" property="vId"/>
+		<result column="eId" property="eId"/>
+		<result column="time" property="time"/>
+	</resultMap>
+	<insert id="insert" parameterType="Votingman">
+		insert into t_votingman(openid,vId,eId,time) values(#{openid},#{vId},#{eId},curdate())
+	</insert>
+	<update id="update" parameterType="Votingman">
+		update t_votingman set openid=#{openid},vId=#{vId},eId=#{eId},time=#{time} where id=#{id}
+	</update>
+	<delete id="delete" parameterType="Long">
+		delete from t_votingman where id=#{id}
+	</delete>
+	<select id="selectOneById" parameterType="Long" resultMap="VotingmanResultMap">
+		select * from t_votingman where id=#{id}
+	</select>
+	<select id="selectAll" resultMap="VotingmanResultMap">
+		select * from t_votingman
+	</select>
+	<select id="selectwechatonly" resultType="int">
+		select count(*) from t_votingman where openid=#{openid} and eId=#{id}
+		<![CDATA[
+      	 and DATE_FORMAT(time,'%Y-%m-%d') = curdate() ]]>
+	</select>
+	
+</mapper>

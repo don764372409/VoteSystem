@@ -15,6 +15,8 @@ public interface VotingelectionmanDAO{
 
 	int update(Votingelectionman obj);
 
+	int updatenewnumber(Long id);
+	
 	int delete(Long id);
 
 	Votingelectionman selectOneById(Long id);
