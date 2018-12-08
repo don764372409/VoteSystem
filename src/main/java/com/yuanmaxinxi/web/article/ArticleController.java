@@ -20,6 +20,7 @@ import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 import com.yuanmaxinxi.util.Pager;
+import com.yuanmaxinxi.util.StringUtil;
 
 
 
@@ -162,6 +163,9 @@ public class ArticleController {
 		Pager pager=new Pager();
 		List<Article> list = articleService.indexShow(aId,startrecord,pager.getPageSize());
 		model.addAttribute("list", list);
+		for(Article l:list) {
+			l.setTimechange(StringUtil.DateToStr(l.getTime()));	
+		}
 		return list;
 	}
 	

@@ -97,8 +97,9 @@ white-space: nowrap;}
 		        	//console.log(data);
 		        		for (var  i= 0; i < data.length; i++) {
 							//$("#im2").append("<img src="+data.rows[i].img+" class="+" col-xs-6 col-sm-6 col-md-6 col-xs-6"+">")
-                            $("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"/article/showIndex?id="+data[i].id+"><img class='mui-media-object mui-pull-right' src="+data[i].img+"><div id='y' class='mui-media-body'>"+data[i].title+"<p class='mui-ellipsis'>"+data[i].time.substring(0,10)+"</p></div></a></li>");
+                            $("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"/article/showIndex?id="+data[i].id+"><img class='mui-media-object mui-pull-right' src="+data[i].img+"><div id='y' class='mui-media-body'>"+data[i].title+"<p class='mui-ellipsis'>"+data[i].timechange+"</p></div></a></li>");
 		        		}
+		        		
 			       		$("#more").show();
 			       		$("#mm").hide();
 					 curr+=1;
