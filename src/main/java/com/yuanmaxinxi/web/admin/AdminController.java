@@ -2,6 +2,8 @@ package com.yuanmaxinxi.web.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.organize.Organize;
+import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.domain.role.Role;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.admin.AdminService;
 import com.yuanmaxinxi.service.organize.OrganizeService;
+import com.yuanmaxinxi.service.resource.ResourceService;
 import com.yuanmaxinxi.service.role.RoleService;
 @RequestMapping("/admin")
 @Controller
@@ -24,10 +28,17 @@ public class AdminController {
 	private OrganizeService organizeService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private ResourceService resourceService;
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model,HttpSession session) {
 		List<Admin> list = adminService.selectAll();
 		model.addAttribute("list", list);
+		Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/admin/list",loginAdmin.getId());
+		List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/admin/list",loginAdmin.getId());
+		model.addAttribute("btn1s", btn1s);
+		model.addAttribute("btn2s", btn2s);
 		return "admin/list";
 	}
 	@RequestMapping("/showAdd")
