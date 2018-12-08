@@ -2,6 +2,8 @@ package com.yuanmaxinxi.web.role;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.domain.role.Role;
 import com.yuanmaxinxi.dto.ResultDTO;
@@ -22,9 +25,14 @@ public class RoleController {
 	@Autowired
 	private ResourceService resourceService;
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model,HttpSession session) {
 		List<Role> list = roleService.selectAll();
 		model.addAttribute("list", list);
+		Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/role/list",loginAdmin.getId());
+		List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/role/list",loginAdmin.getId());
+		model.addAttribute("btn1s", btn1s);
+		model.addAttribute("btn2s", btn2s);
 		return "role/list";
 	}
 	@RequestMapping("/showAdd")
