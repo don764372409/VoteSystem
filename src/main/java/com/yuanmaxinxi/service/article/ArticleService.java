@@ -84,6 +84,10 @@ public class ArticleService{
 	public List<Article> selectAll(Long pId){
 		return  articleDAO.selectAll(pId);
 	}
+	public List<Article> indexShow(Long aId,Integer  startRecord,Integer  pageSize){
+		return articleDAO.indexShow(aId,startRecord,pageSize);
+		
+	}
 	@Transactional
 	public void examine(Article obj) {
 		if (obj.getId()==null||obj.getId()<1) {

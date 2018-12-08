@@ -27,7 +27,7 @@
 .city{border: solid 1px #ddd;width: 33%;}
 .county{border: solid 1px #ddd;}
 </style>
-<title>活动列表</title>
+<title>参选人列表</title>
 </head>
 <body>
 <div class="page-container" style="background-color: #FAFAFA;">
@@ -35,7 +35,7 @@
 	<div class="text-c">
 	<table style="background-color: #4495f7;">
 	<tr>
-	<td class="tbtd">0<p>已报名</p></td>
+	<td class="tbtd">${list?size}<p>参选数</p></td>
 	<td class="tbtd">0<p>总投票 </p></td>
 	<td class="tbtd">0<p>浏览量</p> </td>
 	</tr>
@@ -59,17 +59,17 @@
 		<#if list?exists>
 			 <#list list as obj>
 					<li class="sb">
-						<img src="${obj.img?if_exists}" style="width: 100%;">
+						<a href="/wechatvshow?id=${obj.uid!}&vId=${obj.vId!}"><img src="${obj.img?if_exists}" style="width: 100%;"></a>
 						<div class='tip-bot'>
 							<p style="color: #7a838c;margin-bottom: 3px;">
 							${obj.uid?if_exists}号：
 							${obj.name?if_exists}
 							</p>
-							<p style="color: #4495F7;margin-bottom: 3px;">
+							<p id="ps_${obj.uid?if_exists}" data-ps="${obj.number?if_exists}" style="color: #4495F7;margin-bottom: 3px;">
 						 	${obj.number?if_exists} 票
 						 	</p>
 						 	<p>
-						 	<button type="submit" style="background-color: #4495F7;width: 100%;border-color:#4495F7;" class="btn btn-success" >投票 </button>
+							<button type="button" onclick="voting(${obj.uid?if_exists},${obj.vId?if_exists})" style="background-color: #4495F7;width: 100%;border-color:#4495F7;" class="btn btn-success" >投票 </button>
 						 	</p>
 					 	</div>
 					</li>
@@ -85,6 +85,8 @@
 <script type="text/javascript" src="../H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../H-ui/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="../H-ui/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="../H-ui/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="../H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 <script type="text/javascript" src="../H-ui/lib/laypage/1.2/laypage.js"></script>
@@ -189,9 +191,10 @@ $(".prov").change(function() {
 					type: 'post',
 					url: "/chagewechatvlist" ,
 					success: function(data){
-						for (var  i= 0; i < data.rows.length; i++) {
-					//$("#ull").append("<li class='sb'><img style='width: 100%;' src="+data.rows[i].img+"><div id='y' class='mui-media-body'>"+data.rows[i].title+"<p class='mui-ellipsis'>"+data.rows[i].time+"</p></div></闪电>");	 							
- 						}
+						$("#ull").children().filter('li').remove();
+						for (var  i= 0; i < data.length; i++) {
+						$("#ull").append("<li class='sb'><a href='/wechatvshow?id="+data[i].uid+"&vId="+data[i].vId+"'><img style='width: 100%;' src="+data[i].img+"></a><div class='tip-bot'><p style='color: #7a838c;margin-bottom: 3px;'>"+data[i].uid+"号："+data[i].name+"</p><p id='ps_"+data[i].uid+"' data-ps='"+data[i].number+"' style='color: #4495F7;margin-bottom: 3px;'>"+data[i].number+"票</p><p><button type='button' onclick='voting("+data[i].uid+","+data[i].vId+")' style='background-color: #4495F7;width: 100%;border-color:#4495F7;' class='btn btn-success'>投票 </button></p></div></li>"); 					
+						}
 					},
 	                error: function(XmlHttpRequest, textStatus, errorThrown){
 						layer.msg('网络异常,请刷新重试!',{icon:2,time:1000});
@@ -200,6 +203,30 @@ $(".prov").change(function() {
 			}
 		});
 	});
+	
+	//投票
+	function voting(uid,vId){
+		 $.ajax({
+					type: 'post',
+					url: "/wechatvoting" ,
+					data: {
+			        	"id":uid,
+			        	"vId":vId
+			        	},  
+					success: function(data){
+						layer.msg(data.msg,{icon:1,time:1000});
+						//window.location.reload();
+						if(data.result==true){
+							var ps=$("#ps_"+uid).attr("data-ps");
+							$("#ps_"+uid).html(parseInt(ps)+1);
+							}
+					},
+	                error: function(XmlHttpRequest, textStatus, errorThrown){
+						layer.msg('网络异常,请刷新重试!',{icon:2,time:1000});
+					}
+				});
+	}
+	
 </script> 
 </body>
 </html>

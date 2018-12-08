@@ -31,18 +31,21 @@ white-space: nowrap;}
 	<body>
 			<div class="mui-card">
 				<ul id="ull" class="mui-table-view" >
-					
-						<li class="mui-table-view-cell mui-media">
-							<a href="/article/list?pId=1">
-								<img class="mui-media-object mui-pull-right" src="/artimgvoid/img/1529067137657.jpg">
+							<#list list as obj>
+							<li class="mui-table-view-cell mui-media">
+							<a href="/article/showIndex?id=${obj.id}">
+								<img class="mui-media-object mui-pull-right" src="${obj.img}">
 								<div  id="y" class="mui-media-body">
-									泸县总工会2018年公开招聘 社会化工会工作者拟录用人员公示
+								    ${obj.title}
 									<p class='mui-ellipsis'>
-										2018-06-15 20:49:26
+										${obj.time?string("yyyy-MM-dd")!}
 									</p>
 								</div>
-							</a>
-						</li>
+								</a>
+								</li>
+								</#list>
+							
+						
 				</ul>
 				 <div class="mui-col-sm-12 mui-col-xs-12" style="margin-top: 20px">
 			 	<div id="more"><p class='mui-ellipsis'><span style="cursor:pointer;">查看更多</span>
@@ -50,23 +53,24 @@ white-space: nowrap;}
 				</div>
 				<div id="mm" ><p class='mui-ellipsis'>加载中...</p></div>
 				<div id="nolist"><p class='mui-ellipsis'>没有了</p></div>
-			 </div>
+			 </div> 
 			</div>
 			
 
 	</body>
 	<script src="../H-ui/static/h-ui/js/mui.min.js"></script>
 	<script>
-		mui.init({
+	 mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
 	</script>
 	<script type="text/javascript">
 	$(function(){
-		var c=2;
-		if (c<=1) {
-			$("#more").hide();
-			$("#nolist").show();
+		//获取当前UL的LI个数。判断10
+		c = document.getElementById('ull').getElementsByTagName('li').length;
+		if (c<10) {
+			$("#more").hide();//更多 隐藏
+			$("#nolist").show();//没有了 显示
 		}else {
 			$("#more").show();
 			$("#nolist").hide();
@@ -74,29 +78,32 @@ white-space: nowrap;}
 		
 	});
 	
-	var curr=2;
+ var curr=10; 
 	$(function(){
+		c = document.getElementById('ull').getElementsByTagName('li').length;
 		$("#more").click(function(){
 			$("#mm").show();
 			$("#more").hide();
 			$.ajax({
 				 type: "POST",  
-			        url: "/frontArt/getArt",  
+			        url: "/article/more",  
 			        data: {
-			        	"currentPage":curr
+			        	aId:4,
+			        	startrecord:curr
 			        	},  
 			        dataType:"json",  
 			        async:true,  
 			        success: function(data){
-		        	console.log(data);
-		        		for (var  i= 0; i < data.rows.length; i++) {
+		        	//console.log(data);
+		        		for (var  i= 0; i < data.length; i++) {
 							//$("#im2").append("<img src="+data.rows[i].img+" class="+" col-xs-6 col-sm-6 col-md-6 col-xs-6"+">")
- 							$("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"/frontArt/selectArt?id="+data.rows[i].id+"><img class='mui-media-object mui-pull-right' src="+data.rows[i].img+"><div id='y' class='mui-media-body'>"+data.rows[i].title+"<p class='mui-ellipsis'>"+data.rows[i].publish_time+"</p></div></a></li>");	 							
- 						}
+                            $("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"/article/showIndex?id="+data[i].id+"><img class='mui-media-object mui-pull-right' src="+data[i].img+"><div id='y' class='mui-media-body'>"+data[i].title+"<p class='mui-ellipsis'>"+data[i].timechange+"</p></div></a></li>");
+		        		}
+		        		
 			       		$("#more").show();
 			       		$("#mm").hide();
-						curr+=1;
-			        	if(data.totalPage<curr){
+					 curr+=1;
+			        	if(data.length<curr){
 			        		$("#nolist").show();
 			        		$("#more").hide();
 			        		$("#mm").hide();
@@ -106,19 +113,16 @@ white-space: nowrap;}
 			        }
 			        	
 			 });
-		});
+		}); 
 		
 		//获取所有#dd
-	/* 	$("#bbt name").each(index,item){
+	/* $("#bbt name").each(index,item){
 			alert($(this).val());
-		} */
-		
-	});
+			
+		}   */
+		});
 	
-	
-	
-	</script>
-	
+	</script> 
 	
 	
 </html>

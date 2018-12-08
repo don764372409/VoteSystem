@@ -1,9 +1,8 @@
 package com.yuanmaxinxi.dao.article;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
 import com.yuanmaxinxi.domain.article.Article;
-import com.yuanmaxinxi.domain.electionman.Electionman;
 
 import java.util.List;
 @Mapper
@@ -18,6 +17,7 @@ public interface ArticleDAO{
 	Article selectOneById(Long id);
 
 	List<Article> selectAll(Long pId);
+	List<Article>  indexShow(@Param("aId")Long aId,@Param("startRecord")Integer  startRecord,@Param("pageSize")Integer  pageSize);
 	int examine(Article obj);
 
 }

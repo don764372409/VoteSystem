@@ -15,8 +15,17 @@ public class Article{
 	private String fail;
 	private int state;
 	private Long typeId;
+	private String timechange;
 	private ArticleType articletype;
 	
+	
+	
+	public String getTimechange() {
+		return timechange;
+	}
+	public void setTimechange(String timechange) {
+		this.timechange = timechange;
+	}
 	public Long getTypeId() {
 		return typeId;
 	}

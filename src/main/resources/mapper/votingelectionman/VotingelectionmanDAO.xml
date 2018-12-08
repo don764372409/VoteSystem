@@ -40,7 +40,7 @@
     </choose>
 	</select>
 	<select id="getwechatelist"  resultType="Map">
-	SELECT e.`name`,e.id as uid,e.img,ve.number
+	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId
 	FROM t_electionman e
 	JOIN t_voting_electionman ve ON e.id=ve.eId
 	JOIN t_voting v ON v.id=ve.vId
@@ -57,7 +57,7 @@
 		SELECT id,name FROM t_electionman WHERE deptId= #{id}
 	</select>
 	<select id="chagewechatvlist" resultType="Map">
-	SELECT e.`name`,e.id as uid,e.img,ve.number
+	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId
 	FROM t_electionman e
 	JOIN t_voting_electionman ve ON e.id=ve.eId
 	JOIN t_voting v ON v.id=ve.vId
@@ -65,12 +65,15 @@
 	<if test="deptId != null and deptId !=''">
 	and e.deptId=#{deptId}
 	</if>
-	<if test="type!='3' and type='1' and name!=''">
+	<if test="type==1">
 	and e.id=#{name}
 	</if>
-	<if test="type!='3' and type='2' and name!=''">
-	and e.name=#{name}
+	<if test="type==2">
+	and e.name like concat(concat(#{name}),'%')
 	</if>
 	order by ve.number desc
 	</select>
+	<update id="updatenewnumber" parameterType="Votingelectionman">
+		update t_voting_electionman set number=number+1 where eId=#{id}
+	</update>
 </mapper>
