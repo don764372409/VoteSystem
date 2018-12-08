@@ -206,6 +206,7 @@ function deleteObj(obj,o,u,id){
 			data:{"id":id},
 			dataType: 'json',
 			success: function(data){
+				
 				layer.msg(data.msg,{icon:1,time:2000});
 				if(data.result){
 					$(obj).parents("tr").remove();
