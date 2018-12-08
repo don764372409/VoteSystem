@@ -32,6 +32,6 @@
 		update t_article set state=#{state},fail=#{fail} where id=#{id}
 	</update>
 	<select id="indexShow" resultMap="ArticleResultMap">
-	SELECT * FROM t_article  WHERE aId=#{aId} and state=1
+	SELECT * FROM t_article  WHERE aId=#{aId} and state=1 limit #{startRecord},#{pageSize}
 	</select>
 </mapper>

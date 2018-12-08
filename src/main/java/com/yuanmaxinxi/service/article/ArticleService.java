@@ -84,8 +84,8 @@ public class ArticleService{
 	public List<Article> selectAll(Long pId){
 		return  articleDAO.selectAll(pId);
 	}
-	public List<Article> indexShow(Long aId){
-		return articleDAO.indexShow(aId);
+	public List<Article> indexShow(Long aId,Integer  startRecord,Integer  pageSize){
+		return articleDAO.indexShow(aId,startRecord,pageSize);
 		
 	}
 	@Transactional

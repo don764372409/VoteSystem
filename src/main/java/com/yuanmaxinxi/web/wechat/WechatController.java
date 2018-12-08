@@ -21,10 +21,7 @@ public class WechatController {
 	
 	@Autowired
 	private VotingelectionmanService veservice;
-	
-	@Autowired
-	private ArticleService articleService;
-	
+
 	/**
 	 * 
 	* @Title: wechatvlist
@@ -85,17 +82,6 @@ public class WechatController {
 		List<Map<String, Object>> list=veservice.chagewechatvlist(deptId,type,names);
 		return list;
 	}
-	@RequestMapping("/showIndex")
-	public String showIndex(Model model,Long id) {
-	 Article obj = articleService.selectOneById(id);
-		model.addAttribute("obj", obj);
-		return "/wechat/article";
-	}
-	@RequestMapping("/indexShow")
-	public String indexShow(Model model,Long aId) {
-		List<Article> list = articleService.indexShow(aId);
-		model.addAttribute("list", list);
-		return "/wechat/index";
-	}
+	
 	
 }

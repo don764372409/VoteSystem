@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +19,7 @@ import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
+import com.yuanmaxinxi.util.Pager;
 
 
 
@@ -93,7 +95,6 @@ public class ArticleController {
 		}
 	@RequestMapping("/list")
 	public String list(Model model,Long pId) {
-		ModelAndView result = new ModelAndView("pages");
 		List<Article> list = articleService.selectAll(pId);
 		model.addAttribute("list", list);
 		return "article/list";
@@ -143,9 +144,26 @@ public class ArticleController {
 		return "/wechat/article";
 	}
 	@RequestMapping("/index")
-	public String indexShow(Model model,Long aId) {
-		List<Article> list = articleService.indexShow(aId);
+	public  String indexShow(Model model,Long aId) {
+		Pager pager=new Pager();
+//		if(startrecord!=null && startrecord>0) {
+//			List<Article> list = articleService.indexShow(aId,startrecord,pager.getPageSize());
+//			model.addAttribute("list", list);
+//		}else {
+		List<Article> list = articleService.indexShow(aId,pager.getStartRecord(),pager.getPageSize());
 		model.addAttribute("list", list);
+//		}
 		return "/wechat/index";
 	}
+
+	@RequestMapping(value = "/more")
+	@ResponseBody
+	public List<Article> more(Model model,Long aId,@RequestParam(value = "startrecord", required = false) Integer  startrecord) {
+		Pager pager=new Pager();
+		List<Article> list = articleService.indexShow(aId,startrecord,pager.getPageSize());
+		model.addAttribute("list", list);
+		return list;
+	}
+	
+	
 }

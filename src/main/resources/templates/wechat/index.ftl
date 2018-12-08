@@ -68,7 +68,7 @@ white-space: nowrap;}
 	$(function(){
 		//获取当前UL的LI个数。判断10
 		c = document.getElementById('ull').getElementsByTagName('li').length;
-		if (c<2) {
+		if (c<10) {
 			$("#more").hide();//更多 隐藏
 			$("#nolist").show();//没有了 显示
 		}else {
@@ -78,7 +78,7 @@ white-space: nowrap;}
 		
 	});
 	
- var curr=2; 
+ var curr=10; 
 	$(function(){
 		c = document.getElementById('ull').getElementsByTagName('li').length;
 		$("#more").click(function(){
@@ -86,14 +86,15 @@ white-space: nowrap;}
 			$("#more").hide();
 			$.ajax({
 				 type: "POST",  
-			        url: "/article/index",  
+			        url: "/article/more",  
 			        data: {
-			        	"currentPage":curr
+			        	aId:4,
+			        	startrecord:curr
 			        	},  
 			        dataType:"json",  
 			        async:true,  
 			        success: function(data){
-		        	console.log(data);
+		        	//console.log(data);
 		        		for (var  i= 0; i < data.length; i++) {
 							//$("#im2").append("<img src="+data.rows[i].img+" class="+" col-xs-6 col-sm-6 col-md-6 col-xs-6"+">")
                             $("#ull").append("<li class='mui-table-view-cell mui-media'><a href="+"article/showIndex?id="+data[i].id+"><img class='mui-media-object mui-pull-right' src="+data[i].img+"><div id='y' class='mui-media-body'>"+data[i].title+"<p class='mui-ellipsis'>"+data[i].time+"</p></div></a></li>");
@@ -101,7 +102,7 @@ white-space: nowrap;}
 			       		$("#more").show();
 			       		$("#mm").hide();
 					 curr+=1;
-			        	if(data<curr){
+			        	if(data.length<curr){
 			        		$("#nolist").show();
 			        		$("#more").hide();
 			        		$("#mm").hide();
