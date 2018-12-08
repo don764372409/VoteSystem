@@ -25,7 +25,13 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 类别管理 <a class="btn btn-success radius r btn-refresh" style="line-height:1.6em;margin-top:3px" onclick="location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
   <div class="cl pd-5 bg-1 bk-gray mt-20">
-    <a href="javascript:;" onclick="addObj('添加类别','/articletype/showAdd')" class="btn btn-primary radius"><i class="icon-plus"></i> 添加类别</a></span>
+  <span class="l">
+   <#if btn1s??>
+				<#list btn1s as btn>
+				 	<a href="javascript:;" onclick="${btn.fn}" class="btn btn-primary radius"><i class="Hui-iconfont">${btn.icon}</i>${btn.name}</a>
+				</#list>
+			</#if>
+    </span>
     <span class="r">共有数据：<strong>${list?size}</strong> 条</span>
   </div>
   <div class="mt-20"></div>
@@ -45,8 +51,11 @@
         <td>${obj.name}</td>
         <td>${obj.remark}</td>
         <td class="f-14 user-manage">
-        	<a title="编辑" href="javascript:;" onclick="edit('修改类别信息','/articletype/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-        	<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.name}','/articletype/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
+        	<#if btn2s??>
+							<#list btn2s as btn2>
+								<a style="text-decoration:none" class="ml-5" onClick="${btn2.fn?replace('obj.id','${obj.id}')?replace('obj.name','${obj.name}')}" href="javascript:;" title="${btn2.name}"><i class="Hui-iconfont">${btn2.icon}</i></a> 
+							</#list>
+						</#if>
        	</td>
       </tr>
      </#list>

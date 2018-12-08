@@ -32,8 +32,14 @@
 <!--   	</form> -->
   </div>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-	 <a href="javascript:;" onclick="member_add('添加文章','/article/showAdd')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加文章</a></span> 
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+	<span class="l">
+	 <#if btn1s??>
+				<#list btn1s as btn>
+				 	<a href="javascript:;" onclick="${btn.fn}" class="btn btn-primary radius"><i class="Hui-iconfont">${btn.icon}</i>${btn.name}</a>
+				</#list>
+			</#if>
+			</span> 
 	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -82,11 +88,11 @@
 						</#if>
 					</td>
 					<td class="f-14 td-manage">
-					<a style="text-decoration:none" class="ml-5" onClick="obj_examine('审核文章','/article/showExamine',${obj.id})" href="javascript:;" title="审核"><i class="Hui-iconfont">&#xe725;</i></a>
-					<a style="text-decoration:none" class="ml-5" onClick="showRemark('${obj.title}',${obj.id})"href="javascript:;" title="查看详情介绍"><i class="Hui-iconfont">&#xe665;</i></a>
-					<a title="编辑" href="javascript:;" onclick="article_edit('修改文章信息','/article/showEdit',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-					<a title="删除" href="javascript:;" onclick="deleteObj(this,'${obj.title}','/article/delete',${obj.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe609;</i></a>
-					</td>
+					<#if btn2s??>
+							<#list btn2s as btn2>
+								<a style="text-decoration:none" class="ml-5" onClick="${btn2.fn?replace('obj.id','${obj.id}')?replace('obj.title','${obj.title}')}" href="javascript:;" title="${btn2.name}"><i class="Hui-iconfont">${btn2.icon}</i></a> 
+							</#list>
+						</#if>
 				</tr>
 				</#list>
 				</#if>

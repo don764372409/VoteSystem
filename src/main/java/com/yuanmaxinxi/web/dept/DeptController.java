@@ -2,17 +2,22 @@ package com.yuanmaxinxi.web.dept;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.organize.Organize;
+import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.dept.DeptService;
 import com.yuanmaxinxi.service.organize.OrganizeService;
+import com.yuanmaxinxi.service.resource.ResourceService;
 @RequestMapping("/dept")
 @Controller
 public class DeptController {
@@ -20,10 +25,17 @@ public class DeptController {
 	private DeptService deptService;
 	@Autowired
 	private OrganizeService organizeService;
+	@Autowired
+	private ResourceService resourceService;
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model,HttpSession session) {
 		List<Dept> list = deptService.selectAll();
 		model.addAttribute("list", list);
+		Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/dept/list",loginAdmin.getId());
+		List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/dept/list",loginAdmin.getId());
+		model.addAttribute("btn1s", btn1s);
+		model.addAttribute("btn2s", btn2s);
 		return "dept/list";
 	}
 	@RequestMapping("/showAdd")

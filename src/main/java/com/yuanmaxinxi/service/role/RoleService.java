@@ -106,4 +106,8 @@ public class RoleService{
 		return roleDAO.selectAll();
 	}
 
+	public List<Role> selectAllByAdminId(Long adminId) {
+		return roleDAO.selectAllByAdminId(adminId);
+	}
+
 }

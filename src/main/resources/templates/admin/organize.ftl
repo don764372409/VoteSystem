@@ -34,7 +34,7 @@
 </div>
 <div class="pt-20"></div>
 <div class="panel panel-default">
-	<div class="panel-body">
+	<div class="panel-body" style="overflow: scroll;">
 		<ul class="dropDown-menu menu radius box-shadow">
 			<#if list??>
 				<#list list as parent>

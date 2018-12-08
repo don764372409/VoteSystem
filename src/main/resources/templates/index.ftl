@@ -58,6 +58,30 @@
 		</nav>
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
+				<li style="margin-right: 20px;">
+					<span>
+						<#if roles??>
+							<#list roles as role>
+								角色：${role.name}|数据权限:
+								<#if role.dataRange==0>
+					       			当前部门
+					       		</#if>
+					       		<#if role.dataRange==1>
+					       			当前机构
+					       		</#if>
+					       		<#if role.dataRange==2>
+					       			当前及下属机构
+					       		</#if>
+					       		<#if role.dataRange==3>
+					       			所有
+					       		</#if>							
+							</#list>
+						</#if>
+					</span>
+				</li>
+				<li style="margin-right: 20px;">
+					所属部门：${(admin.dept.name)}				
+				</li>
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">${loginAdmin.name}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
