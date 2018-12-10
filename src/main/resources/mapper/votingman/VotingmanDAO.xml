@@ -29,5 +29,10 @@
 		<![CDATA[
       	 and DATE_FORMAT(time,'%Y-%m-%d') = curdate() ]]>
 	</select>
+	<select id="selectwechattoday" resultType="int">
+		select count(*) from t_votingman where openid=#{openid}
+		<![CDATA[
+      	 and DATE_FORMAT(time,'%Y-%m-%d') = curdate() ]]>
+	</select>
 	
 </mapper>

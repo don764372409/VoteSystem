@@ -39,8 +39,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动介绍（规则）：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-			<textarea name="rule" cols="" rows="" class="textarea"  placeholder="规则和介绍：一人一天一票...." dragonfly="true" nullmsg="不能为空！" onKeyUp="$.Huitextarealength(this,200)">
-			${obj.rule}</textarea> </div>
+			<textarea name="rule" cols="" rows="" class="textarea"  placeholder="规则和介绍：一人一天一票...." dragonfly="true" nullmsg="不能为空！" onKeyUp="$.Huitextarealength(this,200)">${obj.rule}</textarea> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否默认添加参选人员：</label>

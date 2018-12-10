@@ -58,6 +58,30 @@
 		</nav>
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
+				<li style="margin-right: 20px;">
+					<span>
+						<#if roles??>
+							<#list roles as role>
+								角色：${role.name}|数据权限:
+								<#if role.dataRange==0>
+					       			当前部门
+					       		</#if>
+					       		<#if role.dataRange==1>
+					       			当前机构
+					       		</#if>
+					       		<#if role.dataRange==2>
+					       			当前及下属机构
+					       		</#if>
+					       		<#if role.dataRange==3>
+					       			所有
+					       		</#if>							
+							</#list>
+						</#if>
+					</span>
+				</li>
+				<li style="margin-right: 20px;">
+					所属部门：${(admin.dept.name)}				
+				</li>
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">${loginAdmin.name}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
@@ -101,7 +125,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-<!-- 					<span title="我的办公" data-href="/sms/list">首页</span> -->
+				<span title="我的办公" data-href="/votestatistics/statistics">首页</span> 
 					<em></em></li>
 		</ul>
 	</div>
@@ -109,7 +133,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-<!-- 			<iframe scrolling="yes" frameborder="0" src="/sms/list"></iframe> -->
+			<iframe scrolling="yes" frameborder="0" src="/votestatistics/statistics"></iframe>
 	</div>
 </div>
 </section>

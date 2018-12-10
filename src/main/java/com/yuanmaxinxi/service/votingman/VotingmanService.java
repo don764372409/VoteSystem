@@ -43,5 +43,8 @@ public class VotingmanService{
 	public int selectwechatonly(String openid,Long id ) {
 		return votingmanDAO.selectwechatonly(openid,id);
 	}
-
+	
+	public int selectwechattoday(String openid ) {
+		return votingmanDAO.selectwechattoday(openid);
+	}
 }

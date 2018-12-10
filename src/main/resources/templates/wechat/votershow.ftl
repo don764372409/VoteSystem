@@ -23,9 +23,13 @@
 </head>
 <body>
 <div class="cl pd-20" style=" background-color:#4495F7">
+←
+<img src="../../static/H-ui/static/h-ui/images/rollpic/unslider-arrow.png"/><p>
   <img style="width:30%;height:30%;" class="avatar avatar-XL l" src="${obj.img!}">
   <dl style="margin-left:80px; color:#fff">
-    <dt><span class="f-18" style="margin: 10px;">${obj.name!}</span></br>
+    <dt>
+	<span class="f-18" style="margin: 10px;"></span>
+	<span class="f-18" style="margin: 10px;">${obj.name!}</span></br>
 	<span class="f-18" style="margin: 10px;">编号：${obj.id!}</span>
 	</dt>
   </dl>

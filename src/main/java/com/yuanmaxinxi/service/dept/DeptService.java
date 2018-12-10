@@ -137,6 +137,7 @@ public class DeptService{
 		if (dataRange==1) {
 			//通过当前部门得所属机构   通过所属机构获取当前机构中的所有部门
 			List<Dept> list = deptDAO.selectAllByAdminIdToOrg(adminId);
+			depts.addAll(list);
 		}
 		//当前机构及下属机构
 		if (dataRange==2) {
