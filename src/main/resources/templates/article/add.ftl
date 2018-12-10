@@ -86,7 +86,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布部门:</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布部门:&nbsp;&nbsp;&nbsp;</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div style="position: relative;">
 				<input type="hidden" value="" name="deptId">
