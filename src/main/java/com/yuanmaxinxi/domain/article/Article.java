@@ -11,6 +11,7 @@ public class Article{
 	private String content;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date time;
+	private String issuer;
 	private Long aId;
 	private String fail;
 	private int state;
@@ -20,6 +21,12 @@ public class Article{
 	
 	
 	
+	public String getIssuer() {
+		return issuer;
+	}
+	public void setIssuer(String issuer) {
+		this.issuer = issuer;
+	}
 	public String getTimechange() {
 		return timechange;
 	}

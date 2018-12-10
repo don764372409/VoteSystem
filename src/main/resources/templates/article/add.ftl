@@ -47,7 +47,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章主题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="title">
+				<input type="text" class="input-text" value="" placeholder=""  name="title">
 			</div>
 		</div>
 		<div class="row cl">
@@ -84,6 +84,9 @@
 				   </#list>
                 </select>
 			</div>
+		</div>
+		<div class="row cl">
+			<input type="hidden" class="input-text" value="${(admin.dept.name)}  用户:${loginAdmin.name}" readonly="readonly" placeholder="" style="width:200px;" name="issuer">	
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-sm-offset-3">

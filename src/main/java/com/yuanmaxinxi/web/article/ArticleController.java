@@ -3,6 +3,7 @@ package com.yuanmaxinxi.web.article;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,13 @@ import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.domain.resource.Resource;
+import com.yuanmaxinxi.domain.role.Role;
 import com.yuanmaxinxi.dto.ResultDTO;
+import com.yuanmaxinxi.service.admin.AdminService;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 import com.yuanmaxinxi.service.resource.ResourceService;
+import com.yuanmaxinxi.service.role.RoleService;
 import com.yuanmaxinxi.util.Pager;
 import com.yuanmaxinxi.util.StringUtil;
 
@@ -39,8 +43,16 @@ public class ArticleController {
 	private ArticleTypeService articletypeService;
     @Autowired
 	private ResourceService resourceService;
+    @Autowired
+	private RoleService roleService;
+	@Autowired
+	private AdminService adminService;
     @RequestMapping("/showAdd")
-	public String showAdd(Model model,Long pId) {
+	public String showAdd(Model model,Long pId,HttpSession session) {
+    	//获取发布者的名字和部门
+    	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+		Admin admin = adminService.selectOneById(loginAdmin.getId());
+		model.addAttribute("admin", admin);
     	List<ArticleType> list = articletypeService.selectTypeToTree(pId);
 		model.addAttribute("list", list);
 		return "/article/add";
