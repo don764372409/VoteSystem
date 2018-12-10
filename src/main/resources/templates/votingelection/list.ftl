@@ -46,6 +46,7 @@
 					<th width="75">得票数</th>
 					<th width="120">所属活动</th>
 					<th width="120">投票截止日期</th>
+					<th width="120">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -59,6 +60,7 @@
 					<td>${list.number?if_exists}</td>
 					<td>${list.title?if_exists} </td>
 					<td><#if list.endtime?exists>${list.endtime?string("yyyy-MM-dd")!}</#if></td>
+					<td><a style="text-decoration:none" class="ml-5" onClick="showRemark('${list.name!}','${list.eId!}')" href="javascript:;" title="查看详情介绍"><i class="Hui-iconfont">&#xe665;</i></a></td>
 				</tr>
 				</#list>
 				</#if>
@@ -114,52 +116,17 @@ function candidate_del(obj,id){
 		});		
 	});
 }
-
-/*资讯-审核*/
-function article_shenhe(obj,id){
-	layer.confirm('审核文章？', {
-		btn: ['通过','不通过','取消'], 
-		shade: false,
-		closeBtn: 0
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-		$(obj).remove();
-		layer.msg('已发布', {icon:6,time:1000});
-	},
-	function(){
-		$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="article_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
-		$(obj).remove();
-    	layer.msg('未通过', {icon:5,time:1000});
-	});	
-}
-/*资讯-下架*/
-function article_stop(obj,id){
-	layer.confirm('确认要下架吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
-		$(obj).remove();
-		layer.msg('已下架!',{icon: 5,time:1000});
+function showRemark(name,id){
+	var index = layer.open({
+		type: 2,
+		title:name+"详情介绍",
+		area: ['50%', '500px'], //宽高
+		content: '/electionman/showRemark?id='+id,
 	});
+	layer.full(index);
 }
 
-/*资讯-发布*/
-function article_start(obj,id){
-	layer.confirm('确认要发布吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="article_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
-		$(obj).remove();
-		layer.msg('已发布!',{icon: 6,time:1000});
-	});
-}
-/*资讯-申请上线*/
-function article_shenqing(obj,id){
-	$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
-	$(obj).parents("tr").find(".td-manage").html("");
-	layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-}
+
 </script> 
 </body>
 </html>

@@ -33,9 +33,6 @@
 </head>
 <body>
 <div class="page-container" style="background-color: #FAFAFA;">
-<div class="text-c">
-	<img src="${fm?if_exists}" style="width: 100%;height: 144.28px;">
-</div>
 	<div class="text-c">
 	<div class="text-c">
 	<table style="background-color: #4495f7;">

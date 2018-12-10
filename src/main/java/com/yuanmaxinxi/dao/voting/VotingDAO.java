@@ -24,5 +24,9 @@ public interface VotingDAO{
 	int updatestatus(Long id);
 	
 	List<Voting> selectvotinglist();
-
+	
+	int upvist();
+	
+	String getvrule();
+	
 }

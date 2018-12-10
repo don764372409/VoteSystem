@@ -48,6 +48,7 @@
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="80">活动id</th>
 					<th width="80">标题</th>
+					<th width="80">活动封面</th>
 					<th width="80">活动介绍（规则）</th>
 					<th width="120">开始时间</th>
 					<th width="75">结束时间</th>
@@ -62,6 +63,7 @@
 					<td><input type="checkbox" value="" name=""></td>
 					<td>${voting.id?if_exists}</td>
 					<td class="text-l">${voting.title?if_exists}</td>
+					<td><img src="${voting.img!}" style="width: 40px;height: 40px;cursor: pointer;"></td>
 					<td>
 					<#if voting.rule?length gt 33>
 					${voting.rule?substring(0,30)}...

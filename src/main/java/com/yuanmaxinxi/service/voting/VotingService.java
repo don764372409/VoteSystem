@@ -17,10 +17,21 @@ public class VotingService{
 	@Autowired
 	private VotingDAO votingDAO;
 	
-	@Transactional
+	/**
+	 * 
+	* @Title: insert
+	* @Description: TODO(添加投票活动)
+	* @param  obj
+	* @param  request    参数
+	* @return void    返回类型
+	* @throws
+	 */
 	public void insert(Voting obj,HttpServletRequest request){
 		if (StringUtil.isNullOrEmpty(obj.getTitle())) {
 			throw new RuntimeException("标题不能为空.");
+		}
+		if (StringUtil.isNullOrEmpty(obj.getImg())) {
+			throw new RuntimeException("请上传活动封面图片！");
 		}
 		if (obj.getRule()==null||StringUtil.isNullOrEmpty(obj.getRule())) {
 			throw new RuntimeException("活动规则不能为空");
@@ -42,7 +53,16 @@ public class VotingService{
 	}
 
 
-	@Transactional
+	/**
+	 * 
+	* @Title: update
+	* @Description: TODO(修改投票活动)
+	* @param  obj
+	* @param  request
+	* @param @return    参数
+	* @return int    返回类型
+	* @throws
+	 */
 	public int update(Voting obj,HttpServletRequest request){
 		if (obj.getId()==null||obj.getId()<1) {
 			throw new RuntimeException("非法访问.");
@@ -78,7 +98,14 @@ public class VotingService{
 	}
 
 
-	@Transactional
+	/**
+	 * 
+	* @Title: delete
+	* @Description: TODO(删除活动)
+	* @param  id    参数
+	* @return void    返回类型
+	* @throws
+	 */
 	public void delete(Long id){
 		if (id==null||id<1) {
 			throw new RuntimeException("非法访问.");
@@ -102,5 +129,11 @@ public class VotingService{
 	public List<Voting> selectvotinglist(){
 		return votingDAO.selectvotinglist();
 	}
-
+	@Transactional
+	public int upvist() {
+		return votingDAO.upvist();
+	}
+	public String getvrule() {
+		return votingDAO.getvrule();
+	}
 }

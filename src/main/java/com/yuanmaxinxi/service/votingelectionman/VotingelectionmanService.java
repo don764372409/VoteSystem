@@ -51,6 +51,10 @@ public class VotingelectionmanService{
 		return votingelectionmanDAO.getwechatelist();
 	}
 	@Transactional
+	public List<Map<String, Object>> getwechatelists(){
+		return votingelectionmanDAO.getwechatelists();
+	}
+	@Transactional
 	public List<Map<String, Object>> chagewechatvlist(Long deptId,String type,String name){
 		return votingelectionmanDAO.chagewechatvlist(deptId,type,name);
 	}
@@ -62,6 +66,9 @@ public class VotingelectionmanService{
 	}
 	public List<Map<String, Object>> getallvoter(Long id){
 		return votingelectionmanDAO.getallvoter(id);
+	}
+	public Long gettotle() {
+		return votingelectionmanDAO.gettotle();
 	}
 	
 }

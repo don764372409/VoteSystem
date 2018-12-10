@@ -13,6 +13,7 @@ import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.votingman.Votingman;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.electionman.ElectionmanService;
+import com.yuanmaxinxi.service.voting.VotingService;
 import com.yuanmaxinxi.service.votingelectionman.VotingelectionmanService;
 import com.yuanmaxinxi.service.votingman.VotingmanService;
 import com.yuanmaxinxi.util.StringUtil;
@@ -36,23 +37,66 @@ public class WechatController {
 	ElectionmanService electionmanservice;
 	@Autowired
 	private VotingelectionmanService votingelectionmanservice;
+	@Autowired
+    VotingService votingservice;
 	
 	/**
 	 * 
 	* @Title: wechatvlist
-	* @Description: TODO(微信投票选手展示页)
-	* @param @param model
-	* @param @param request
-	* @param @return    参数
+	* @Description: TODO(微信投票选手展示页,未排序)
+	* @param  model
+	* @param  request
+	* @param   参数
 	* @return String    返回类型
 	* @throws
 	 */
 	@RequestMapping("/wechatvlist")
 	public String wechatlist(Model model) {
 		//这里用来加浏览量
+		votingservice.upvist();
 		List<Map<String, Object>> list=veservice.getwechatelist();
+		Long totle=veservice.gettotle();
+		for(Map<String, Object> m:list) {
+			Object vist=m.get("vist");
+			Object fm=m.get("fm");
+			model.addAttribute("vist",vist);//浏览量
+			model.addAttribute("fm",fm);//封面
+		}
 		model.addAttribute("list",list);
+		model.addAttribute("totle",totle);
 		return "/wechat/votinglist";
+	}
+	
+	/*微信投票选手展示页,排序*/
+	@RequestMapping("/wechatvlists")
+	public String wechatlists(Model model) {
+		//这里用来加浏览量
+		votingservice.upvist();
+		List<Map<String, Object>> list=veservice.getwechatelists();
+		Long totle=veservice.gettotle();
+		for(Map<String, Object> m:list) {
+			Object vist=m.get("vist");
+			model.addAttribute("vist",vist);
+		}
+		model.addAttribute("list",list);
+		model.addAttribute("totle",totle);
+		return "/wechat/votinglists";
+	}
+	
+	/**
+	 * 
+	* @Title: wechatrule
+	* @Description: TODO(微信投票规则展示页)
+	* @param  model
+	* @param  request
+	* @return String    返回类型
+	* @throws
+	 */
+	@RequestMapping("/wechatrule")
+	public String wechatrule(Model model) {
+		String rule=votingservice.getvrule();
+		model.addAttribute("rule",rule);
+		return "/wechat/ruleshow";
 	}
 	
 	/*选手详情*/

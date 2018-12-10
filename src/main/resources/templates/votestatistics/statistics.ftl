@@ -30,7 +30,7 @@
 <div class="text-c">
 		<form class="Huiform" method="post" action="" >
 		投票类别：
-		<span class="select-box" style="width:150px">
+		<span class="select-box" style="width:250px">
 			<select class="select" name="id" size="1">
 			<#if list?exists>
 			<#list list as list>

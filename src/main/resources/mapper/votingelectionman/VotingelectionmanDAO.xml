@@ -40,12 +40,27 @@
     </choose>
 	</select>
 	<select id="getwechatelist"  resultType="Map">
-	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId
+	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId,v.vist,v.img as fm
+	FROM t_electionman e
+	JOIN t_voting_electionman ve ON e.id=ve.eId
+	JOIN t_voting v ON v.id=ve.vId
+	WHERE v.`status`=1
+	</select>
+	<select id="getwechatelists"  resultType="Map">
+	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId,v.vist
 	FROM t_electionman e
 	JOIN t_voting_electionman ve ON e.id=ve.eId
 	JOIN t_voting v ON v.id=ve.vId
 	WHERE v.`status`=1
 	order by ve.number desc
+	</select>
+	<select id="gettotle" resultType="Long">
+	SELECT SUM(a.number) as totle FROM(
+	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId,v.vist
+	FROM t_electionman e
+	JOIN t_voting_electionman ve ON e.id=ve.eId
+	JOIN t_voting v ON v.id=ve.vId
+	WHERE v.`status`=1) a
 	</select>
 	<select id="getallorganize" resultType="Map">
 		select * from t_organize

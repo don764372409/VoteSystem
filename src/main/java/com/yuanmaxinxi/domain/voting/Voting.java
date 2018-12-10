@@ -7,6 +7,8 @@ public class Voting{
 	private String title;
 	private String rule;
 	private int status;
+	private Long vist;
+	private String img;
 	@DateTimeFormat(pattern = "yyyy-MM-dd" )
 	private Date starttime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd" )
@@ -47,4 +49,17 @@ public class Voting{
 	public void setEndtime(Date endtime){
 		this.endtime=endtime;
 	}
+	public Long getVist() {
+		return vist;
+	}
+	public void setVist(Long vist) {
+		this.vist = vist;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	
 }
