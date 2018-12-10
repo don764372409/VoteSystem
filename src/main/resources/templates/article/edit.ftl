@@ -26,7 +26,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加文章</title>
+<title>修改文章</title>
 <style type="text/css">
 	.searchBtn{
 		position: absolute;
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>添加时间：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>修改时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 		<input type="text" name="time" onfocus="WdatePicker({})"  value="${obj.time?string("yyyy-MM-dd")!}" id="datemin" class="input-text Wdate" style="width:120px;">
 		</div>
@@ -92,6 +92,16 @@
 				<option value="${li.id}">${li.name}</option>
 				   </#list>
                 </select>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布部门：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div style="position: relative;">
+				<input type="hidden" value="${(obj.deptId)!}" name="deptId">
+				<input type="text" readonly="readonly" onclick="openOrganizeDialog1()" class="input-text" value="${(dept.name)!}" placeholder="请选择所属机构部门" name="deptName">
+				<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog1()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
+				</div>
 			</div>
 		</div>
 		<div class="row cl">
@@ -137,6 +147,18 @@ function openOrganizeDialog(){
 		  }
 	});
 } 
+function openOrganizeDialog1(){
+	var index = layer.open({
+		  type: 2,
+		  title:"部门选择",
+		  area: ['50%', '80%'], //宽高
+		  content: '/admin/showOrg',
+		  btn:['确定'],
+		  yes:function(){
+			  layer.close(index);
+		  }
+	});
+}
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',

@@ -141,25 +141,28 @@ function sendMessage(title,url,id){
 	layer.full(index);
 }
 
-function deleteObj(obj,o,u,id){
-	layer.confirm("确认要删除"+o+"吗？",function(index){
+function deleteObj(name,obj,id){
+	layer.confirm('确认要删除'+name+'这个类别吗？',function(index){
 		$.ajax({
-			type: 'POST',
-			url: u,
+			type: 'post',
 			data:{"id":id},
+			url: "/articletype/delete",
 			dataType: 'json',
 			success: function(data){
-				layer.msg(data.msg,{icon:1,time:2000});
-				if(data.result){
+				if (data.result) {
+					layer.msg(data.msg,{icon:1,time:1000});
 					$(obj).parents("tr").remove();
+				}else{
+					layer.msg(data.msg,{icon:2,time:2000});
 				}
 			},
 			error:function(data) {
-				layer.msg("网络异常,请稍后再试.",{icon:1,time:2000});
+				$.Huimodalalert(data.msg,2000);
 			},
 		});		
 	});
 }
+
 </script>
 </body>
 </html>

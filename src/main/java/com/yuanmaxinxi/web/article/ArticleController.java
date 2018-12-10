@@ -1,8 +1,11 @@
 package com.yuanmaxinxi.web.article;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +23,13 @@ import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.domain.resource.Resource;
+import com.yuanmaxinxi.domain.role.Role;
 import com.yuanmaxinxi.dto.ResultDTO;
+import com.yuanmaxinxi.service.admin.AdminService;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 import com.yuanmaxinxi.service.resource.ResourceService;
+import com.yuanmaxinxi.service.role.RoleService;
 import com.yuanmaxinxi.util.Pager;
 import com.yuanmaxinxi.util.StringUtil;
 
@@ -39,8 +45,14 @@ public class ArticleController {
 	private ArticleTypeService articletypeService;
     @Autowired
 	private ResourceService resourceService;
+	@Autowired
+	private AdminService adminService;
     @RequestMapping("/showAdd")
-	public String showAdd(Model model,Long pId) {
+	public String showAdd(Model model,Long pId,HttpSession session) {
+    	//获取发布者的名字和部门
+    	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
+		Admin admin = adminService.selectOneById(loginAdmin.getId());
+		model.addAttribute("admin", admin);
     	List<ArticleType> list = articletypeService.selectTypeToTree(pId);
 		model.addAttribute("list", list);
 		return "/article/add";
@@ -101,7 +113,8 @@ public class ArticleController {
 			return dto;
 		}
 	@RequestMapping("/list")
-	public String list(Model model,Long pId,HttpServletRequest request) {
+	public String list(Model model,Long pId,Long adminId,HttpServletRequest request) {
+		Map<String,Object> map=new HashMap<String,Object>();
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
     	if(pId==1) {
     		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/article/list?pId=1",loginAdmin.getId());
@@ -119,7 +132,7 @@ public class ArticleController {
 			model.addAttribute("btn1s", btn1s);
 			model.addAttribute("btn2s", btn2s);
     	}
-		List<Article> list = articleService.selectAll(pId);
+		List<Article> list = articleService.selectAll(map,pId,loginAdmin.getId());
 		model.addAttribute("list", list);
 		return "/article/list";
 	}

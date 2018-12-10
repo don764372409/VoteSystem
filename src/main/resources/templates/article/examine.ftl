@@ -72,7 +72,7 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>文章内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 			<input name="content" value='${obj.content!}' type="hidden">
-			<script id="editor" type="text/plain" style="width:100%;height:400px;" name="content" value="${obj.content}"></script>
+			<script id="editor" type="text/plain" style="width:100%;height:400px;"></script>
 			</div>
 		</div>
 		<div class="row cl">
@@ -82,7 +82,7 @@
 		</div>
 		</div>
 		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-sm-offset-1">
+			<div class="col-xs-8 col-sm-9 col-sm-offset-3">
 				<button class="btn btn-success  radius" type="button" onclick="examine(1)"><i class="Hui-iconfont">&#xe676;</i> 准以通过</button>
 				<button class="btn btn-warning radius" type="button" onclick="examine(2)"><i class="Hui-iconfont">&#xe706;</i> 不准通过</button>
 			</div>

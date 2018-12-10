@@ -1,24 +1,22 @@
 package com.yuanmaxinxi.service.article;
 import com.yuanmaxinxi.domain.article.Article;
-import com.yuanmaxinxi.domain.articletype.ArticleType;
-import com.yuanmaxinxi.domain.electionman.Electionman;
-import com.yuanmaxinxi.domain.organize.Organize;
+import com.yuanmaxinxi.domain.dept.Dept;
+import com.yuanmaxinxi.service.dept.DeptService;
 import com.yuanmaxinxi.util.StringUtil;
 import com.yuanmaxinxi.dao.article.ArticleDAO;
-import com.yuanmaxinxi.dao.articletype.ArticleTypeDAO;
-
-
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Service
 public class ArticleService{
 	@Autowired
 	private ArticleDAO articleDAO;
+	@Autowired
+	private DeptService deptService;
 	public void insert(Article obj){
 		if (StringUtil.isNullOrEmpty(obj.getImg())) {
 			throw new RuntimeException("请上传文章展示图片.");
@@ -81,8 +79,22 @@ public class ArticleService{
 		return articleDAO.selectOneById(id);
 	}
 
-	public List<Article> selectAll(Long pId){
-		return  articleDAO.selectAll(pId);
+	public List<Article> selectAll(Map map,Long pId, Long adminId){
+		List<Dept> depts = deptService.selectAllByAdminId(adminId);
+		map.put("list", depts);
+		map.put("pId", pId);
+		List<Article> list = articleDAO.selectAll(map);
+		Map<Long,Dept> cash = new HashMap<>();
+		for (Article ele : list) {
+			Long deptId = ele.getDeptId();
+			Dept dept = cash.get(deptId);
+			if (dept==null) {
+				dept = deptService.selectOneAndParentOrgById(deptId);
+				cash.put(deptId, dept);
+			}
+			ele.setDept(dept);
+		}
+		return list;
 	}
 	public List<Article> indexShow(Long aId,Integer  startRecord,Integer  pageSize){
 		return articleDAO.indexShow(aId,startRecord,pageSize);
