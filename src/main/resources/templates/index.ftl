@@ -39,6 +39,19 @@
 		display:block !important; 
 	}
 }
+.Hui-aside {
+    background-color: #333;
+    border-right: 1px solid #222;
+}
+.Hui-aside .menu_dropdown dl > dt{
+    color: #fff;
+    border-bottom: 1px solid #222;
+    font-weight: normal;
+ }
+ .Hui-aside .menu_dropdown ul li a {
+    color: #fff;
+    border-bottom: 1px solid #222;
+}
 </style>
 </head>
 <body>
@@ -107,7 +120,7 @@
 	<div class="menu_dropdown bk_2">
 		<#list list as obj>
 			<dl id="menu-article">
-				<dt><i class="Hui-iconfont">&#xe616;</i> ${obj.name}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<dt><i class="Hui-iconfont">${(obj.icon)!}</i> ${(obj.name)!}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 				<dd>
 					<ul>
 						<#list obj.children as o>
