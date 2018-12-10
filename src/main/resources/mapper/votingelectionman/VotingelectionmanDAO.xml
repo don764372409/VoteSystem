@@ -40,7 +40,7 @@
     </choose>
 	</select>
 	<select id="getwechatelist"  resultType="Map">
-	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId,v.vist
+	SELECT e.`name`,e.id as uid,e.img,ve.number,ve.vId,v.vist,v.img as fm
 	FROM t_electionman e
 	JOIN t_voting_electionman ve ON e.id=ve.eId
 	JOIN t_voting v ON v.id=ve.vId

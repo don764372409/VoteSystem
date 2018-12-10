@@ -120,6 +120,7 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
+		var headImg = $("input[name=img]").val();
 			$(form).ajaxSubmit({
 				type: 'post',
 				url: "/vote/add" ,

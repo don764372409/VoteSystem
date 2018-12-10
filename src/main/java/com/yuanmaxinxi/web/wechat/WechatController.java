@@ -58,13 +58,16 @@ public class WechatController {
 		Long totle=veservice.gettotle();
 		for(Map<String, Object> m:list) {
 			Object vist=m.get("vist");
-			model.addAttribute("vist",vist);
+			Object fm=m.get("fm");
+			model.addAttribute("vist",vist);//浏览量
+			model.addAttribute("fm",fm);//封面
 		}
 		model.addAttribute("list",list);
 		model.addAttribute("totle",totle);
 		return "/wechat/votinglist";
 	}
 	
+	/*微信投票选手展示页,排序*/
 	@RequestMapping("/wechatvlists")
 	public String wechatlists(Model model) {
 		//这里用来加浏览量
@@ -77,7 +80,7 @@ public class WechatController {
 		}
 		model.addAttribute("list",list);
 		model.addAttribute("totle",totle);
-		return "/wechat/votinglist";
+		return "/wechat/votinglists";
 	}
 	
 	/**
