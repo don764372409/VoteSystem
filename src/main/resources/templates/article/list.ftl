@@ -66,7 +66,7 @@
 					</td>
 					<td>${obj.title}</td>
 					<td>${obj.time?string("yyyy-MM-dd")!} </td>
-					<td>${obj.issuer!}</td>
+					<td>${(obj.dept.name)!}</td>
 					<td class="td-status">
 						<#if obj.state?? && obj.state==0>
 							<span class="label label-secondary radius">待审核</span>

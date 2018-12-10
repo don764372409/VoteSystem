@@ -1,6 +1,8 @@
 package com.yuanmaxinxi.web.article;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,8 +45,6 @@ public class ArticleController {
 	private ArticleTypeService articletypeService;
     @Autowired
 	private ResourceService resourceService;
-    @Autowired
-	private RoleService roleService;
 	@Autowired
 	private AdminService adminService;
     @RequestMapping("/showAdd")
@@ -113,7 +113,8 @@ public class ArticleController {
 			return dto;
 		}
 	@RequestMapping("/list")
-	public String list(Model model,Long pId,HttpServletRequest request) {
+	public String list(Model model,Long pId,Long adminId,HttpServletRequest request) {
+		Map<String,Object> map=new HashMap<String,Object>();
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
     	if(pId==1) {
     		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/article/list?pId=1",loginAdmin.getId());
@@ -131,7 +132,7 @@ public class ArticleController {
 			model.addAttribute("btn1s", btn1s);
 			model.addAttribute("btn2s", btn2s);
     	}
-		List<Article> list = articleService.selectAll(pId);
+		List<Article> list = articleService.selectAll(map,pId,loginAdmin.getId());
 		model.addAttribute("list", list);
 		return "/article/list";
 	}

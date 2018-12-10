@@ -85,12 +85,8 @@ public class ElectionmanService{
 
 
 	public List<Electionman> selectAll( Map map, Long adminId){
-		System.err.println(adminId);
 		//获取能查那些部门的参选人员
 		List<Dept> depts = deptService.selectAllByAdminId(adminId);
-		for (Dept dept : depts) {
-			System.err.println(dept);
-		}
 		map.put("list", depts);
 		List<Electionman> list = electionmanDAO.selectAll(map);
 		Map<Long,Dept> cash = new HashMap<>();

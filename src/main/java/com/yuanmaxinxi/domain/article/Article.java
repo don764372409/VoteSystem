@@ -4,6 +4,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.yuanmaxinxi.domain.articletype.ArticleType;
+import com.yuanmaxinxi.domain.dept.Dept;
 public class Article{
 	private Long id;
 	private String img;
@@ -11,21 +12,27 @@ public class Article{
 	private String content;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date time;
-	private String issuer;
+	private Long deptId;
 	private Long aId;
 	private String fail;
 	private int state;
 	private Long typeId;
 	private String timechange;
 	private ArticleType articletype;
+	private Dept dept;
 	
 	
-	
-	public String getIssuer() {
-		return issuer;
+	public Long getDeptId() {
+		return deptId;
 	}
-	public void setIssuer(String issuer) {
-		this.issuer = issuer;
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
+	public Dept getDept() {
+		return dept;
+	}
+	public void setDept(Dept dept) {
+		this.dept = dept;
 	}
 	public String getTimechange() {
 		return timechange;
