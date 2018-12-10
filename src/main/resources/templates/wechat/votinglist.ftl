@@ -27,6 +27,7 @@
 .city{border: solid 1px #ddd;width: 33%;}
 .county{border: solid 1px #ddd;}
 .tip-p{position: absolute;top: 16px;left: 7px;background: #939393;color: #fff;}
+.as{display: inline-block;height: 144.28px;width: 100%;}
 </style>
 <title>参选人列表</title>
 </head>
@@ -37,8 +38,8 @@
 	<table style="background-color: #4495f7;">
 	<tr>
 	<td class="tbtd">${list?size}<p>参选数</p></td>
-	<td class="tbtd">0<p>总投票 </p></td>
-	<td class="tbtd">0<p>浏览量</p></td>
+	<td class="tbtd"><span id="tp" data-tp="${totle}">${totle}</span><p>总投票 </p></td>
+	<td class="tbtd">${vist!}<p>浏览量</p></td>
 	</tr>
 	</table>
 	<form action="" id="vform" style="margin-top: 10px;">
@@ -60,7 +61,9 @@
 		<#if list?exists>
 			 <#list list as obj>
 					<li class="sb">
-						<a href="/wechatvshow?id=${obj.uid!}&vId=${obj.vId!}"><img src="${obj.img?if_exists}" style="width: 100%;height: 144.28px;"></a>
+						<a class="as" href="/wechatvshow?id=${obj.uid!}&vId=${obj.vId!}">
+						<img src="${obj.img?if_exists}" style="width: 100%;height: 144.28px;">
+						</a>
 						<p class="tip-p">&nbsp;编号：${obj.uid?if_exists}&nbsp;</p>	
 						<div class='tip-bot'>
 							<p style="color: #7a838c;margin-bottom: 3px;">
@@ -71,9 +74,10 @@
 						 	${obj.number?if_exists} 票
 						 	</p>
 						 	<p>
-							<button type="button" onclick="voting(${obj.uid?if_exists},${obj.vId?if_exists})" style="background-color: #4495F7;width: 100%;border-color:#4495F7;" class="btn btn-success" >投票 </button>
+							<button type="button" onclick="voting(${obj.uid?if_exists},${obj.vId?if_exists})" style="background-color: #4495F7;width: 100%;border-color:#4495F7;" class="btn btn-success tou-btn" >投票 </button>
 						 	</p>
 					 	</div>
+					 	
 					</li>
 				</#list>
 				</#if>
@@ -195,7 +199,7 @@ $(".prov").change(function() {
 					success: function(data){
 						$("#ull").children().filter('li').remove();
 						for (var  i= 0; i < data.length; i++) {
-						$("#ull").append("<li class='sb'><a href='/wechatvshow?id="+data[i].uid+"&vId="+data[i].vId+"'><img style='width: 100%;height: 144.28px;' src="+data[i].img+"></a><div class='tip-bot'><p style='color: #7a838c;margin-bottom: 3px;'>"+data[i].uid+"号："+data[i].name+"</p><p id='ps_"+data[i].uid+"' data-ps='"+data[i].number+"' style='color: #4495F7;margin-bottom: 3px;'>"+data[i].number+"票</p><p><button type='button' onclick='voting("+data[i].uid+","+data[i].vId+")' style='background-color: #4495F7;width: 100%;border-color:#4495F7;' class='btn btn-success'>投票 </button></p></div></li>"); 					
+						$("#ull").append("<li class='sb'><a class='as' href='/wechatvshow?id="+data[i].uid+"&vId="+data[i].vId+"'><img style='width: 100%;height: 144.28px;' src="+data[i].img+"></a><p class='tip-p'>&nbsp;编号："+data[i].uid+"&nbsp;</p><div class='tip-bot'><p style='color: #7a838c;margin-bottom: 3px;'>"+data[i].uid+"号："+data[i].name+"</p><p id='ps_"+data[i].uid+"' data-ps='"+data[i].number+"' style='color: #4495F7;margin-bottom: 3px;'>"+data[i].number+"票</p><p><button type='button' onclick='voting("+data[i].uid+","+data[i].vId+")' style='background-color: #4495F7;width: 100%;border-color:#4495F7;' class='btn btn-success'>投票 </button></p></div></li>"); 					
 						}
 					},
 	                error: function(XmlHttpRequest, textStatus, errorThrown){
@@ -205,6 +209,8 @@ $(".prov").change(function() {
 			}
 		});
 	});
+
+
 	
 	//投票
 	function voting(uid,vId){
@@ -219,8 +225,12 @@ $(".prov").change(function() {
 						layer.msg(data.msg,{icon:1,time:1000});
 						//window.location.reload();
 						if(data.result==true){
+							//刷新选手票数：
 							var ps=$("#ps_"+uid).attr("data-ps");
 							$("#ps_"+uid).html(parseInt(ps)+1);
+							//刷新总票数：
+							var tp=$("#tp").attr("data-tp");
+							$("#tp").html(parseInt(tp)+1);
 							}
 					},
 	                error: function(XmlHttpRequest, textStatus, errorThrown){
@@ -228,7 +238,6 @@ $(".prov").change(function() {
 					}
 				});
 	}
-	
 </script> 
 </body>
 </html>

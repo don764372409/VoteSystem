@@ -102,5 +102,11 @@ public class VotingService{
 	public List<Voting> selectvotinglist(){
 		return votingDAO.selectvotinglist();
 	}
-
+	@Transactional
+	public int upvist() {
+		return votingDAO.upvist();
+	}
+	public String getvrule() {
+		return votingDAO.getvrule();
+	}
 }

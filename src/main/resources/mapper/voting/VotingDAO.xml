@@ -9,12 +9,14 @@
 		<result column="status" property="status"/>
 		<result column="starttime" property="starttime"/>
 		<result column="endtime" property="endtime"/>
+		<result column="vist" property="vist"/>
+		<result column="img" property="img"/>
 	</resultMap>
 	<insert id="insert" parameterType="Voting">
-		insert into t_voting(title,rule,status,starttime,endtime) values(#{title},#{rule},#{status},#{starttime},#{endtime})
+		insert into t_voting(title,rule,status,starttime,endtime,vist,img) values(#{title},#{rule},#{status},#{starttime},#{endtime},#{vist},#{img})
 	</insert>
 	<update id="update" parameterType="Voting">
-		update t_voting set title=#{title},rule=#{rule},status=#{status},starttime=#{starttime},endtime=#{endtime} where id=#{id}
+		update t_voting set title=#{title},rule=#{rule},status=#{status},starttime=#{starttime},endtime=#{endtime},vist=#{vist},img=#{img} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_voting where id=#{id}
@@ -36,5 +38,11 @@
 	</update>
 	<select id="selectvotinglist" resultMap="VotingResultMap">
 		select title,id from t_voting ORDER BY `status` DESC
+	</select>
+	<update id="upvist">
+		update t_voting set vist=vist+1 WHERE id=( SELECT a.id FROM (SELECT id FROM t_voting WHERE `status`=1) a)
+	</update>
+	<select id="getvrule" resultType="String">
+		SELECT v.rule FROM t_voting v WHERE v.`status`=1
 	</select>
 </mapper>
