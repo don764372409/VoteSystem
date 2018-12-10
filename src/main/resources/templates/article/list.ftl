@@ -122,6 +122,7 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[5]}// 不参与排序的列
 	]
 });
+
 /*用户-添加*/
 function member_add(title,url,pId){
 	 /* 用途: 接收地直栏参数 取id=1 根据ID的值 */
