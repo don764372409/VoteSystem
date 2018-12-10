@@ -156,6 +156,9 @@ $(function(){
 			title:{
 				required:true
 			},
+			img:{
+				required:true
+			},
 			time:{
 				required:true
 			},
@@ -163,9 +166,6 @@ $(function(){
 				required:true
 			},
 			deptId:{
-				required:true
-			},
-			img:{
 				required:true
 			},
 		},
