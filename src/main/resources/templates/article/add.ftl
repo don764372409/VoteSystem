@@ -153,7 +153,19 @@ $(function(){
 	
 	$("#form-member-add").validate({
 		rules:{
-			name:{
+			title:{
+				required:true
+			},
+			time:{
+				required:true
+			},
+			aId:{
+				required:true
+			},
+			deptId:{
+				required:true
+			},
+			img:{
 				required:true
 			},
 		},

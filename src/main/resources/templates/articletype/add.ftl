@@ -82,6 +82,9 @@ $(function(){
 			name:{
 				required:true
 			},
+			remark:{
+				required:true
+			},
 		},
 		onkeyup:false,
 		focusCleanup:true,
