@@ -30,6 +30,9 @@ public class ArticleService{
 		if (obj.getAId()==null||obj.getAId()<1) {
 			throw new RuntimeException("添加文章时必须选择类别.");
 		}
+		if (obj.getDeptId()==null||obj.getDeptId()<1) {
+			throw new RuntimeException("添加预选人时必须选择部门.");
+		}
 		int i = articleDAO.insert(obj);
 		if (i!=1) {
 			throw new RuntimeException("添加文章失败,请稍后重试.");
@@ -47,6 +50,9 @@ public class ArticleService{
 		}
 		if (obj.getAId()==null||obj.getAId()<1) {
 			throw new RuntimeException("修改文章时必须选择类别.");
+		}
+		if (obj.getDeptId()==null||obj.getDeptId()<1) {
+			throw new RuntimeException("添加预选人时必须选择部门.");
 		}
 		int i = articleDAO.update(obj);
 		if (i!=1) {
