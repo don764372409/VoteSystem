@@ -21,7 +21,8 @@
 		select * from t_voting_electionman where id=#{id}
 	</select>
 	<select id="selectAll" resultType="Map">
-		select * from t_voting_electionman ve
+		select ve.eId,e.`name`,e.img,ve.number,v.title,v.endtime
+		from t_voting_electionman ve
 		JOIN t_voting v ON v.id=ve.vId
 		JOIN t_electionman e ON e.id=ve.eId 
 	</select>
