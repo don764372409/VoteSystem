@@ -21,11 +21,12 @@
 <![endif]-->
 <style type="text/css">
 .tbtd{background-color: #4495F7;border-color:#4495F7;color: #fff;}
-.sb{float: left;padding: 4% 2%;width: 45%;box-sizing: border-box;margin-right: 1%;margin-left: 4%;}
+.sb{float: left;padding: 4% 2%;width: 45%;box-sizing: border-box;margin-right: 1%;margin-left: 4%;position: relative;}
 .tip-bot{background:#fff;padding:5px}
 .prov{border: solid 1px #ddd;width: 33%;}
 .city{border: solid 1px #ddd;width: 33%;}
 .county{border: solid 1px #ddd;}
+.tip-p{position: absolute;top: 16px;left: 7px;background: #939393;color: #fff;}
 </style>
 <title>参选人列表</title>
 </head>
@@ -60,6 +61,7 @@
 			 <#list list as obj>
 					<li class="sb">
 						<a href="/wechatvshow?id=${obj.uid!}&vId=${obj.vId!}"><img src="${obj.img?if_exists}" style="width: 100%;height: 144.28px;"></a>
+						<p class="tip-p">&nbsp;编号：${obj.uid?if_exists}&nbsp;</p>	
 						<div class='tip-bot'>
 							<p style="color: #7a838c;margin-bottom: 3px;">
 							${obj.uid?if_exists}号：
