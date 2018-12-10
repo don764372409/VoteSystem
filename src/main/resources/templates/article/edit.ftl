@@ -26,7 +26,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加文章</title>
+<title>修改文章</title>
 <style type="text/css">
 	.searchBtn{
 		position: absolute;
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>添加时间：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>修改时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 		<input type="text" name="time" onfocus="WdatePicker({})"  value="${obj.time?string("yyyy-MM-dd")!}" id="datemin" class="input-text Wdate" style="width:120px;">
 		</div>
@@ -95,7 +95,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属部门：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div style="position: relative;">
 				<input type="hidden" value="${(obj.deptId)!}" name="deptId">

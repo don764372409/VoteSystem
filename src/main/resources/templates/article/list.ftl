@@ -49,7 +49,7 @@
 					<th width="80">文章图片</th>
 					<th width="80">文章主题</th>
 					<th width="120">发布时间</th>
-					<th width="80">发布人</th>
+					<th width="80">发布部门</th>
 					<th width="80">状态提示</th>
 					<th width="80">审核消息</th>
 					<th width="120">操作</th>
