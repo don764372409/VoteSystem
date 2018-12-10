@@ -193,8 +193,8 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
 			var aId = $("input[aId=aId]").val()
+			var deptId = $("input[name=deptId]").val();
 			var remark = ue.getContent();
-
 			console.log(aId+","+remark);
 			$(form).ajaxSubmit({
 				type: 'post',

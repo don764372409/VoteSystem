@@ -28,6 +28,7 @@ import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.admin.AdminService;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
+import com.yuanmaxinxi.service.dept.DeptService;
 import com.yuanmaxinxi.service.resource.ResourceService;
 import com.yuanmaxinxi.service.role.RoleService;
 import com.yuanmaxinxi.util.Pager;
@@ -47,6 +48,8 @@ public class ArticleController {
 	private ResourceService resourceService;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private DeptService deptService;
     @RequestMapping("/showAdd")
 	public String showAdd(Model model,Long pId,HttpSession session) {
     	//获取发布者的名字和部门
@@ -95,6 +98,8 @@ public class ArticleController {
 			model.addAttribute("obj", obj);
 			List<ArticleType> list = articletypeService.selectTypeToTree(pId);
 			model.addAttribute("list", list);
+			Dept dept = deptService.selectOneAndParentOrgById(obj.getDeptId());
+			model.addAttribute("dept", dept);
 			return "/article/edit";
 		}
 	    @RequestMapping("/edit")
@@ -183,13 +188,8 @@ public class ArticleController {
 	@RequestMapping("/index")
 	public  String indexShow(Model model,Long aId) {
 		Pager pager=new Pager();
-//		if(startrecord!=null && startrecord>0) {
-//			List<Article> list = articleService.indexShow(aId,startrecord,pager.getPageSize());
-//			model.addAttribute("list", list);
-//		}else {
 		List<Article> list = articleService.indexShow(aId,pager.getStartRecord(),pager.getPageSize());
 		model.addAttribute("list", list);
-//		}
 		return "/wechat/index";
 	}
 
