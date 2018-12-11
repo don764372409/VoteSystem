@@ -1,12 +1,17 @@
 package com.yuanmaxinxi.service.article;
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.dept.Dept;
+import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.service.dept.DeptService;
+import com.yuanmaxinxi.service.organize.OrganizeService;
 import com.yuanmaxinxi.util.StringUtil;
 import com.yuanmaxinxi.dao.article.ArticleDAO;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +22,7 @@ public class ArticleService{
 	private ArticleDAO articleDAO;
 	@Autowired
 	private DeptService deptService;
+	
 	public void insert(Article obj){
 		if (StringUtil.isNullOrEmpty(obj.getImg())) {
 			throw new RuntimeException("请上传文章展示图片.");
@@ -29,9 +35,6 @@ public class ArticleService{
 		}
 		if (obj.getAId()==null||obj.getAId()<1) {
 			throw new RuntimeException("添加文章时必须选择类别.");
-		}
-		if (obj.getDeptId()==null||obj.getDeptId()<1) {
-			throw new RuntimeException("添加预选人时必须选择部门.");
 		}
 		int i = articleDAO.insert(obj);
 		if (i!=1) {
@@ -50,9 +53,6 @@ public class ArticleService{
 		}
 		if (obj.getAId()==null||obj.getAId()<1) {
 			throw new RuntimeException("修改文章时必须选择类别.");
-		}
-		if (obj.getDeptId()==null||obj.getDeptId()<1) {
-			throw new RuntimeException("添加预选人时必须选择部门.");
 		}
 		int i = articleDAO.update(obj);
 		if (i!=1) {
@@ -79,8 +79,6 @@ public class ArticleService{
 			throw new RuntimeException(msg);
 		}
 	}
-
-
 	public Article selectOneById(Long id){
 		return articleDAO.selectOneById(id);
 	}
@@ -92,16 +90,16 @@ public class ArticleService{
 		List<Article> list = articleDAO.selectAll(map);
 		Map<Long,Dept> cash = new HashMap<>();
 		for (Article ele : list) {
-			Long deptId = ele.getDeptId();
+			Long deptId = ele.getAdId();
 			Dept dept = cash.get(deptId);
 			if (dept==null) {
 				dept = deptService.selectOneAndParentOrgById(deptId);
 				cash.put(deptId, dept);
 			}
-			ele.setDept(dept);
 		}
 		return list;
 	}
+		
 	public List<Article> indexShow(Long aId,Integer  startRecord,Integer  pageSize){
 		return articleDAO.indexShow(aId,startRecord,pageSize);
 		

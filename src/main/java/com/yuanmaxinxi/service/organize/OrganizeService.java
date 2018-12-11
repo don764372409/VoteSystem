@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yuanmaxinxi.dao.admin.AdminDAO;
 import com.yuanmaxinxi.dao.dept.DeptDAO;
 import com.yuanmaxinxi.dao.organize.OrganizeDAO;
+import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.dept.Dept;
 import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.util.StringUtil;
@@ -19,6 +21,8 @@ public class OrganizeService{
 	private OrganizeDAO organizeDAO;
 	@Autowired
 	private DeptDAO deptDAO;
+	@Autowired
+	private AdminDAO adminDAO;
 	@Transactional
 	public void insert(Organize obj){
 		if (StringUtil.isNullOrEmpty(obj.getName())) {
@@ -134,6 +138,8 @@ public class OrganizeService{
 			addChildrenAndDepts(children);
 		}
 	}
+
+	
 	/**
 	 * 封装具有层级关系的部门名称
 	 * @param name

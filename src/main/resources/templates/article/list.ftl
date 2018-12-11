@@ -49,7 +49,7 @@
 					<th width="80">文章图片</th>
 					<th width="80">文章主题</th>
 					<th width="120">发布时间</th>
-					<th width="80">发布部门</th>
+					<th width="80">发布人</th>
 					<th width="80">状态提示</th>
 					<th width="80">审核消息</th>
 					<th width="120">操作</th>
@@ -66,7 +66,7 @@
 					</td>
 					<td>${obj.title}</td>
 					<td>${obj.time?string("yyyy-MM-dd")!} </td>
-					<td>${(obj.dept.name)!}</td>
+					<td>${obj.name!}</td>
 					<td class="td-status">
 						<#if obj.state?? && obj.state==0>
 							<span class="label label-secondary radius">待审核</span>

@@ -12,6 +12,7 @@ public class Article{
 	private String content;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date time;
+	private Long adId;
 	private Long deptId;
 	private Long aId;
 	private String fail;
@@ -20,13 +21,27 @@ public class Article{
 	private String timechange;
 	private ArticleType articletype;
 	private Dept dept;
+	private String name;
 	
 	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Long getDeptId() {
 		return deptId;
 	}
 	public void setDeptId(Long deptId) {
 		this.deptId = deptId;
+	}
+	public Long getAdId() {
+		return adId;
+	}
+	public void setAdId(Long adId) {
+		this.adId = adId;
 	}
 	public Dept getDept() {
 		return dept;

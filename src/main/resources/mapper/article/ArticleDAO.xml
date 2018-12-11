@@ -8,17 +8,19 @@
 		<result column="title" property="title"/>
 		<result column="content" property="content"/>
 		<result column="time" property="time"/>
+		<result column="adId" property="adId"/>
 		<result column="deptId" property="deptId"/>
 		<result column="aId" property="aId"/>
 		<result column="fail" property="fail"/>
 		<result column="state" property="state"/>
+		<result column="name" property="name"/>
 	</resultMap>
 	<insert id="insert" parameterType="Article">
-		insert into t_article(img,title,content,time,aId,state,deptId) 
-		values(#{img},#{title},#{content},#{time},#{aId},#{state},#{deptId})
+		insert into t_article(img,title,content,time,aId,state,adId,deptId) 
+		values(#{img},#{title},#{content},#{time},#{aId},#{state},#{adId},#{deptId})
 	</insert>
 	<update id="update" parameterType="Article">
-		update t_article set img=#{img},title=#{title},content=#{content},time=#{time},aId=#{aId},fail=#{fail},state=#{state},deptId=#{deptId} where id=#{id}
+		update t_article set img=#{img},title=#{title},content=#{content},time=#{time},aId=#{aId},fail=#{fail},state=#{state} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_article where id=#{id}
@@ -27,11 +29,10 @@
 		select * from t_article where id=#{id}
 	</select>
 	<select id="selectAll" parameterType="Map" resultMap="ArticleResultMap">
-		SELECT * FROM t_article
+		SELECT a.*,d.name FROM t_article a LEFT JOIN t_admin d ON a.adId=d.id
 		<where> 
-		aId IN(SELECT id FROM t_articletype WHERE pId=#{pId}) 
-		and 
-		deptId in <foreach collection="list" item="dept" close=")" open="(" separator=",">
+		a.aId IN(SELECT id FROM t_articletype WHERE pId=#{pId}) 
+		and a.deptId in <foreach collection="list" item="dept" close=")" open="(" separator=",">
 				#{dept.id}
 			</foreach>
 		</where>

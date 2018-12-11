@@ -3,6 +3,7 @@ package com.yuanmaxinxi.domain.organize;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.dept.Dept;
 
 public class Organize {
@@ -12,7 +13,15 @@ public class Organize {
 	private Organize parent;
 	private List<Organize> children = new ArrayList<>();
 	private List<Dept> depts = new ArrayList<>();
+	private List<Admin> admin = new ArrayList<>();
 	
+	
+	public List<Admin> getAdmin() {
+		return admin;
+	}
+	public void setAdmin(List<Admin> admin) {
+		this.admin = admin;
+	}
 	public List<Organize> getChildren() {
 		return children;
 	}

@@ -86,15 +86,13 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布部门:&nbsp;&nbsp;&nbsp;</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布人:&nbsp;&nbsp;&nbsp;</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<div style="position: relative;">
-				<input type="hidden" value="" name="deptId">
-				<input type="text" readonly="readonly" onclick="openOrganizeDialog1()" class="input-text" value="" placeholder="请选择所属机构部门" name="deptName">
-				<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog1()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
-				</div>
+			    <input type="hidden" value="${admin.dept.id}" readonly="readonly" placeholder=""  name="deptId">
+			    <input type="hidden" value="${loginAdmin.id}" readonly="readonly" placeholder=""  name="adId">
+				<input type="text" class="input-text"  value="${admin.dept.name}:${loginAdmin.name}" readonly="readonly" placeholder=""   style="width:120px;">
 			</div>
-		</div>
+			</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-sm-offset-3">
 				<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
@@ -131,18 +129,6 @@ function openOrganizeDialog(){
 		  }
 	});
 } 
-function openOrganizeDialog1(){
-	var index = layer.open({
-		  type: 2,
-		  title:"部门选择",
-		  area: ['50%', '80%'], //宽高
-		  content: '/admin/showOrg',
-		  btn:['确定'],
-		  yes:function(){
-			  layer.close(index);
-		  }
-	});
-}
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',

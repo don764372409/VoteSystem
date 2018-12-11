@@ -23,4 +23,5 @@ public interface AdminDAO{
 	int deleteAdminAndRoleByAdminId(Long adminId);
 
 	int updatePassword(Admin loginAdmin);
+	List<Admin> selectAdminAndDeptByAdminName(Long deptId);
 }

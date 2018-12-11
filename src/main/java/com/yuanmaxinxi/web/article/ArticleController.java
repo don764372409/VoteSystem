@@ -29,6 +29,7 @@ import com.yuanmaxinxi.service.admin.AdminService;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 import com.yuanmaxinxi.service.dept.DeptService;
+import com.yuanmaxinxi.service.organize.OrganizeService;
 import com.yuanmaxinxi.service.resource.ResourceService;
 import com.yuanmaxinxi.service.role.RoleService;
 import com.yuanmaxinxi.util.Pager;
@@ -39,7 +40,6 @@ import com.yuanmaxinxi.util.StringUtil;
 @Controller
 @RequestMapping(value ="/article")
 public class ArticleController {
-
     @Autowired
     ArticleService articleService;
     @Autowired
@@ -98,7 +98,7 @@ public class ArticleController {
 			model.addAttribute("obj", obj);
 			List<ArticleType> list = articletypeService.selectTypeToTree(pId);
 			model.addAttribute("list", list);
-			Dept dept = deptService.selectOneAndParentOrgById(obj.getDeptId());
+			Dept dept = deptService.selectOneAndParentOrgById(obj.getAdId());
 			model.addAttribute("dept", dept);
 			return "/article/edit";
 		}
@@ -139,6 +139,8 @@ public class ArticleController {
     	}
 		List<Article> list = articleService.selectAll(map,pId,loginAdmin.getId());
 		model.addAttribute("list", list);
+		Admin admin = adminService.selectOneById(loginAdmin.getId());
+		model.addAttribute("admin", admin);
 		return "/article/list";
 	}
 	@RequestMapping("/selectOneById")
@@ -192,7 +194,6 @@ public class ArticleController {
 		model.addAttribute("list", list);
 		return "/wechat/index";
 	}
-
 	@RequestMapping(value = "/more")
 	@ResponseBody
 	public List<Article> more(Model model,Long aId,@RequestParam(value = "startrecord", required = false) Integer  startrecord) {
@@ -204,6 +205,4 @@ public class ArticleController {
 		}
 		return list;
 	}
-	
-	
 }

@@ -37,4 +37,8 @@
 	<select id="selectAll" resultMap="AdminResultMap">
 		select * from t_admin
 	</select>
+	<select id="selectAdminAndDeptByAdminName" parameterType="Long" resultMap="AdminResultMap">
+	     select * from t_admin where deptId=#{deptId}
+	
+	</select>
 </mapper>
