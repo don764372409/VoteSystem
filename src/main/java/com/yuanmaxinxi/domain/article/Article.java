@@ -23,8 +23,6 @@ public class Article{
 	private Dept dept;
 	private String name;
 	
-	
-	
 	public String getName() {
 		return name;
 	}
