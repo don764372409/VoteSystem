@@ -35,7 +35,17 @@
 </div>
 <div class="page-container">
 <div class="mt-20">
-<div class="pd-20">
+<style>
+.img-wrap p{
+	width:100%;
+	height:auto;
+}
+.img-wrap p img{
+	width:100%;
+	height:100%
+}
+</style>	
+<div class="pd-20 img-wrap">
 		${obj.remark!}
 </div>
 <button type="button" onclick="voting(${obj.id!},${vId!})" style="background-color: #4495F7;width: 100%;border-color:#4495F7;width: 50%;margin-left: 22.22%;" class="btn btn-success" >投票 </button>
