@@ -43,7 +43,7 @@
 				<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>
 					<div style="margin-bottom: 10px;">
-						<input name="img" type="hidden">
+						<input name="img" type="hidden" value="${obj.img!}">
 						<img alt="" id="headImg" src="${obj.img!}" width="100" height="120" >
 					</div>
 					<div id="filePicker">上传封面图片</div>
@@ -120,6 +120,7 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
+		var headImg = $("input[name=img]").val();
 			$(form).ajaxSubmit({
 				type: 'post',
 				url: "/vote/edit" ,
