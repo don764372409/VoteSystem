@@ -21,7 +21,7 @@
 <![endif]-->
 <title>管理员管理</title>
 </head>
-<body>
+<body  style="overflow: scroll;width: 100%;height:100%">
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="row cl">
@@ -34,7 +34,7 @@
 </div>
 <div class="pt-20"></div>
 <div class="panel panel-default">
-	<div class="panel-body" style="overflow: scroll;">
+	<div class="panel-body">
 		<ul class="dropDown-menu menu radius box-shadow">
 			<#if list??>
 				<#list list as parent>
@@ -42,14 +42,15 @@
 						<ul class="menu">
 							<#if parent.children??>
 								<#list parent.children as org>
-									<li><a href="javascript:;">${org.name}<i class="arrow Hui-iconfont">&#xe6d7;</i></a>
-										<ul class="menu">
-											<#if org.depts??>
-												<#list org.depts as dept>
-													<li><a href="javascript:;" onclick="selectDept(${dept.id},'${parent.name}:${org.name}:${dept.name}')">${dept.name}</a></li>
-												</#list>
-											</#if>
-										</ul>
+									<li>
+									<a href="javascript:;">${org.name}<i class="arrow Hui-iconfont">&#xe6d7;</i></a>
+										<#if org.depts??>
+											<ul class="menu">
+													<#list org.depts as dept>
+														<li><a href="javascript:;" onclick="selectDept(${dept.id},'${parent.name}:${org.name}:${dept.name}')">${dept.name}</a></li>
+													</#list>
+											</ul>
+										</#if>
 									</li>
 								</#list>
 							</#if>

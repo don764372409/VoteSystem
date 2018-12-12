@@ -95,16 +95,6 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布部门:&nbsp;&nbsp;&nbsp;</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div style="position: relative;">
-				<input type="hidden" value="${(obj.deptId)!}" name="deptId">
-				<input type="text" readonly="readonly" onclick="openOrganizeDialog1()" class="input-text" value="${(dept.name)!}" placeholder="请选择所属机构部门" name="deptName">
-				<a title="点击查看机构列表" href="javascript:;" onclick="openOrganizeDialog1()" class="ml-5 searchBtn" style="text-decoration:none;"><i class="Hui-iconfont">&#xe665;</i></a>
-				</div>
-			</div>
-		</div>
-		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-sm-offset-3">
 				<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 修改并提交审核</button>
 			</div>

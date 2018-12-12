@@ -19,7 +19,7 @@
 		insert into t_voting_electionman(vId,eId)value(#{vId},#{eId})
 	</insert>
 	<update id="update" parameterType="Electionman">
-		update t_electionman set name=#{name},img=#{img},remark=#{remark},deptId=#{deptId} where id=#{id}
+		update t_electionman set name=#{name},img=#{img},remark=#{remark},deptId=#{deptId},state=#{state} where id=#{id}
 	</update>
 	<update id="examine" parameterType="Electionman">
 		update t_electionman set state=#{state},fail=#{fail} where id=#{id}
