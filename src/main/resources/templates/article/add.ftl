@@ -70,6 +70,14 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布人:&nbsp;&nbsp;&nbsp;</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			    <input type="hidden" value="${admin.dept.id}" readonly="readonly" placeholder=""  name="deptId">
+			    <input type="hidden" value="${loginAdmin.id}" readonly="readonly" placeholder=""  name="adId">
+				<input type="text" class="input-text"  value="${admin.dept.name}:${loginAdmin.name}" readonly="readonly" placeholder=""   style="width:190px;">
+			</div>
+			</div>
+		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>添加时间：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 		<input type="text" name="time" onfocus="WdatePicker({})" id="datemin" class="input-text Wdate" style="width:120px;">
@@ -85,14 +93,6 @@
                 </select>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>发布人:&nbsp;&nbsp;&nbsp;</label>
-			<div class="formControls col-xs-8 col-sm-9">
-			    <input type="hidden" value="${admin.dept.id}" readonly="readonly" placeholder=""  name="deptId">
-			    <input type="hidden" value="${loginAdmin.id}" readonly="readonly" placeholder=""  name="adId">
-				<input type="text" class="input-text"  value="${admin.dept.name}:${loginAdmin.name}" readonly="readonly" placeholder=""   style="width:120px;">
-			</div>
-			</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-sm-offset-3">
 				<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
