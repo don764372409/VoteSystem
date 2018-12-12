@@ -175,13 +175,33 @@ function obj_examine(title,url,id){
 	});
 }
 function obj_edit(title,url,id){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url+"?id="+id
+	$.ajax({url:"/electionman/isEdit",
+		type:"post",
+		dataType:"json",
+		async:false,
+		data:{"id":id},
+		success:function(data){
+			console.log(data);
+			if(data.result){
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url+"?id="+id
+				});
+			// 	打开全屏
+				layer.full(index);
+			}else{
+				layer.msg(data.msg,{icon:2,time:2000});				
+			}		
+		}
 	});
+// 	var index = layer.open({
+// 		type: 2,
+// 		title: title,
+// 		content: url+"?id="+id
+// 	});
 // 	打开全屏
-	layer.full(index);
+// 	layer.full(index);
 }
 function obj_del(name,obj,id){
 	layer.confirm('确认要删除'+name+'这个预选人员吗？',function(index){

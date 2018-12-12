@@ -109,6 +109,19 @@ public class ElectionmanController {
 		model.addAttribute("dept", dept);
 		return "electionman/examine";
 	}
+	@RequestMapping(value = "/isEdit")
+	@ResponseBody
+	public ResultDTO isEdit(Long id) {
+		ResultDTO dto;
+		Electionman obj = electionmanService.selectOneById(id);
+		//审核中和审核失败可以修改
+		if (obj!=null&&(obj.getState()==0||obj.getState()==2)) {
+			dto = ResultDTO.getIntance(true,"可以修改");
+		}else {
+			dto = ResultDTO.getIntance(false, "该参选人员["+obj.getName()+"]已经审核通过,不能修改.");
+		}
+		return dto;
+	}
 	@RequestMapping(value = "/isExamine")
 	@ResponseBody
 	public ResultDTO examine(Long id) {

@@ -140,11 +140,14 @@ $(function(){
 				url: "/electionman/add" ,
 				data:{"deptId":deptId,"remark":remark},
 				success: function(data){
-					layer.msg(data.msg,{icon:1,time:1000});
 					if(data.result){
-						parent.$('.btn-refresh').click();
-						var index = parent.layer.getFrameIndex(window.name);
-						parent.layer.close(index);
+						layer.msg(data.msg,{icon:1,time:2000},function(){
+							parent.$('.btn-refresh').click();
+							var index = parent.layer.getFrameIndex(window.name);
+							parent.layer.close(index);
+						});
+					}else{
+						layer.msg(data.msg,{icon:2,time:2000});
 					}
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){

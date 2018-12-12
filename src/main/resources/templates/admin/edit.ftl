@@ -149,6 +149,14 @@ function openOrganizeDialog(){
 		  }
 	});
 }
+function isPoneAvailable(str) {
+    var myreg=/^[1][3,4,5,7,8,9][0-9]{9}$/;
+    if (!myreg.test(str)) {
+        return false;
+    } else {
+        return true;
+    }
+}
 $(function(){
 	$("#form-member-add").validate({
 		rules:{
@@ -170,6 +178,12 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
+			var phone = $("input[name=phone]").val().trim();
+			if(!isPoneAvailable(phone)){
+				layer.msg("请输入正确的手机号.",{icon:2,time:2000});
+				$("input[name=phone]")[0].focus();
+				return;
+			}
 			$(form).ajaxSubmit({
 				type: 'post',
 				url: "/admin/edit" ,
