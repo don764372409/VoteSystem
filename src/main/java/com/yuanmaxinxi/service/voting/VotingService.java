@@ -70,6 +70,9 @@ public class VotingService{
 		if (StringUtil.isNullOrEmpty(obj.getTitle())) {
 			throw new RuntimeException("标题不能为空.");
 		}
+		if (StringUtil.isNullOrEmpty(obj.getImg())) {
+			throw new RuntimeException("请上传活动封面图片！");
+		}
 		if (obj.getRule()==null||StringUtil.isNullOrEmpty(obj.getRule())) {
 			throw new RuntimeException("活动规则不能为空");
 		}
