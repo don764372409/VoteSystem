@@ -28,11 +28,20 @@
 .county{border: solid 1px #ddd;}
 .tip-p{position: absolute;top: 16px;left: 7px;background: #939393;color: #fff;}
 .as{display: inline-block;height: 144.28px;width: 100%;}
+.footer{
+            padding: 6px 0;
+            position: fixed;
+    		bottom: 80px;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+        }
+
 </style>
 <title>参选人列表</title>
 </head>
 <body>
-<div class="page-container" style="background-color: #FAFAFA;">
+<div id="content" class="page-container" style="background-color: #FAFAFA;">
 <div class="text-c">
 	<img src="${fm?if_exists}" style="width: 100%;height: 144.28px;">
 </div>
@@ -87,6 +96,20 @@
 	</ul>
 	</div>
 </div>
+<!--bottom-->
+<div id="menu" class="footer">
+<table id="mt" style="margin-left: 28px;">
+<tr>
+<th><a href="/wechatvlist">
+<img src="../../H-ui/static/h-ui/images/首页.png" style="width: 25%;"/><br>首页</a></th>
+<th><a href="/wechatvlists">
+<img src="../../H-ui/static/h-ui/images/排行榜.png" style="width: 25%;"/><br>排行榜</a></th>
+<th><a href="/wechatrule">
+<img src="../../H-ui/static/h-ui/images/说明.png" style="width: 25%;"/><br>说明</a></th>
+</tr>
+</table>
+</div>
+
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="../H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="../H-ui/lib/layer/2.4/layer.js"></script>
@@ -241,6 +264,7 @@ $(".prov").change(function() {
 					}
 				});
 	}
+	
 </script> 
 </body>
 </html>
