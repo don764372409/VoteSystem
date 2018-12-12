@@ -3,7 +3,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import com.yuanmaxinxi.dao.votingelectionman.VotingelectionmanDAO;
+import com.yuanmaxinxi.domain.dept.Dept;
+import com.yuanmaxinxi.domain.electionman.Electionman;
 import com.yuanmaxinxi.domain.votingelectionman.Votingelectionman;
+import com.yuanmaxinxi.service.dept.DeptService;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +16,9 @@ import java.util.Map;
 public class VotingelectionmanService{
 	@Autowired
 	private VotingelectionmanDAO votingelectionmanDAO;
+	@Autowired
+	private DeptService deptService;
+	
 	@Transactional
 	public int insert(Votingelectionman obj){
 		return votingelectionmanDAO.insert(obj);
@@ -38,8 +46,21 @@ public class VotingelectionmanService{
 	}
 
 	@Transactional
-	public List<Map<String, Object>> selectAll(){
-		return votingelectionmanDAO.selectAll();
+	public List<Map<String, Object>> selectAll(Long adminId){
+		//获取能查那些部门的参选人员
+				List<Dept> depts = deptService.selectAllByAdminId(adminId);
+				List<Map<String, Object>> list = votingelectionmanDAO.selectAll(depts);
+				Map<Long,Dept> cash = new HashMap<>();
+				for (Map<String, Object> ele : list) {
+					Long deptId = (Long) ele.get("deptId");
+					Dept dept = cash.get(deptId);
+					if (dept==null) {
+						dept = deptService.selectOneAndParentOrgById(deptId);
+						cash.put(deptId, dept);
+					}
+					ele.put("dept", dept);
+				}
+				return list;
 	}
 	@Transactional
 	public List<Map<String, Object>> getstatistics(Long vid){

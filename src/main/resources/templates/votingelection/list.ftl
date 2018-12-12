@@ -45,6 +45,7 @@
 					<th width="80">头像</th>
 					<th width="75">得票数</th>
 					<th width="120">所属活动</th>
+					<th width="120">所属部门</th>
 					<th width="120">投票截止日期</th>
 					<th width="120">操作</th>
 				</tr>
@@ -59,6 +60,7 @@
 					<td><img src="${list.img?if_exists}" style="width: 80px;height: 80px;"></td>
 					<td>${list.number?if_exists}</td>
 					<td>${list.title?if_exists} </td>
+					<td>${(list.dept.name)!}</td>
 					<td><#if list.endtime?exists>${list.endtime?string("yyyy-MM-dd")!}</#if></td>
 					<td><a style="text-decoration:none" class="ml-5" onClick="showRemark('${list.name!}','${list.eId!}')" href="javascript:;" title="查看详情介绍"><i class="Hui-iconfont">&#xe665;</i></a></td>
 				</tr>

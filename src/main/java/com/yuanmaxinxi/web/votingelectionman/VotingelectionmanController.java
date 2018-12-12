@@ -2,12 +2,16 @@ package com.yuanmaxinxi.web.votingelectionman;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.voting.Voting;
 import com.yuanmaxinxi.service.voting.VotingService;
 import com.yuanmaxinxi.service.votingelectionman.VotingelectionmanService;
@@ -37,8 +41,9 @@ public class VotingelectionmanController {
 	* @throws
 	 */
 	@RequestMapping("/votingelection/list")
-	public String list(Model model) {
-		List<Map<String, Object>> list = veservice.selectAll();
+	public String list(Model model,HttpServletRequest request) {
+		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
+		List<Map<String, Object>> list = veservice.selectAll(loginAdmin.getId());
 		model.addAttribute("list", list);
 		return "votingelection/list";
 	}

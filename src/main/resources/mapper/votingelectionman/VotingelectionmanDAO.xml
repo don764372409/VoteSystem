@@ -21,10 +21,14 @@
 		select * from t_voting_electionman where id=#{id}
 	</select>
 	<select id="selectAll" resultType="Map">
-		select ve.eId,e.`name`,e.img,ve.number,v.title,v.endtime
+		select ve.eId,e.`name`,e.img,ve.number,v.title,v.endtime,e.deptId
 		from t_voting_electionman ve
 		JOIN t_voting v ON v.id=ve.vId
 		JOIN t_electionman e ON e.id=ve.eId 
+		where e.deptId in 
+		<foreach collection="list" item="dept" close=")" open="(" separator=",">
+		#{dept.id}
+		</foreach>
 	</select>
 	<select id="getstatistics" parameterType="Long" resultType="Map">
 	SELECT e.`name`,v.title,v.id,ve.number

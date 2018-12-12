@@ -21,7 +21,7 @@ public interface VotingelectionmanDAO{
 
 	Votingelectionman selectOneById(Long id);
 
-	List<Map<String, Object>> selectAll();
+	List<Map<String, Object>> selectAll(List depts);
 	
 	List<Map<String, Object>> getstatistics(@Param("vid") Long vid);
 	
