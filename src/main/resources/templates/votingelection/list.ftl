@@ -32,8 +32,8 @@
   	</form>
   </div>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <!-- <span class="l">
-	 <a href="javascript:;" onclick="member_add('添加参选人','/candidate/showadd','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加预选人</a></span> --> 
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+	 <a href="javascript:;" onclick="member_add('添加参选人','/electionman/list?state=1','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加参选人到当前活动</a></span> 
 	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -62,7 +62,10 @@
 					<td>${list.title?if_exists} </td>
 					<td>${(list.dept.name)!}</td>
 					<td><#if list.endtime?exists>${list.endtime?string("yyyy-MM-dd")!}</#if></td>
-					<td><a style="text-decoration:none" class="ml-5" onClick="showRemark('${list.name!}','${list.eId!}')" href="javascript:;" title="查看详情介绍"><i class="Hui-iconfont">&#xe665;</i></a></td>
+					<td>
+					<a style="text-decoration:none" class="ml-5" onClick="showRemark('${list.name!}','${list.eId!}')" href="javascript:;" title="查看详情介绍"><i class="Hui-iconfont">&#xe665;</i></a>
+					<a style="text-decoration:none" class="ml-5" onClick="obj_del(this,'${list.id?if_exists}')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a> 
+					</td>
 				</tr>
 				</#list>
 				</#if>
@@ -101,12 +104,12 @@ function article_edit(title,url,id){
 	layer_show(title,url+"?id="+id,"",550);
 }
 /*资讯-删除*/
-function candidate_del(obj,id){
+function obj_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'post',
 			data:{"id":id},
-			url: "/candidate/delete",
+			url: "/votingelection/delete",
 			dataType: 'json',
 			success: function(data){
 				layer.msg('已删除!',{icon:1,time:1000});

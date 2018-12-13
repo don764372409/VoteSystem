@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yuanmaxinxi.domain.admin.Admin;
@@ -50,10 +51,17 @@ public class ElectionmanController {
 	* @throws
 	 */
 	@GetMapping("/list")
-	public String electionmanlist(Model model,HttpServletRequest request) {
+	public String electionmanlist(Model model,HttpServletRequest request,@RequestParam(value = "state", required = false) Integer state) {
 		Map<String,Object> map=new HashMap<String,Object>();
 //		String name=request.getParameter("name");
-//		map.put("name", name);
+		int states=0;
+		if(state!=null && state>0) {
+		map.put("state", state);
+		model.addAttribute("type", state);
+		}else {
+			map.put("state", states);
+			model.addAttribute("type", states);
+		}
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		List<Electionman> list=electionmanService.selectAll(map,loginAdmin.getId());
 		model.addAttribute("list",list);	

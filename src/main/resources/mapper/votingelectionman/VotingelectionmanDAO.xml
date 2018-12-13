@@ -11,6 +11,15 @@
 	<insert id="insert" parameterType="Votingelectionman">
 		insert into t_voting_electionman(vId,eId,number) values(#{vId},#{eId},#{number})
 	</insert>
+	<select id="selectvid" resultType="Long">
+		SELECT id FROM t_voting WHERE status=1
+	</select>
+	<select id="ifcz" resultType="Integer">
+		SELECT count(*) FROM t_voting_electionman WHERE eId=#{id} and vId=#{vid}
+	</select>
+	<insert id="insertve">
+		insert into t_voting_electionman(eId,vId) values(#{id},#{vid})
+	</insert>
 	<update id="update" parameterType="Votingelectionman">
 		update t_voting_electionman set vId=#{vId},eId=#{eId},number=#{number} where id=#{id}
 	</update>
@@ -21,7 +30,7 @@
 		select * from t_voting_electionman where id=#{id}
 	</select>
 	<select id="selectAll" resultType="Map">
-		select ve.eId,e.`name`,e.img,ve.number,v.title,v.endtime,e.deptId
+		select ve.id,ve.eId,e.`name`,e.img,ve.number,v.title,v.endtime,e.deptId
 		from t_voting_electionman ve
 		JOIN t_voting v ON v.id=ve.vId
 		JOIN t_electionman e ON e.id=ve.eId 

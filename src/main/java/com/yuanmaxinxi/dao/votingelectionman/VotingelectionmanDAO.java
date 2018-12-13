@@ -18,7 +18,12 @@ public interface VotingelectionmanDAO{
 	int updatenewnumber(Long id);
 	
 	int delete(Long id);
-
+	
+	int ifcz(@Param("id")Long id,@Param("vid") Long vid);
+	
+	Long selectvid();
+	
+	int insertve(@Param("id")Long id,@Param("vid") Long vid);
 	Votingelectionman selectOneById(Long id);
 
 	List<Map<String, Object>> selectAll(List depts);

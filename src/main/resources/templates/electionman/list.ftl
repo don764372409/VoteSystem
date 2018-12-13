@@ -34,10 +34,12 @@
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">
+			<#if type!=1>
 			<#if btn1s??>
 				<#list btn1s as btn>
 				 	<a href="javascript:;" onclick="${btn.fn}" class="btn btn-primary radius"><i class="Hui-iconfont">${btn.icon}</i>${btn.name}</a>
 				</#list>
+			</#if>
 			</#if>
 	 	</span> 
 	 <span class="r">共有数据：<strong>${list?size}</strong> 条</span> </div>
@@ -90,10 +92,15 @@
 						</#if>
 					</td>
 					<td class="f-14 td-manage">
+					<#if type==1>
+					<a style="text-decoration:none" class="ml-5" onClick="obj_add(${obj.id?if_exists})" href="javascript:;" title="添加"><i class="Hui-iconfont">添加</i></a>
+					</#if>
+					<#if type!=1>
 						<#if btn2s??>
 							<#list btn2s as btn2>
 								<a style="text-decoration:none" class="ml-5" onClick="${btn2.fn?replace('obj.id','${obj.id}')?replace('obj.name','${obj.name}')}" href="javascript:;" title="${btn2.name}"><i class="Hui-iconfont">${btn2.icon}</i></a> 
 							</#list>
+						</#if>
 						</#if>
 					</td>
 				</tr>
@@ -143,15 +150,7 @@ function showHeadImg(id){
 		  content: $('#'+id+"_img")
 		});
 }
-function obj_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-// 	打开全屏
-	layer.full(index);
-}
+
 
 function obj_examine(title,url,id){
 	$.ajax({url:"/electionman/isExamine",
@@ -223,6 +222,24 @@ function obj_del(name,obj,id){
 			},
 		});		
 	});
+}
+
+
+function obj_add(id){
+		$.ajax({
+			type: 'post',
+			data:{"id":id},
+			url: "/votingelection/add",
+			dataType: 'json',
+			success: function(data){
+				layer.msg(data.msg,{icon:1,time:1000});
+				var index = parent.layer.getFrameIndex(window.name);
+				setTimeout(function(){parent.layer.close(index);},1000);
+			},
+			error:function(data) {
+				$.Huimodalalert(data.msg,2000);
+			},
+		});		
 }
 </script> 
 </body>

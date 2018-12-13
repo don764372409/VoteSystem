@@ -248,7 +248,7 @@ $(".prov").change(function() {
 						if(data.result==true){
 							//刷新选手票数：
 							var ps=$("#ps_"+uid).attr("data-ps");
-							$("#ps_"+uid).html(parseInt(ps)+1);
+							$("#ps_"+uid).html(parseInt(ps)+1+"票");
 							//刷新总票数：
 							var tp=$("#tp").attr("data-tp");
 							$("#tp").html(parseInt(tp)+1);

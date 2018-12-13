@@ -39,7 +39,20 @@ public class VotingelectionmanService{
 	public int delete(Long id){
 		return votingelectionmanDAO.delete(id);
 	}
-
+	
+	public Long selectvid(){
+		return votingelectionmanDAO.selectvid();
+	}
+	
+	@Transactional
+	public int insertve(Long id,Long vid){
+		return votingelectionmanDAO.insertve(id,vid);
+	}
+	
+	public int ifcz(Long id,Long vid){
+		return votingelectionmanDAO.ifcz(id,vid);
+	}
+	
 	@Transactional
 	public Votingelectionman selectOneById(Long id){
 		return votingelectionmanDAO.selectOneById(id);
