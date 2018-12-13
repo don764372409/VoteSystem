@@ -31,7 +31,7 @@
 .footer{
             padding: 6px 0;
             position: fixed;
-    		bottom: 80px;
+    		bottom: 0;
             left: 0;
             width: 100%;
             background-color: #ffffff;
