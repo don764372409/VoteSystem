@@ -99,7 +99,7 @@
 <th><a href="/wechatvlist">
 <img src="../../H-ui/static/h-ui/images/首页.png" style="width: 25%;"/><br>首页</a></th>
 <th><a href="/wechatvlists">
-<img src="../../H-ui/static/h-ui/images/排行榜.png" style="width: 25%;"/><br>排行榜</a></th>
+<img src="../../H-ui/static/h-ui/images/排行榜.jpg" style="width: 25%;"/><br>排行榜</a></th>
 <th><a href="/wechatrule">
 <img src="../../H-ui/static/h-ui/images/说明.png" style="width: 25%;"/><br>说明</a></th>
 </tr>

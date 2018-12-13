@@ -19,10 +19,20 @@
 <script type="text/javascript" src="../H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
+<style  type="text/css">
+.footer{
+            padding: 6px 0;
+            position: fixed;
+    		bottom: 80px;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+        }
+</style>
 <title>投票规则</title>
 </head>
 <body>
-<div class="cl pd-20" style=" background-color:#4495F7">
+<div class="cl pd-20" style=" background-color:#4495F7;">
 <a href="javascript:history.go(-1);" ><img style="width: 25px;" src="../../H-ui/static/h-ui/images/rollpic/back.png"/></a><p>
  
   <dl style="margin-left:80px; color:#fff">
@@ -31,10 +41,23 @@
 </div>
 <div class="page-container">
 <div class="mt-20">
-<div class="pd-20">
+<div class="pd-20" style="height: 400px;overflow: auto;margin-bottom: 120px;">
 		${rule}
 </div>
 </div></div>
+<!--bottom-->
+<div id="menu" class="footer">
+<table id="mt" style="margin-left: 28px;">
+<tr>
+<th><a href="/wechatvlist">
+<img src="../../H-ui/static/h-ui/images/首页.png" style="width: 25%;"/><br>首页</a></th>
+<th><a href="/wechatvlists">
+<img src="../../H-ui/static/h-ui/images/排行榜.png" style="width: 25%;"/><br>排行榜</a></th>
+<th><a href="/wechatrule">
+<img src="../../H-ui/static/h-ui/images/说明.jpg" style="width: 25%;"/><br>说明</a></th>
+</tr>
+</table>
+</div>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="../H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="../H-ui/lib/layer/2.4/layer.js"></script>
