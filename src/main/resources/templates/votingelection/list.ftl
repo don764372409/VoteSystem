@@ -44,7 +44,6 @@
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
 				<tr class="text-c">
-					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="80">编号</th>
 					<th width="80">姓名</th>
 					<th width="80">头像</th>
