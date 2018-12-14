@@ -58,7 +58,6 @@
 			<#if list?exists>
 			 <#list list as list>
 				<tr class="text-c">
-					<td><input type="checkbox" value="" name=""></td>
 					<td>${list.eId?if_exists}</td>
 					<td class="text-l">${list.name?if_exists}</td>
 					<td><img src="${list.img?if_exists}" style="width: 80px;height: 80px;"></td>
@@ -97,7 +96,7 @@ $('.table-sort').dataTable({
 	"pading":false,
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
+	  {"orderable":false,"aTargets":[0,7]}// 不参与排序的列
 	]
 });
 
