@@ -233,8 +233,13 @@ function obj_add(id){
 			dataType: 'json',
 			success: function(data){
 				layer.msg(data.msg,{icon:1,time:1000});
-				var index = parent.layer.getFrameIndex(window.name);
-				setTimeout(function(){parent.layer.close(index);},1000);
+				if(data.result){
+					window.parent.location.reload(); //刷新父页面
+					var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+				}
+				//var index = parent.layer.getFrameIndex(window.name);
+				//setTimeout(function(){parent.layer.close(index);},1000);
 			},
 			error:function(data) {
 				$.Huimodalalert(data.msg,2000);
