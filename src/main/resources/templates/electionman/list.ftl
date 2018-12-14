@@ -130,6 +130,17 @@ $('.table-sort').dataTable({
 	  {"orderable":false,"aTargets":[6]}// 不参与排序的列
 	]
 });
+
+function obj_add(title,url){
+	var index = layer.open({
+		type: 2,
+		title: title,
+		content: url
+	});
+// 	打开全屏
+	layer.full(index);
+}
+
 function showRemark(name,id){
 	var index = layer.open({
 		type: 2,

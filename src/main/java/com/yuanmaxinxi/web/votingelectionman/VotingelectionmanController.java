@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yuanmaxinxi.domain.admin.Admin;
+import com.yuanmaxinxi.domain.resource.Resource;
 import com.yuanmaxinxi.domain.voting.Voting;
 import com.yuanmaxinxi.domain.votingelectionman.Votingelectionman;
 import com.yuanmaxinxi.dto.ResultDTO;
+import com.yuanmaxinxi.service.resource.ResourceService;
 import com.yuanmaxinxi.service.voting.VotingService;
 import com.yuanmaxinxi.service.votingelectionman.VotingelectionmanService;
 
@@ -34,6 +36,8 @@ public class VotingelectionmanController {
 	VotingelectionmanService veservice;
 	@Autowired
     VotingService votingservice;
+	@Autowired
+	private ResourceService resourceService;
 	
 	/**
 	 * 
@@ -47,6 +51,10 @@ public class VotingelectionmanController {
 	public String list(Model model,HttpServletRequest request) {
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
 		List<Map<String, Object>> list = veservice.selectAll(loginAdmin.getId());
+		List<Resource> btn1s = resourceService.selectAllTypeByAdminIdAndUrl(1,"/votingelection/list",loginAdmin.getId());
+		List<Resource> btn2s = resourceService.selectAllTypeByAdminIdAndUrl(2,"/votingelection/list",loginAdmin.getId());
+		model.addAttribute("btn1s", btn1s);
+		model.addAttribute("btn2s", btn2s);
 		model.addAttribute("list", list);
 		return "votingelection/list";
 	}
