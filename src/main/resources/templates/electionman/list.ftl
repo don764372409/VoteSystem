@@ -93,7 +93,7 @@
 					</td>
 					<td class="f-14 td-manage">
 					<#if type==1>
-					<a style="text-decoration:none" class="ml-5" onClick="obj_add(${obj.id?if_exists})" href="javascript:;" title="添加"><i class="Hui-iconfont">添加</i></a>
+					<a style="text-decoration:none" class="ml-5" onClick="obj_adds(${obj.id?if_exists})" href="javascript:;" title="添加"><i class="Hui-iconfont">添加</i></a>
 					</#if>
 					<#if type!=1>
 						<#if btn2s??>
@@ -236,7 +236,7 @@ function obj_del(name,obj,id){
 }
 
 
-function obj_add(id){
+function obj_adds(id){
 		$.ajax({
 			type: 'post',
 			data:{"id":id},
