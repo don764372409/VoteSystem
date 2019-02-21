@@ -11,27 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.yuanmaxinxi.domain.admin.Admin;
 import com.yuanmaxinxi.domain.article.Article;
 import com.yuanmaxinxi.domain.articletype.ArticleType;
 import com.yuanmaxinxi.domain.dept.Dept;
-import com.yuanmaxinxi.domain.electionman.Electionman;
-import com.yuanmaxinxi.domain.organize.Organize;
 import com.yuanmaxinxi.domain.resource.Resource;
-import com.yuanmaxinxi.domain.role.Role;
 import com.yuanmaxinxi.dto.ResultDTO;
 import com.yuanmaxinxi.service.admin.AdminService;
 import com.yuanmaxinxi.service.article.ArticleService;
 import com.yuanmaxinxi.service.articletype.ArticleTypeService;
 import com.yuanmaxinxi.service.dept.DeptService;
-import com.yuanmaxinxi.service.organize.OrganizeService;
 import com.yuanmaxinxi.service.resource.ResourceService;
-import com.yuanmaxinxi.service.role.RoleService;
 import com.yuanmaxinxi.util.Pager;
 import com.yuanmaxinxi.util.StringUtil;
 
@@ -118,7 +111,7 @@ public class ArticleController {
 			return dto;
 		}
 	@RequestMapping("/list")
-	public String list(Model model,Long pId,Long adminId,HttpServletRequest request) {
+	public String list(Model model,Long pId,HttpServletRequest request) {
 		Map<String,Object> map=new HashMap<String,Object>();
 		Admin loginAdmin = (Admin)request.getSession().getAttribute("loginAdmin");
     	if(pId==1) {

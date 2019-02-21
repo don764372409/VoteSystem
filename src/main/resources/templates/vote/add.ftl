@@ -169,13 +169,13 @@ $(function(){
 	uploader.on( 'uploadSuccess', function( object,ret ) {
 		if (ret.result) {
 			uploader.reset();
-			layer.msg("头像上传成功,点击按钮可替换.",{icon:1,time:1000});
+			layer.msg("活动图片上传成功,点击按钮可替换.",{icon:1,time:1000});
 			$("#headImg").attr("src",ret.msg);
 			$("input[name=img]").val(ret.msg);
-			$(".webuploader-pick").html("修改头像图片");
+			$(".webuploader-pick").html("修改活动图片");
 		}else{
-			layer.msg("头像上传失败,请刷新重试.",{icon:1,time:1000});
-			$(".webuploader-pick").html("上传头像图片");
+			layer.msg("活动图片失败,请刷新重试.",{icon:1,time:1000});
+			$(".webuploader-pick").html("上传活动图片");
 		}
 	});
 	// 文件上传失败，显示上传出错。

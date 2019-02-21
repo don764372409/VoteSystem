@@ -1,20 +1,20 @@
 package com.yuanmaxinxi.service.article;
-import com.yuanmaxinxi.domain.article.Article;
-import com.yuanmaxinxi.domain.dept.Dept;
-import com.yuanmaxinxi.domain.organize.Organize;
-import com.yuanmaxinxi.service.dept.DeptService;
-import com.yuanmaxinxi.service.organize.OrganizeService;
-import com.yuanmaxinxi.util.StringUtil;
-import com.yuanmaxinxi.dao.article.ArticleDAO;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.yuanmaxinxi.dao.admin.AdminDAO;
+import com.yuanmaxinxi.dao.article.ArticleDAO;
+import com.yuanmaxinxi.domain.admin.Admin;
+import com.yuanmaxinxi.domain.article.Article;
+import com.yuanmaxinxi.domain.dept.Dept;
+import com.yuanmaxinxi.service.dept.DeptService;
+import com.yuanmaxinxi.util.StringUtil;
 
 @Service
 public class ArticleService{
@@ -22,7 +22,8 @@ public class ArticleService{
 	private ArticleDAO articleDAO;
 	@Autowired
 	private DeptService deptService;
-	
+	@Autowired
+	private AdminDAO adminDAO;
 	public void insert(Article obj){
 		if (StringUtil.isNullOrEmpty(obj.getImg())) {
 			throw new RuntimeException("请上传文章展示图片.");
@@ -36,6 +37,7 @@ public class ArticleService{
 		if (obj.getAId()==null||obj.getAId()<1) {
 			throw new RuntimeException("添加文章时必须选择类别.");
 		}
+		obj.setTime(new Date());
 		int i = articleDAO.insert(obj);
 		if (i!=1) {
 			throw new RuntimeException("添加文章失败,请稍后重试.");
@@ -96,6 +98,8 @@ public class ArticleService{
 				dept = deptService.selectOneAndParentOrgById(deptId);
 				cash.put(deptId, dept);
 			}
+			Admin admin = adminDAO.selectOneById(adminId);
+			ele.setName(admin.getName());
 		}
 		return list;
 	}

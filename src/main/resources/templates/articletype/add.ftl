@@ -51,8 +51,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>备注：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-			<textarea rows="4" placeholder="请输入备注信息" name="remark" cols="45">
-				</textarea>
+			<textarea rows="4" placeholder="请输入备注信息" name="remark" cols="45"></textarea>
 			</div>
 		</div>
 		

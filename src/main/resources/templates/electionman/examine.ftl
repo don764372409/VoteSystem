@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-1"><span class="c-red">*</span>文章图片：</label>
+			<label class="form-label col-xs-4 col-sm-1"><span class="c-red">*</span>头像：</label>
 			<div class="formControls col-xs-8 col-sm-11">
 				<div class="uploader-thum-container">
 					<div id="fileList" class="uploader-list"></div>

@@ -87,11 +87,7 @@ public class VotingService{
 			obj.setEndtime(StringUtil.strToDate(request.getParameter("endtimes")));
 		}
 		if(obj.getStatus()==1) {//如果当前状态选择0，获取已存在的为1状态的记录id
-			Long sid=(long) 0;
-			sid=votingDAO.getstatusid();
-			if(sid>0) {
-				votingDAO.updatestatus(sid);//修改状态为0
-			}
+			votingDAO.updatestatus();//修改全部投票状态为0
 		}
 		int i = votingDAO.update(obj);
 		if (i!=1) {

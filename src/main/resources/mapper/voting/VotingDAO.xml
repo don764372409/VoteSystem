@@ -34,7 +34,7 @@
 	SELECT id FROM t_voting WHERE `status`=1
 	</select>
 	<update id="updatestatus" parameterType="Long">
-	UPDATE t_voting SET status=0 WHERE id=#{id}
+	UPDATE t_voting SET status=0
 	</update>
 	<select id="selectvotinglist" resultMap="VotingResultMap">
 		select title,id from t_voting ORDER BY `status` DESC

@@ -21,7 +21,7 @@ public interface VotingDAO{
 	
 	Long getstatusid();
 	
-	int updatestatus(Long id);
+	int updatestatus();
 	
 	List<Voting> selectvotinglist();
 	

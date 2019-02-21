@@ -20,7 +20,7 @@
 		values(#{img},#{title},#{content},#{time},#{aId},#{state},#{adId},#{deptId})
 	</insert>
 	<update id="update" parameterType="Article">
-		update t_article set img=#{img},title=#{title},content=#{content},time=#{time},aId=#{aId},fail=#{fail},state=#{state} where id=#{id}
+		update t_article set img=#{img},title=#{title},content=#{content},aId=#{aId},fail=#{fail},state=#{state} where id=#{id}
 	</update>
 	<delete id="delete" parameterType="Long">
 		delete from t_article where id=#{id}
@@ -29,7 +29,7 @@
 		select * from t_article where id=#{id}
 	</select>
 	<select id="selectAll" parameterType="Map" resultMap="ArticleResultMap">
-		SELECT a.*,d.name FROM t_article a LEFT JOIN t_admin d ON a.adId=d.id
+		SELECT a.*,d.name FROM t_article a LEFT JOIN t_admin d ON a.aId=d.id
 		<where> 
 		a.aId IN(SELECT id FROM t_articletype WHERE pId=#{pId}) 
 		and a.deptId in <foreach collection="list" item="dept" close=")" open="(" separator=",">
