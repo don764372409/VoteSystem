@@ -21,7 +21,7 @@
 <script type="text/javascript" src="/H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>短信接口管理平台</title>
+<title>微信公众号管理平台</title>
 </head>
 <body>
 <section class="container-fluid page-404 minWP text-c">

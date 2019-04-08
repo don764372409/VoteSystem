@@ -21,7 +21,7 @@
 <script type="text/javascript" src="/H-ui/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>短信接口管理平台</title>
+<title>微信公众号管理平台</title>
 <style type="text/css">
 @media (max-width: 767px){
 	#Hui-userbar{

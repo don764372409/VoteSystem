@@ -16,7 +16,7 @@ public class Article{
 	private Long deptId;
 	private Long aId;
 	private String fail;
-	private int state;
+	private int state;//0-审核中  1-审核通过
 	private Long typeId;
 	private String timechange;
 	private ArticleType articletype;

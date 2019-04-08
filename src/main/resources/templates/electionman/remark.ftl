@@ -1,8 +1,7 @@
-<!--_meta ×÷Îª¹«¹²Ä£°æ·ÖÀë³öÈ¥-->
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>${obj.name!}ÏêÇé½éÉÜ</title>
+<title>${obj.name!}ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</title>
 </head>
 <body>
 ${obj.remark!}

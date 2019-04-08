@@ -32,7 +32,7 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
-<title>添加短信用户</title>
+<title>个人中心</title>
 <style type="text/css">
 	.searchBtn{
 		position: absolute;

@@ -35,7 +35,7 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
-<title>添加角色</title>
+<title>修改角色</title>
 </head>
 <body>
 <article class="page-container">

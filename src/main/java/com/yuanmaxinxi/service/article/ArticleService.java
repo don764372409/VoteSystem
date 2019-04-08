@@ -103,10 +103,9 @@ public class ArticleService{
 		}
 		return list;
 	}
-		
+	//微信端  展示新闻
 	public List<Article> indexShow(Long aId,Integer  startRecord,Integer  pageSize){
 		return articleDAO.indexShow(aId,startRecord,pageSize);
-		
 	}
 	@Transactional
 	public void examine(Article obj) {

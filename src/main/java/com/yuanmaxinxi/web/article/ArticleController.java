@@ -185,6 +185,7 @@ public class ArticleController {
 		Pager pager=new Pager();
 		List<Article> list = articleService.indexShow(aId,pager.getStartRecord(),pager.getPageSize());
 		model.addAttribute("list", list);
+		model.addAttribute("aId", aId);
 		return "/wechat/index";
 	}
 	@RequestMapping(value = "/more")

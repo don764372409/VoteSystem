@@ -63,7 +63,7 @@ public class WechatController {
 			model.addAttribute("fm",fm);//封面
 		}
 		model.addAttribute("list",list);
-		model.addAttribute("totle",totle);
+		model.addAttribute("totle",totle==null?0:totle);
 		return "/wechat/votinglist";
 	}
 	
@@ -79,7 +79,7 @@ public class WechatController {
 			model.addAttribute("vist",vist);
 		}
 		model.addAttribute("list",list);
-		model.addAttribute("totle",totle);
+		model.addAttribute("totle",totle==null?0:totle);
 		return "/wechat/votinglists";
 	}
 	

@@ -32,7 +32,7 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
-<title>添加短信用户</title>
+<title>添加机构</title>
 </head>
 <body>
 <article class="page-container">

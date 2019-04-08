@@ -7,10 +7,10 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--标准mui.css-->
-		<link rel="stylesheet" href="../H-ui/static/h-ui/css/mui.min.css">
+		<link rel="stylesheet" href="/H-ui/static/h-ui/css/mui.min.css">
 		<!--App自定义的css-->
-		<link rel="stylesheet" type="text/css" href="../H-ui/static/h-ui/css/app.css"/>
-		<script type="text/javascript" src="../H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+		<link rel="stylesheet" type="text/css" href="/H-ui/static/h-ui/css/app.css"/>
+		<script type="text/javascript" src="/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
 		
 		<style>
 			.title {
@@ -27,7 +27,6 @@ white-space: nowrap;}
 	#nolist{text-align: center; display: none;}
 		</style>
 	</head>
-
 	<body>
 			<div class="mui-card">
 				<ul id="ull" class="mui-table-view" >
@@ -58,7 +57,7 @@ white-space: nowrap;}
 			
 
 	</body>
-	<script src="../H-ui/static/h-ui/js/mui.min.js"></script>
+	<script src="/H-ui/static/h-ui/js/mui.min.js"></script>
 	<script>
 	 mui.init({
 			swipeBack:true //启用右滑关闭功能
@@ -88,7 +87,7 @@ white-space: nowrap;}
 				 type: "POST",  
 			        url: "/article/more",  
 			        data: {
-			        	aId:4,
+			        	aId:${aId},
 			        	startrecord:curr
 			        	},  
 			        dataType:"json",  
