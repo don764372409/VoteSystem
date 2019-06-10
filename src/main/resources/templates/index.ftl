@@ -93,7 +93,7 @@
 					</span>
 				</li>
 				<li style="margin-right: 20px;">
-					所属部门：${(admin.dept.name)!}				
+<!-- 					所属部门：${(admin.dept.name)!}				 -->
 				</li>
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">${loginAdmin.name}<i class="Hui-iconfont">&#xe6d5;</i></a>

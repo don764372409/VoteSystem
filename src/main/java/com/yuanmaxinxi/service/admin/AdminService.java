@@ -123,10 +123,10 @@ public class AdminService{
 
 	public Admin selectOneById(Long id){
 		Admin admin = adminDAO.selectOneById(id);
-		Dept dept = deptService.selectOneAndParentOrgById(admin.getDeptId());
-		admin.setDept(dept);
-		List<Role> roles = roleDAO.selectAllByAdminId(id);
-		admin.setRole(roles.get(0));
+//		Dept dept = deptService.selectOneAndParentOrgById(admin.getDeptId());
+//		admin.setDept(dept);
+//		List<Role> roles = roleDAO.selectAllByAdminId(id);
+//		admin.setRole(roles.get(0));
 		return admin;
 	}
 
